@@ -15,6 +15,10 @@
 		6B01194F1ED2DD8100D26D90 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6B01194D1ED2DD8100D26D90 /* LaunchScreen.storyboard */; };
 		6B01195A1ED2DD8100D26D90 /* DropDemoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B0119591ED2DD8100D26D90 /* DropDemoTests.swift */; };
 		6B0119651ED2DD8100D26D90 /* DropDemoUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B0119641ED2DD8100D26D90 /* DropDemoUITests.swift */; };
+		6B0119771ED2EACF00D26D90 /* PageAViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B0119751ED2EACF00D26D90 /* PageAViewController.swift */; };
+		6B0119781ED2EACF00D26D90 /* PageAViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6B0119761ED2EACF00D26D90 /* PageAViewController.xib */; };
+		6B01197B1ED2EAE100D26D90 /* PageBViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B0119791ED2EAE100D26D90 /* PageBViewController.swift */; };
+		6B01197C1ED2EAE100D26D90 /* PageBViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6B01197A1ED2EAE100D26D90 /* PageBViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -50,6 +54,10 @@
 		6B0119601ED2DD8100D26D90 /* DropDemoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DropDemoUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		6B0119641ED2DD8100D26D90 /* DropDemoUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropDemoUITests.swift; sourceTree = "<group>"; };
 		6B0119661ED2DD8100D26D90 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6B0119751ED2EACF00D26D90 /* PageAViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageAViewController.swift; sourceTree = "<group>"; };
+		6B0119761ED2EACF00D26D90 /* PageAViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PageAViewController.xib; sourceTree = "<group>"; };
+		6B0119791ED2EAE100D26D90 /* PageBViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageBViewController.swift; sourceTree = "<group>"; };
+		6B01197A1ED2EAE100D26D90 /* PageBViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PageBViewController.xib; sourceTree = "<group>"; };
 		F435E6382A2ECA8D9DD5419F /* Pods-DropDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DropDemo.release.xcconfig"; path = "Pods/Target Support Files/Pods-DropDemo/Pods-DropDemo.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -124,6 +132,10 @@
 				6B0119441ED2DD8100D26D90 /* AppDelegate.swift */,
 				6B0119461ED2DD8100D26D90 /* ViewController.swift */,
 				6B0119481ED2DD8100D26D90 /* Main.storyboard */,
+				6B0119751ED2EACF00D26D90 /* PageAViewController.swift */,
+				6B0119761ED2EACF00D26D90 /* PageAViewController.xib */,
+				6B0119791ED2EAE100D26D90 /* PageBViewController.swift */,
+				6B01197A1ED2EAE100D26D90 /* PageBViewController.xib */,
 				6B01194B1ED2DD8100D26D90 /* Assets.xcassets */,
 				6B01194D1ED2DD8100D26D90 /* LaunchScreen.storyboard */,
 				6B0119501ED2DD8100D26D90 /* Info.plist */,
@@ -261,7 +273,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				6B01194F1ED2DD8100D26D90 /* LaunchScreen.storyboard in Resources */,
+				6B0119781ED2EACF00D26D90 /* PageAViewController.xib in Resources */,
 				6B01194C1ED2DD8100D26D90 /* Assets.xcassets in Resources */,
+				6B01197C1ED2EAE100D26D90 /* PageBViewController.xib in Resources */,
 				6B01194A1ED2DD8100D26D90 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -337,6 +351,8 @@
 			files = (
 				6B0119471ED2DD8100D26D90 /* ViewController.swift in Sources */,
 				6B0119451ED2DD8100D26D90 /* AppDelegate.swift in Sources */,
+				6B01197B1ED2EAE100D26D90 /* PageBViewController.swift in Sources */,
+				6B0119771ED2EACF00D26D90 /* PageAViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
