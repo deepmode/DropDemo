@@ -9,17 +9,21 @@
 import UIKit
 import XLPagerTabStrip
 
+
+
+
 class ViewController: ButtonBarPagerTabStripViewController {
     
     @IBOutlet weak var shadowView: UIView!
-    let blueInstagramColor = UIColor(red: 37/255.0, green: 111/255.0, blue: 206/255.0, alpha: 1.0)
+    //let blueInstagramColor = UIColor(red: 37/255.0, green: 111/255.0, blue: 206/255.0, alpha: 1.0)
+    let themeColor = UIColor.black
     
     override func viewDidLoad() {
         // change selected bar color
         settings.style.buttonBarBackgroundColor = .white
         settings.style.buttonBarItemBackgroundColor = .white
-        settings.style.selectedBarBackgroundColor = blueInstagramColor
-        settings.style.buttonBarItemFont = .boldSystemFont(ofSize: 14)
+        settings.style.selectedBarBackgroundColor = self.themeColor
+        settings.style.buttonBarItemFont = .systemFont(ofSize: 14)
         settings.style.selectedBarHeight = 2.0
         settings.style.buttonBarMinimumLineSpacing = 0
         settings.style.buttonBarItemTitleColor = .black
@@ -29,8 +33,8 @@ class ViewController: ButtonBarPagerTabStripViewController {
         
         changeCurrentIndexProgressive = { [weak self] (oldCell: ButtonBarViewCell?, newCell: ButtonBarViewCell?, progressPercentage: CGFloat, changeCurrentIndex: Bool, animated: Bool) -> Void in
             guard changeCurrentIndex == true else { return }
-            oldCell?.label.textColor = .black
-            newCell?.label.textColor = self?.blueInstagramColor
+            oldCell?.label.textColor = UIColor.lightGray
+            newCell?.label.textColor = self?.themeColor
         }
         super.viewDidLoad()
     }
@@ -41,13 +45,12 @@ class ViewController: ButtonBarPagerTabStripViewController {
         
         let child_1 =  PageAViewController(nibName: "PageAViewController", bundle: nil) //TableChildExampleViewController(style: .plain, itemInfo: "FOLLOWING")
         let child_2 = PageBViewController(nibName: "PageBViewController", bundle: nil) //ChildExampleViewController(itemInfo: "YOU")
-        return [child_1, child_2]
+        let child_3 = MultiCollectionVC(nibName: "MultiCollectionVC", bundle: nil)
+//        let child_4 = MultiCollectionVC(nibName: "MultiCollectionVC", bundle: nil)
+//        let child_5 = PageBViewController(nibName: "PageBViewController", bundle: nil) //ChildExampleViewController(itemInfo: "YOU")
+//        let child_6 = PageBViewController(nibName: "PageBViewController", bundle: nil) //ChildExampleViewController(itemInfo: "YOU")
+        return [child_1, child_2,child_3 /*, child_4, child_5, child_6 */]
     }
     
-    // MARK: - Custom Action
-    
-    @IBAction func closeAction(_ sender: UIButton) {
-        dismiss(animated: true, completion: nil)
-    }
 }
 

@@ -10,10 +10,30 @@ import UIKit
 import XLPagerTabStrip
 
 class PageAViewController: UIViewController, IndicatorInfoProvider {
-    var itemInfo:IndicatorInfo = IndicatorInfo(title: "AA")
+    var itemInfo:IndicatorInfo = IndicatorInfo(title: "Upcoming")
+    
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+        print("--> \(NSStringFromClass(self.classForCoder)).\(#function)")
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        print("--> \(NSStringFromClass(self.classForCoder)).\(#function)")
+    }
+    
+    override func loadView() {
+        super.loadView()
+        print("--> \(NSStringFromClass(self.classForCoder)).\(#function)")
+    }
     
     override func viewDidLoad() {
-        super.viewDidLoad()        
+        super.viewDidLoad()
+        print("--> \(NSStringFromClass(self.classForCoder)).\(#function)")
         // Do any additional setup after loading the view.
     }
     
