@@ -10,10 +10,12 @@ import UIKit
 import XLPagerTabStrip
 
 class PageAViewController: UIViewController, IndicatorInfoProvider {
-    var itemInfo:IndicatorInfo = IndicatorInfo(title: "Upcoming")
     
-    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
-        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+    var itemInfo:IndicatorInfo
+    
+    init(itemInfo: IndicatorInfo) {
+        self.itemInfo = itemInfo
+        super.init(nibName: "PageAViewController", bundle: nil)
         print("--> \(NSStringFromClass(self.classForCoder)).\(#function)")
     }
     

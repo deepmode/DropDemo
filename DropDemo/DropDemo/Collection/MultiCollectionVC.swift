@@ -139,8 +139,6 @@ func generateRandomData() -> [[UIColor]] {
 
 class MultiCollectionVC: UIViewController, IndicatorInfoProvider {
     
-    var itemInfo:IndicatorInfo = IndicatorInfo(title: "MultiCollectionVC")
-    
     @IBOutlet weak var collectionView:UICollectionView!
     
     //hold the latest size of VC's view bound
@@ -165,8 +163,11 @@ class MultiCollectionVC: UIViewController, IndicatorInfoProvider {
         return colors
     }()
     
-    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
-        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+    var itemInfo:IndicatorInfo
+    
+    init(itemInfo: IndicatorInfo) {
+        self.itemInfo = itemInfo
+        super.init(nibName: "MultiCollectionVC", bundle: nil)
         print("--> \(NSStringFromClass(self.classForCoder)).\(#function)")
     }
     

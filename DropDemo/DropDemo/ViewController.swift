@@ -30,6 +30,7 @@ class ViewController: ButtonBarPagerTabStripViewController {
         settings.style.buttonBarItemsShouldFillAvailableWidth = true
         settings.style.buttonBarLeftContentInset = 0
         settings.style.buttonBarRightContentInset = 0
+        settings.style.buttonBarHeight = 20.0
         
         changeCurrentIndexProgressive = { [weak self] (oldCell: ButtonBarViewCell?, newCell: ButtonBarViewCell?, progressPercentage: CGFloat, changeCurrentIndex: Bool, animated: Bool) -> Void in
             guard changeCurrentIndex == true else { return }
@@ -43,9 +44,9 @@ class ViewController: ButtonBarPagerTabStripViewController {
     
     override func viewControllers(for pagerTabStripController: PagerTabStripViewController) -> [UIViewController] {
         
-        let child_1 =  PageAViewController(nibName: "PageAViewController", bundle: nil) //TableChildExampleViewController(style: .plain, itemInfo: "FOLLOWING")
-        let child_2 = PageBViewController(nibName: "PageBViewController", bundle: nil) //ChildExampleViewController(itemInfo: "YOU")
-        let child_3 = MultiCollectionVC(nibName: "MultiCollectionVC", bundle: nil)
+        let child_1 = PageAViewController(itemInfo: "Upcoming")
+        let child_2 = PageBViewController(itemInfo: "Latest")
+        let child_3 = MultiCollectionVC(itemInfo:"MultiCollection")
 //        let child_4 = MultiCollectionVC(nibName: "MultiCollectionVC", bundle: nil)
 //        let child_5 = PageBViewController(nibName: "PageBViewController", bundle: nil) //ChildExampleViewController(itemInfo: "YOU")
 //        let child_6 = PageBViewController(nibName: "PageBViewController", bundle: nil) //ChildExampleViewController(itemInfo: "YOU")
