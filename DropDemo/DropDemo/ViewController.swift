@@ -9,9 +9,6 @@
 import UIKit
 import XLPagerTabStrip
 
-
-
-
 class ViewController: ButtonBarPagerTabStripViewController {
     
     @IBOutlet weak var shadowView: UIView!
@@ -20,6 +17,7 @@ class ViewController: ButtonBarPagerTabStripViewController {
     
     override func viewDidLoad() {
         // change selected bar color
+        settings.style.buttonBarHeight = 20.0
         settings.style.buttonBarBackgroundColor = .white
         settings.style.buttonBarItemBackgroundColor = .white
         settings.style.selectedBarBackgroundColor = self.themeColor
@@ -30,7 +28,7 @@ class ViewController: ButtonBarPagerTabStripViewController {
         settings.style.buttonBarItemsShouldFillAvailableWidth = true
         settings.style.buttonBarLeftContentInset = 0
         settings.style.buttonBarRightContentInset = 0
-        settings.style.buttonBarHeight = 20.0
+        
         
         changeCurrentIndexProgressive = { [weak self] (oldCell: ButtonBarViewCell?, newCell: ButtonBarViewCell?, progressPercentage: CGFloat, changeCurrentIndex: Bool, animated: Bool) -> Void in
             guard changeCurrentIndex == true else { return }
