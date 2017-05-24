@@ -4,6 +4,9 @@ use_frameworks!
 
 
 target 'DropDemo' do
-	pod 'XLPagerTabStrip', '~> 7.0'
+    
+    pod 'XLPagerTabStrip', '~> 7.0'
+    pod 'Alamofire'
+    pod 'SwiftyJSON'
 end
 

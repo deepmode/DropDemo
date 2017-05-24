@@ -37,11 +37,21 @@ class PageAViewController: UIViewController, IndicatorInfoProvider {
         super.viewDidLoad()
         print("--> \(NSStringFromClass(self.classForCoder)).\(#function)")
         // Do any additional setup after loading the view.
+        
+        setup()
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    // MARK: 
+    
+    func setup() {
+        HBDropManager.shareInstance.getNewsFeed("https://hypebeast.com/") { (request, response, dropItems, nextURLString, error) in
+            
+        }
     }
     
     // MARK: - IndicatorInfoProvider
@@ -50,6 +60,8 @@ class PageAViewController: UIViewController, IndicatorInfoProvider {
         
         return self.itemInfo
     }
+    
+    
     
 }
 

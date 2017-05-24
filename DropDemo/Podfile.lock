@@ -1,12 +1,18 @@
 PODS:
+  - Alamofire (4.4.0)
+  - SwiftyJSON (3.1.4)
   - XLPagerTabStrip (7.0.0)
 
 DEPENDENCIES:
+  - Alamofire
+  - SwiftyJSON
   - XLPagerTabStrip (~> 7.0)
 
 SPEC CHECKSUMS:
+  Alamofire: dc44b1600b800eb63da6a19039a0083d62a6a62d
+  SwiftyJSON: c2842d878f95482ffceec5709abc3d05680c0220
   XLPagerTabStrip: 9be80a66c6b7d60306b2c0a6004965016d68f813
 
-PODFILE CHECKSUM: b8220646f0db2ad69c3f292a6459948dd649f3f6
+PODFILE CHECKSUM: 072e622461ea798af83e9df2e2361cd9a89e3403
 
 COCOAPODS: 1.2.1
