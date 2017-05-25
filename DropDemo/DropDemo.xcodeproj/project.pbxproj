@@ -28,7 +28,7 @@
 		6B1D7FAD1ED321F60030935A /* MultiCollectionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B1D7FAB1ED321F60030935A /* MultiCollectionVC.swift */; };
 		6B1D7FAE1ED321F60030935A /* MultiCollectionVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6B1D7FAC1ED321F60030935A /* MultiCollectionVC.xib */; };
 		6BD452141ED5784900229AC5 /* HBDropItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BD452131ED5784900229AC5 /* HBDropItem.swift */; };
-		6BD452161ED5811E00229AC5 /* HBDropManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BD452151ED5811E00229AC5 /* HBDropManager.swift */; };
+		6BD452161ED5811E00229AC5 /* HBDataFetcherManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BD452151ED5811E00229AC5 /* HBDataFetcherManager.swift */; };
 		6BD452191ED58F3C00229AC5 /* testdata.json in Resources */ = {isa = PBXBuildFile; fileRef = 6BD452181ED58F3C00229AC5 /* testdata.json */; };
 /* End PBXBuildFile section */
 
@@ -78,7 +78,7 @@
 		6B1D7FAB1ED321F60030935A /* MultiCollectionVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MultiCollectionVC.swift; path = Collection/MultiCollectionVC.swift; sourceTree = "<group>"; };
 		6B1D7FAC1ED321F60030935A /* MultiCollectionVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MultiCollectionVC.xib; path = Collection/MultiCollectionVC.xib; sourceTree = "<group>"; };
 		6BD452131ED5784900229AC5 /* HBDropItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HBDropItem.swift; sourceTree = "<group>"; };
-		6BD452151ED5811E00229AC5 /* HBDropManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HBDropManager.swift; sourceTree = "<group>"; };
+		6BD452151ED5811E00229AC5 /* HBDataFetcherManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HBDataFetcherManager.swift; sourceTree = "<group>"; };
 		6BD452181ED58F3C00229AC5 /* testdata.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = testdata.json; sourceTree = "<group>"; };
 		F435E6382A2ECA8D9DD5419F /* Pods-DropDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DropDemo.release.xcconfig"; path = "Pods/Target Support Files/Pods-DropDemo/Pods-DropDemo.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -205,7 +205,7 @@
 			children = (
 				6BD452181ED58F3C00229AC5 /* testdata.json */,
 				6BD452131ED5784900229AC5 /* HBDropItem.swift */,
-				6BD452151ED5811E00229AC5 /* HBDropManager.swift */,
+				6BD452151ED5811E00229AC5 /* HBDataFetcherManager.swift */,
 			);
 			name = HBDrop;
 			sourceTree = "<group>";
@@ -402,7 +402,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6BD452161ED5811E00229AC5 /* HBDropManager.swift in Sources */,
+				6BD452161ED5811E00229AC5 /* HBDataFetcherManager.swift in Sources */,
 				6B1D7FA21ED321470030935A /* CollectionViewCell.swift in Sources */,
 				6B0119471ED2DD8100D26D90 /* ViewController.swift in Sources */,
 				6B1D7FA41ED321470030935A /* FeatureCell.swift in Sources */,
@@ -570,6 +570,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = TUJ8BF3V7Q;
 				INFOPLIST_FILE = DropDemo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.elabvision.DropDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -587,6 +588,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = TUJ8BF3V7Q;
 				INFOPLIST_FILE = DropDemo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.elabvision.DropDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";

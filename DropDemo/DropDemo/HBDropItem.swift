@@ -63,7 +63,7 @@ struct HBDropItem {
     var slug:String
     var title:String
     var href:String
-    var thunbnail:[ImageSizeType:String]
+    var thumbnail:[ImageSizeType:String]
     var brand:[HBBrand]
     var price:HBPrice
     var date:HBReleaseDate

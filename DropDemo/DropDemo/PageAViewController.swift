@@ -9,7 +9,7 @@
 import UIKit
 import XLPagerTabStrip
 
-class PageAViewController: UIViewController, IndicatorInfoProvider {
+class PageAViewController: UIViewController, IndicatorInfoProvider{
     
     var itemInfo:IndicatorInfo
     
@@ -39,6 +39,7 @@ class PageAViewController: UIViewController, IndicatorInfoProvider {
         // Do any additional setup after loading the view.
         
         setup()
+        self.refreshHandler(button: nil)
     }
     
     override func didReceiveMemoryWarning() {
@@ -48,11 +49,26 @@ class PageAViewController: UIViewController, IndicatorInfoProvider {
     
     // MARK: 
     
+   
+    
+    var dataFetcherManager:HBDataFetcherManager = {
+        let manager = HBDataFetcherManager()
+        return manager
+    }()
+    
     func setup() {
-        HBDropManager.shareInstance.getNewsFeed("https://hypebeast.com/") { (request, response, dropItems, nextURLString, error) in
+        
+        //NotificationCenter.default.addObserver(self, selector: #selector(self.refreshHandler(_:)), name: NSNotification.Name(rawValue: HBDataFetcherManagerNotificaton.FetchStateDidUpdate), object: self.dataFetcherManager)
+        
+        self.dataFetcherManager.delegate = self
+    }
+    
+    @IBAction func refreshHandler(button:UIButton?) {
+        self.dataFetcherManager.getDropFeed("https://hypebeast.com/") { (request, response, dropItems, nextURLString, error) in
             
         }
     }
+    
     
     // MARK: - IndicatorInfoProvider
     
@@ -61,7 +77,17 @@ class PageAViewController: UIViewController, IndicatorInfoProvider {
         return self.itemInfo
     }
     
+}
+
+extension PageAViewController: HBDataFetcherManagerDelegate {
     
+    func hbDataFetcherManager(manager: HBDataFetcherManager, fetchStateDidUpdateToState: HBDataFetcherManager.FetchState) {
+        print("--> \(NSStringFromClass(self.classForCoder)).\(#function)")
+        print("FetchState: \(fetchStateDidUpdateToState)")
+    }
     
+//    func hbDataFetcherManager(manager: HBDataFetcherManager, fetchStateDidUpdateToState: HBDataFetcherManager.FetchState) {
+//        print("--> \(NSStringFromClass(self.classForCoder)).\(#function)")
+//    }
 }
 

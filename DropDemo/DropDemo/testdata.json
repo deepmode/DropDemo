@@ -1,155 +1,452 @@
 {
-  "drops": {
-    "page": 1,
-    "pages": 1,
-    "total": 4,
-    "limit": 10,
-    "_links": {
-      "self": {
-        "href": "https://hb-new.dev/drops"
-      },
-      "first": {
-        "href": "https://hb-new.dev/drops"
-      },
-      "last": {
-        "href": "https://hb-new.dev/drops"
-      }
-    },
-    "_embedded": {
-      "items": [
-        {
-          "id": 77,
-          "slug": "air-jordan-1-retro-royal-30",
-          "title": "Air Jordan 1 Retro Royal #30",
-          "_links": {
+    "drops": {
+        "page": 1,
+        "pages": 1,
+        "total": 4,
+        "limit": 10,
+        "_links": {
             "self": {
-              "href": "https://hb-new.dev/drops/77"
+                "href": "https://hb-new.dev/drops"
             },
-            "thumbnail": {
-              "small": {
-                "href": null
-              },
-              "large": {
-                "href": null
-              }
+            "first": {
+                "href": "https://hb-new.dev/drops"
             },
-            "brand": [
-              {
-                "href": "https://hb-new.dev/drops/brand/adidas",
-                "name": "Adidas"
-              }
-            ]
-          },
-          "drop_price": {
-            "enable": true,
-            "price": "50.00",
-            "currency": "USD"
-          },
-          "release_date": {
-            "date": "2017-05-01 12:00:00",
-            "country": "US"
-          }
+            "last": {
+                "href": "https://hb-new.dev/drops"
+            }
         },
-        {
-          "id": 74,
-          "slug": "air-jordan-1-retro-royal-20",
-          "title": "Air Jordan 1 Retro Royal #20",
-          "_links": {
-            "self": {
-              "href": "https://hb-new.dev/drops/74"
-            },
-            "thumbnail": {
-              "small": {
-                "href": null
-              },
-              "large": {
-                "href": null
-              }
-            },
-            "brand": [
-              {
-                "href": "https://hb-new.dev/drops/brand/adidas",
-                "name": "Adidas"
-              }
-            ]
-          },
-          "drop_price": {
-            "enable": true,
-            "price": "106.00",
-            "currency": "USD"
-          },
-          "release_date": {
-            "date": "2017-07-23 12:00:00",
-            "country": "US"
-          }
-        },
-        {
-          "id": 68,
-          "slug": "air-jordan-1-retro-royal-10",
-          "title": "Air Jordan 1 Retro Royal #10",
-          "_links": {
-            "self": {
-              "href": "https://hb-new.dev/drops/68"
-            },
-            "thumbnail": {
-              "small": {
-                "href": null
-              },
-              "large": {
-                "href": null
-              }
-            },
-            "brand": [
-              {
-                "href": "https://hb-new.dev/drops/brand/nike",
-                "name": "Nike"
-              }
-            ]
-          },
-          "drop_price": {
-            "enable": true,
-            "price": "266.00",
-            "currency": "USD"
-          },
-          "release_date": {
-            "date": "2017-06-15 12:00:00",
-            "country": "US"
-          }
-        },
-        {
-          "id": 14,
-          "slug": "air-jordan-1-retro-royal",
-          "title": "Air Jordan 1 Retro Royal",
-          "_links": {
-            "self": {
-              "href": "https://hb-new.dev/drops/14"
-            },
-            "thumbnail": {
-              "small": {
-                "href": "/2017/05/555088_007_Lead_Des.jpg"
-              },
-              "large": {
-                "href": "/2017/05/555088_007_Lead_Des.jpg"
-              }
-            },
-            "brand": [
-              {
-                "href": "https://hb-new.dev/drops/brand/jordan",
-                "name": "Jordan"
-              }
-            ]
-          },
-          "drop_price": {
-            "enable": true,
-            "price": "166.00",
-            "currency": "USD"
-          },
-          "release_date": {
-            "date": "2017-05-12 12:00:00",
-            "country": "US"
-          }
+        "_embedded": {
+            "items": [
+                      {
+                      "id": 77,
+                      "slug": "air-jordan-1-retro-royal-30",
+                      "title": "Air Jordan 1 Retro Royal #30",
+                      "_links": {
+                      "self": {
+                      "href": "https://hb-new.dev/drops/77"
+                      },
+                      "thumbnail": {
+                      "small": {
+                      "href": null
+                      },
+                      "large": {
+                      "href": null
+                      }
+                      },
+                      "brand": [
+                                {
+                                "href": "https://hb-new.dev/drops/brand/adidas",
+                                "name": "Adidas"
+                                }
+                                ]
+                      },
+                      "drop_price": {
+                      "enable": true,
+                      "price": "50.00",
+                      "currency": "USD"
+                      },
+                      "release_date": {
+                      "date": "2017-05-01 12:00:00",
+                      "country": "US"
+                      }
+                      },
+                      {
+                      "id": 74,
+                      "slug": "air-jordan-1-retro-royal-20",
+                      "title": "Air Jordan 1 Retro Royal #20",
+                      "_links": {
+                      "self": {
+                      "href": "https://hb-new.dev/drops/74"
+                      },
+                      "thumbnail": {
+                      "small": {
+                      "href": null
+                      },
+                      "large": {
+                      "href": null
+                      }
+                      },
+                      "brand": [
+                                {
+                                "href": "https://hb-new.dev/drops/brand/adidas",
+                                "name": "Adidas"
+                                }
+                                ]
+                      },
+                      "drop_price": {
+                      "enable": true,
+                      "price": "106.00",
+                      "currency": "USD"
+                      },
+                      "release_date": {
+                      "date": "2017-07-23 12:00:00",
+                      "country": "US"
+                      }
+                      },
+                      {
+                      "id": 68,
+                      "slug": "air-jordan-1-retro-royal-10",
+                      "title": "Air Jordan 1 Retro Royal #10",
+                      "_links": {
+                      "self": {
+                      "href": "https://hb-new.dev/drops/68"
+                      },
+                      "thumbnail": {
+                      "small": {
+                      "href": null
+                      },
+                      "large": {
+                      "href": null
+                      }
+                      },
+                      "brand": [
+                                {
+                                "href": "https://hb-new.dev/drops/brand/nike",
+                                "name": "Nike"
+                                }
+                                ]
+                      },
+                      "drop_price": {
+                      "enable": true,
+                      "price": "266.00",
+                      "currency": "USD"
+                      },
+                      "release_date": {
+                      "date": "2017-06-15 12:00:00",
+                      "country": "US"
+                      }
+                      },
+                      {
+                      "id": 14,
+                      "slug": "air-jordan-1-retro-royal",
+                      "title": "Air Jordan 1 Retro Royal",
+                      "_links": {
+                      "self": {
+                      "href": "https://hb-new.dev/drops/14"
+                      },
+                      "thumbnail": {
+                      "small": {
+                      "href": "/2017/05/555088_007_Lead_Des.jpg"
+                      },
+                      "large": {
+                      "href": "/2017/05/555088_007_Lead_Des.jpg"
+                      }
+                      },
+                      "brand": [
+                                {
+                                "href": "https://hb-new.dev/drops/brand/jordan",
+                                "name": "Jordan"
+                                }
+                                ]
+                      },
+                      "drop_price": {
+                      "enable": true,
+                      "price": "166.00",
+                      "currency": "USD"
+                      },
+                      "release_date": {
+                      "date": "2017-05-12 12:00:00",
+                      "country": "US"
+                      }
+                      },
+                      {
+                      "id": 101,
+                      "slug": "air-jordan-1-retro-royal",
+                      "title": "Air Jordan 1 Retro Royal",
+                      "_links": {
+                      "self": {
+                      "href": "https://hb-new.dev/drops/14"
+                      },
+                      "thumbnail": {
+                      "small": {
+                      "href": "/2017/05/555088_007_Lead_Des.jpg"
+                      },
+                      "large": {
+                      "href": "/2017/05/555088_007_Lead_Des.jpg"
+                      }
+                      },
+                      "brand": [
+                                {
+                                "href": "https://hb-new.dev/drops/brand/jordan",
+                                "name": "Jordan"
+                                }
+                                ]
+                      },
+                      "drop_price": {
+                      "enable": true,
+                      "price": "166.00",
+                      "currency": "USD"
+                      },
+                      "release_date": {
+                      "date": "2017-05-12 12:00:00",
+                      "country": "US"
+                      }
+                      },
+                      {
+                      "id": 102,
+                      "slug": "air-jordan-1-retro-royal",
+                      "title": "Air Jordan 1 Retro Royal",
+                      "_links": {
+                      "self": {
+                      "href": "https://hb-new.dev/drops/14"
+                      },
+                      "thumbnail": {
+                      "small": {
+                      "href": "/2017/05/555088_007_Lead_Des.jpg"
+                      },
+                      "large": {
+                      "href": "/2017/05/555088_007_Lead_Des.jpg"
+                      }
+                      },
+                      "brand": [
+                                {
+                                "href": "https://hb-new.dev/drops/brand/jordan",
+                                "name": "Jordan"
+                                }
+                                ]
+                      },
+                      "drop_price": {
+                      "enable": true,
+                      "price": "166.00",
+                      "currency": "USD"
+                      },
+                      "release_date": {
+                      "date": "2017-05-12 12:00:00",
+                      "country": "US"
+                      }
+                      },
+                      {
+                      "id": 103,
+                      "slug": "air-jordan-1-retro-royal",
+                      "title": "Air Jordan 1 Retro Royal",
+                      "_links": {
+                      "self": {
+                      "href": "https://hb-new.dev/drops/14"
+                      },
+                      "thumbnail": {
+                      "small": {
+                      "href": "/2017/05/555088_007_Lead_Des.jpg"
+                      },
+                      "large": {
+                      "href": "/2017/05/555088_007_Lead_Des.jpg"
+                      }
+                      },
+                      "brand": [
+                                {
+                                "href": "https://hb-new.dev/drops/brand/jordan",
+                                "name": "Jordan"
+                                }
+                                ]
+                      },
+                      "drop_price": {
+                      "enable": true,
+                      "price": "166.00",
+                      "currency": "USD"
+                      },
+                      "release_date": {
+                      "date": "2017-05-12 12:00:00",
+                      "country": "US"
+                      }
+                      },
+                      {
+                      "id": 105,
+                      "slug": "air-jordan-1-retro-royal",
+                      "title": "Air Jordan 1 Retro Royal",
+                      "_links": {
+                      "self": {
+                      "href": "https://hb-new.dev/drops/14"
+                      },
+                      "thumbnail": {
+                      "small": {
+                      "href": "/2017/05/555088_007_Lead_Des.jpg"
+                      },
+                      "large": {
+                      "href": "/2017/05/555088_007_Lead_Des.jpg"
+                      }
+                      },
+                      "brand": [
+                                {
+                                "href": "https://hb-new.dev/drops/brand/jordan",
+                                "name": "Jordan"
+                                }
+                                ]
+                      },
+                      "drop_price": {
+                      "enable": true,
+                      "price": "166.00",
+                      "currency": "USD"
+                      },
+                      "release_date": {
+                      "date": "2017-05-12 12:00:00",
+                      "country": "US"
+                      }
+                      },
+                      {
+                      "id": 106,
+                      "slug": "air-jordan-1-retro-royal",
+                      "title": "Air Jordan 1 Retro Royal",
+                      "_links": {
+                      "self": {
+                      "href": "https://hb-new.dev/drops/14"
+                      },
+                      "thumbnail": {
+                      "small": {
+                      "href": "/2017/05/555088_007_Lead_Des.jpg"
+                      },
+                      "large": {
+                      "href": "/2017/05/555088_007_Lead_Des.jpg"
+                      }
+                      },
+                      "brand": [
+                                {
+                                "href": "https://hb-new.dev/drops/brand/jordan",
+                                "name": "Jordan"
+                                }
+                                ]
+                      },
+                      "drop_price": {
+                      "enable": true,
+                      "price": "166.00",
+                      "currency": "USD"
+                      },
+                      "release_date": {
+                      "date": "2017-05-12 12:00:00",
+                      "country": "US"
+                      }
+                      },
+                      {
+                      "id": 107,
+                      "slug": "air-jordan-1-retro-royal",
+                      "title": "Air Jordan 1 Retro Royal",
+                      "_links": {
+                      "self": {
+                      "href": "https://hb-new.dev/drops/14"
+                      },
+                      "thumbnail": {
+                      "small": {
+                      "href": "/2017/05/555088_007_Lead_Des.jpg"
+                      },
+                      "large": {
+                      "href": "/2017/05/555088_007_Lead_Des.jpg"
+                      }
+                      },
+                      "brand": [
+                                {
+                                "href": "https://hb-new.dev/drops/brand/jordan",
+                                "name": "Jordan"
+                                }
+                                ]
+                      },
+                      "drop_price": {
+                      "enable": true,
+                      "price": "166.00",
+                      "currency": "USD"
+                      },
+                      "release_date": {
+                      "date": "2017-05-12 12:00:00",
+                      "country": "US"
+                      }
+                      },
+                      {
+                      "id": 108,
+                      "slug": "air-jordan-1-retro-royal",
+                      "title": "Air Jordan 1 Retro Royal",
+                      "_links": {
+                      "self": {
+                      "href": "https://hb-new.dev/drops/14"
+                      },
+                      "thumbnail": {
+                      "small": {
+                      "href": "/2017/05/555088_007_Lead_Des.jpg"
+                      },
+                      "large": {
+                      "href": "/2017/05/555088_007_Lead_Des.jpg"
+                      }
+                      },
+                      "brand": [
+                                {
+                                "href": "https://hb-new.dev/drops/brand/jordan",
+                                "name": "Jordan"
+                                }
+                                ]
+                      },
+                      "drop_price": {
+                      "enable": true,
+                      "price": "166.00",
+                      "currency": "USD"
+                      },
+                      "release_date": {
+                      "date": "2017-05-12 12:00:00",
+                      "country": "US"
+                      }
+                      },
+                      {
+                      "id": 109,
+                      "slug": "air-jordan-1-retro-royal",
+                      "title": "Air Jordan 1 Retro Royal",
+                      "_links": {
+                      "self": {
+                      "href": "https://hb-new.dev/drops/14"
+                      },
+                      "thumbnail": {
+                      "small": {
+                      "href": "/2017/05/555088_007_Lead_Des.jpg"
+                      },
+                      "large": {
+                      "href": "/2017/05/555088_007_Lead_Des.jpg"
+                      }
+                      },
+                      "brand": [
+                                {
+                                "href": "https://hb-new.dev/drops/brand/jordan",
+                                "name": "Jordan"
+                                }
+                                ]
+                      },
+                      "drop_price": {
+                      "enable": true,
+                      "price": "166.00",
+                      "currency": "USD"
+                      },
+                      "release_date": {
+                      "date": "2017-05-12 12:00:00",
+                      "country": "US"
+                      }
+                      },
+                      {
+                      "id": 110,
+                      "slug": "air-jordan-1-retro-royal",
+                      "title": "Air Jordan 1 Retro Royal",
+                      "_links": {
+                      "self": {
+                      "href": "https://hb-new.dev/drops/14"
+                      },
+                      "thumbnail": {
+                      "small": {
+                      "href": "/2017/05/555088_007_Lead_Des.jpg"
+                      },
+                      "large": {
+                      "href": "/2017/05/555088_007_Lead_Des.jpg"
+                      }
+                      },
+                      "brand": [
+                                {
+                                "href": "https://hb-new.dev/drops/brand/jordan",
+                                "name": "Jordan"
+                                }
+                                ]
+                      },
+                      "drop_price": {
+                      "enable": true,
+                      "price": "166.00",
+                      "currency": "USD"
+                      },
+                      "release_date": {
+                      "date": "2017-05-12 12:00:00",
+                      "country": "US"
+                      }
+                      }
+                      ]
         }
-      ]
     }
-  }
 }
