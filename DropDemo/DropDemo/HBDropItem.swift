@@ -49,7 +49,13 @@ struct HBReleaseDate {
         }
     }
     var country:String
-    var date:Date?
+    
+    //computed property
+    var date:Date? {
+        get {
+            return nil
+        }
+    }
 }
 
 struct HBDropItem {
