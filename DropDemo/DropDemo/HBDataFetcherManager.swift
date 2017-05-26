@@ -43,9 +43,35 @@ class HBDataFetcherManager {
     
     var dataSrc:[HBPostItemType] = []
     
-    fileprivate var privateFetchingState:FetchState = .Idle {
-        didSet {
-            switch privateFetchingState {
+//    fileprivate var privateFetchingState:FetchState = .Idle {
+//        didSet {
+//            switch privateFetchingState {
+//            case .Idle:
+//                break
+//            case .Fetching:
+//                break
+//            }
+//            NotificationCenter.default.post(name: NSNotification.Name(rawValue: HBDataFetcherManagerNotificaton.FetchStateDidUpdate), object: self, userInfo: nil)
+//            self.delegate?.hbDataFetcherManager(manager: self, fetchStateDidUpdateToState: privateFetchingState)
+//        }
+//    }()
+    
+    
+    static let serialQueue = DispatchQueue(label: "SerialQueue_FetchingState")
+    static let backgroundQueue = DispatchQueue.global(qos: .userInitiated)
+
+    fileprivate var privateFetchingState:FetchState = .Idle
+    
+    var fetchingState: FetchState {
+       // return self.privateFetchingState
+        
+        set(newFetchingState) {
+            
+            HBDataFetcherManager.serialQueue.sync { [weak self] in
+                self?.privateFetchingState = newFetchingState
+            }
+            
+            switch newFetchingState {
             case .Idle:
                 break
             case .Fetching:
@@ -54,10 +80,12 @@ class HBDataFetcherManager {
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: HBDataFetcherManagerNotificaton.FetchStateDidUpdate), object: self, userInfo: nil)
             self.delegate?.hbDataFetcherManager(manager: self, fetchStateDidUpdateToState: privateFetchingState)
         }
-    }
-    
-    var fetchingState: FetchState {
-        return self.privateFetchingState
+        
+        get {
+            return self.privateFetchingState
+        }
+        
+        
     }
     
     fileprivate let alamofireSessionManager:SessionManager = {
@@ -127,7 +155,7 @@ class HBDataFetcherManager {
     
     func getDropFeed(_ urlString: String, completionHandler: @escaping (_ request: URLRequest?, _ response: HTTPURLResponse?, _ dropItems:[HBDropItem]?, _ nextPageUrlString:String?, _ error: NSError?) -> ())  {
         
-        if self.privateFetchingState != .Idle {
+        if self.fetchingState != .Idle {
             print("\n-------------")
             print("In the middle of fetching already!")
             print("-------------\n")
@@ -142,45 +170,51 @@ class HBDataFetcherManager {
         print("\n------------------------------ ")
         print("fetching start")
         print("------------------------------\n")
-        self.privateFetchingState = .Fetching
+        self.fetchingState = .Fetching
        
         alamofireSessionManager.request(urlString, method: .get, parameters: nil, encoding: URLEncoding.default, headers: self.requestHeaders).responseJSON { [weak self] (dataResponse) in
             switch dataResponse.result {
             case .success(let returnJson):
                 if let jsonData = self?.testJSONData() {
                     
-//                    let jsonObj = JSON(jsonData)
-//                    do {
-//                        let _ = try Data(contentsOf: URL(string: "https://lorempixel.com/1024/600/sports/")!)
-//                    } catch {
-//                        
-//                    }
-                    
-                    var dropItems:[HBDropItem] = []
-                    let nextPageHref = jsonObj["drops"]["_links"]["next"]["href"].string
-                    
-                    let itemArray = jsonObj["drops"]["_embedded"]["items"].arrayValue
-                    for eachItem in itemArray {
-                        if let dropItem = self?.convertToDropItemFrom(dropJson: eachItem) {
-                            dropItems.append(dropItem)
+                    HBDataFetcherManager.backgroundQueue.async { [weak self] in
+                        
+                        let jsonObj = JSON(jsonData)
+                        do {
+                            let _ = try Data(contentsOf: URL(string: "https://lorempixel.com/200/200/sports/")!)
+                        } catch {
+                            
                         }
-                    } //end forloop
-                    
-                    print("\n------------------------------ ")
-                    print("fetch drop items done")
-                    //print("dropItems: \(dropItems)")
-                    print("------------------------------\n")
-                    
-                    self?.privateFetchingState = .Idle
-                    return completionHandler(dataResponse.request, dataResponse.response, dropItems, nextPageHref, dataResponse.result.error as NSError?)
+                        
+                        var dropItems:[HBDropItem] = []
+                        let nextPageHref = jsonObj["drops"]["_links"]["next"]["href"].string
+                        
+                        let itemArray = jsonObj["drops"]["_embedded"]["items"].arrayValue
+                        for eachItem in itemArray {
+                            if let dropItem = self?.convertToDropItemFrom(dropJson: eachItem) {
+                                dropItems.append(dropItem)
+                            }
+                        } //end forloop
+                        
+                        print("\n------------------------------ ")
+                        print("fetch drop items done")
+                        //print("dropItems: \(dropItems)")
+                        print("------------------------------\n")
+                        
+                        self?.fetchingState = .Idle
+                        
+                        DispatchQueue.main.async {
+                            return completionHandler(dataResponse.request, dataResponse.response, dropItems, nextPageHref, dataResponse.result.error as NSError?)
+                        }
+                    }
                     
                 } else {
-                    self?.privateFetchingState = .Idle
+                    self?.fetchingState = .Idle
                     return completionHandler(dataResponse.request, dataResponse.response, nil, nil,  dataResponse.result.error as NSError?)
                     
                 }
             case .failure( _):
-                self?.privateFetchingState = .Idle
+                self?.fetchingState = .Idle
                 return completionHandler(dataResponse.request, dataResponse.response, nil, nil,  dataResponse.result.error as NSError?)
             }
         }

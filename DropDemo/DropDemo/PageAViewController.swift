@@ -64,8 +64,10 @@ class PageAViewController: UIViewController, IndicatorInfoProvider{
     }
     
     @IBAction func refreshHandler(button:UIButton?) {
-        self.dataFetcherManager.getDropFeed("https://hypebeast.com/") { (request, response, dropItems, nextURLString, error) in
-            
+        DispatchQueue.main.async { [weak self] in
+            self?.dataFetcherManager.getDropFeed("https://hypebeast.com/") { (request, response, dropItems, nextURLString, error) in
+                
+            }
         }
     }
     
