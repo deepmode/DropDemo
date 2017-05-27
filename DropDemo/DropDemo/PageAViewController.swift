@@ -39,7 +39,7 @@ class PageAViewController: UIViewController, IndicatorInfoProvider{
         // Do any additional setup after loading the view.
         
         setup()
-        self.refreshHandler(button: nil)
+        //self.refreshHandler(button: nil)
     }
     
     override func didReceiveMemoryWarning() {
@@ -64,11 +64,12 @@ class PageAViewController: UIViewController, IndicatorInfoProvider{
     }
     
     @IBAction func refreshHandler(button:UIButton?) {
-        DispatchQueue.main.async { [weak self] in
-            self?.dataFetcherManager.getDropFeed("https://hypebeast.com/") { (request, response, dropItems, nextURLString, error) in
-                
-            }
-        }
+        self.dataFetcherManager.getDropFeed("https://hypebeast.com")
+//        DispatchQueue.main.async { [weak self] in
+//            self?.dataFetcherManager.getDropFeed("https://hypebeast.com/") { (request, response, dropItems, nextURLString, error) in
+//                
+//            }
+//        }
     }
     
     

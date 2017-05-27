@@ -27,8 +27,7 @@ struct HBDataFetcherManagerNotificaton {
 
 class HBDataFetcherManager {
     
-    
-    
+    //Internal use only.
     enum FetchState {
         case Fetching
         case Idle
@@ -43,32 +42,20 @@ class HBDataFetcherManager {
     
     var dataSrc:[HBPostItemType] = []
     
-//    fileprivate var privateFetchingState:FetchState = .Idle {
-//        didSet {
-//            switch privateFetchingState {
-//            case .Idle:
-//                break
-//            case .Fetching:
-//                break
-//            }
-//            NotificationCenter.default.post(name: NSNotification.Name(rawValue: HBDataFetcherManagerNotificaton.FetchStateDidUpdate), object: self, userInfo: nil)
-//            self.delegate?.hbDataFetcherManager(manager: self, fetchStateDidUpdateToState: privateFetchingState)
-//        }
-//    }()
+    static let serialQueue = DispatchQueue(label: "SerialQueue")
     
-    
-    static let serialQueue = DispatchQueue(label: "SerialQueue_FetchingState")
     static let backgroundQueue = DispatchQueue.global(qos: .userInitiated)
-
-    fileprivate var privateFetchingState:FetchState = .Idle
+    
+    //internal use only. Set this via fetchingState property
+    fileprivate var _fetchingState:FetchState = .Idle
     
     var fetchingState: FetchState {
-       // return self.privateFetchingState
         
         set(newFetchingState) {
             
+            //atomic locking for accessing the privateFetchingState
             HBDataFetcherManager.serialQueue.sync { [weak self] in
-                self?.privateFetchingState = newFetchingState
+                self?._fetchingState = newFetchingState
             }
             
             switch newFetchingState {
@@ -78,11 +65,11 @@ class HBDataFetcherManager {
                 break
             }
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: HBDataFetcherManagerNotificaton.FetchStateDidUpdate), object: self, userInfo: nil)
-            self.delegate?.hbDataFetcherManager(manager: self, fetchStateDidUpdateToState: privateFetchingState)
+            self.delegate?.hbDataFetcherManager(manager: self, fetchStateDidUpdateToState: _fetchingState)
         }
         
         get {
-            return self.privateFetchingState
+            return self._fetchingState
         }
         
         
@@ -153,22 +140,22 @@ class HBDataFetcherManager {
         self.dataSrc = []
     }
     
-    func getDropFeed(_ urlString: String, completionHandler: @escaping (_ request: URLRequest?, _ response: HTTPURLResponse?, _ dropItems:[HBDropItem]?, _ nextPageUrlString:String?, _ error: NSError?) -> ())  {
+    func getDropFeed(_ urlString: String, completionHandler: ((_ request: URLRequest?, _ response: HTTPURLResponse?, _ dropItems:[HBDropItem]?, _ nextPageUrlString:String?, _ error: NSError?) -> ())? = nil)  {
         
-        if self.fetchingState != .Idle {
-            print("\n-------------")
-            print("In the middle of fetching already!")
-            print("-------------\n")
-            return
-        }
-//        guard self.privateFetchingState == .Idle else {
+//        if self.fetchingState != .Idle {
 //            print("\n-------------")
 //            print("In the middle of fetching already!")
 //            print("-------------\n")
 //            return
 //        }
+        guard self.fetchingState == .Idle else {
+            print("\n-------------")
+            print("In the middle of fetching already!: \(Date())")
+            print("-------------\n")
+            return
+        }
         print("\n------------------------------ ")
-        print("fetching start")
+        print("fetching start: \(Date())")
         print("------------------------------\n")
         self.fetchingState = .Fetching
        
@@ -177,14 +164,17 @@ class HBDataFetcherManager {
             case .success(let returnJson):
                 if let jsonData = self?.testJSONData() {
                     
+                    //move the expnesive task into background queue
                     HBDataFetcherManager.backgroundQueue.async { [weak self] in
                         
                         let jsonObj = JSON(jsonData)
-                        do {
-                            let _ = try Data(contentsOf: URL(string: "https://lorempixel.com/200/200/sports/")!)
-                        } catch {
-                            
-                        }
+                        
+                        //trigger a network loading of resources
+                        let _ = try? Data(contentsOf: URL(string: "https://lorempixel.com/500/500/sports/")!)
+                        
+//                        do {
+//                            let _ = try Data(contentsOf: URL(string: "https://lorempixel.com/500/500/sports/")!)
+//                        } catch { }
                         
                         var dropItems:[HBDropItem] = []
                         let nextPageHref = jsonObj["drops"]["_links"]["next"]["href"].string
@@ -197,25 +187,34 @@ class HBDataFetcherManager {
                         } //end forloop
                         
                         print("\n------------------------------ ")
-                        print("fetch drop items done")
+                        print("fetching end: \(Date())")
                         //print("dropItems: \(dropItems)")
                         print("------------------------------\n")
                         
+                        //when complete, update the state back to .Idle
                         self?.fetchingState = .Idle
                         
                         DispatchQueue.main.async {
-                            return completionHandler(dataResponse.request, dataResponse.response, dropItems, nextPageHref, dataResponse.result.error as NSError?)
+                            if let _ = completionHandler {
+                                return completionHandler!(dataResponse.request, dataResponse.response, dropItems, nextPageHref, dataResponse.result.error as NSError?)
+                            }
                         }
                     }
                     
                 } else {
                     self?.fetchingState = .Idle
-                    return completionHandler(dataResponse.request, dataResponse.response, nil, nil,  dataResponse.result.error as NSError?)
+                    if let _ = completionHandler {
+                        return completionHandler!(dataResponse.request, dataResponse.response, nil, nil,  dataResponse.result.error as NSError?)
+                    }
+                    
                     
                 }
             case .failure( _):
                 self?.fetchingState = .Idle
-                return completionHandler(dataResponse.request, dataResponse.response, nil, nil,  dataResponse.result.error as NSError?)
+                if let _ = completionHandler {
+                    return completionHandler!(dataResponse.request, dataResponse.response, nil, nil,  dataResponse.result.error as NSError?)
+                }
+                
             }
         }
     }
