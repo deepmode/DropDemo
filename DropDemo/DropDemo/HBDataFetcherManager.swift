@@ -140,7 +140,54 @@ class HBDataFetcherManager {
         self.dataSrc = []
     }
     
-    func getDropFeed(_ urlString: String, completionHandler: ((_ request: URLRequest?, _ response: HTTPURLResponse?, _ dropItems:[HBDropItem]?, _ nextPageUrlString:String?, _ error: NSError?) -> ())? = nil)  {
+    fileprivate var privateUrlLink:String?
+    
+    func getFeedFromLink(_ urlString:String,  completionHandler: ((_ request: URLRequest?, _ response: HTTPURLResponse?, _ error: NSError?) -> ())? = nil) {
+
+        self.privateUrlLink = urlString
+        self.dataSrc = []
+        
+        self.getNextFeed { (request, response, error) in
+            if let _ = completionHandler {
+                completionHandler!(request,response,error)
+            }
+        }
+    }
+    
+    func getNextFeed(completionHandler: ((_ request: URLRequest?, _ response: HTTPURLResponse?, _ error: NSError?) -> ())? = nil) {
+        guard self.privateUrlLink != nil else {
+            print("self.privateUrlLink = \(self.privateUrlLink)")
+            let error = NSError(domain: "hypebeast.com", code: 999, userInfo: nil)
+            if let _ = completionHandler {
+                completionHandler!(nil, nil, error)
+            }
+            return
+        }
+        
+        let link = self.privateUrlLink!
+        
+        self.getDropFeed(link) { [weak self] (request, response, dropItems, nextUrlIink, error) in
+            
+            self?.privateUrlLink = nextUrlIink
+            
+            //process the dropItems
+            if let _ = dropItems {
+                
+                for eachDropItem in dropItems! {
+                    //append item
+                    self?.dataSrc.append(HBPostItemType.PostDrop(eachDropItem))
+                }
+            }
+            let totalData = self?.dataSrc
+            print("dataSrc: \(self?.dataSrc.count)")
+            
+            if let _ = completionHandler {
+                completionHandler!(request,response,error)
+            }
+        }
+    }
+    
+    fileprivate func getDropFeed(_ urlString: String, completionHandler: ((_ request: URLRequest?, _ response: HTTPURLResponse?, _ dropItems:[HBDropItem]?, _ nextPageUrlString:String?, _ error: NSError?) -> ())? = nil)  {
         
 //        if self.fetchingState != .Idle {
 //            print("\n-------------")

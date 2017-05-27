@@ -42,9 +42,13 @@ class ViewController: ButtonBarPagerTabStripViewController {
     
     override func viewControllers(for pagerTabStripController: PagerTabStripViewController) -> [UIViewController] {
         
+//        let sb = UIStoryboard(name: "ListViewController", bundle: nil)
+//        let child_0 = sb.instantiateViewController(withIdentifier: "SBID_ListViewController") as! ListViewController
+//        child_0.itemInfo = "Apple"
         let child_1 = PageAViewController(itemInfo: "Upcoming")
         let child_2 = PageBViewController(itemInfo: "Latest")
         let child_3 = MultiCollectionVC(itemInfo:"MultiCollection")
+        
 //        let child_4 = MultiCollectionVC(nibName: "MultiCollectionVC", bundle: nil)
 //        let child_5 = PageBViewController(nibName: "PageBViewController", bundle: nil) //ChildExampleViewController(itemInfo: "YOU")
 //        let child_6 = PageBViewController(nibName: "PageBViewController", bundle: nil) //ChildExampleViewController(itemInfo: "YOU")

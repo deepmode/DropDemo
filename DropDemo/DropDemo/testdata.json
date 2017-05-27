@@ -11,6 +11,9 @@
             "first": {
                 "href": "https://hb-new.dev/drops"
             },
+            "next": {
+                "href": "https://hypebeast.com/"
+            },
             "last": {
                 "href": "https://hb-new.dev/drops"
             }
