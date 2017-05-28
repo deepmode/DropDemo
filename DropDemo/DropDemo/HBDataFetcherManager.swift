@@ -157,7 +157,7 @@ class HBDataFetcherManager {
     
     func getNextFeed(completionHandler: ((_ request: URLRequest?, _ response: HTTPURLResponse?, _ error: NSError?) -> ())? = nil) {
         guard self.privateUrlLink != nil else {
-            print("self.privateUrlLink = \(self.privateUrlLink)")
+            print("self.privateUrlLink = \(String(describing: self.privateUrlLink))")
             let error = NSError(domain: "hypebeast.com", code: 999, userInfo: nil)
             if let _ = completionHandler {
                 completionHandler!(nil, nil, error)
@@ -169,9 +169,17 @@ class HBDataFetcherManager {
         
         self.getDropFeed(link) { [weak self] (request, response, dropItems, nextUrlIink, error) in
             
+            if let requestLink = request?.url?.absoluteString, requestLink != self?.privateUrlLink  {
+                //origin request link has changed and no appending of data is needed
+
+                if let _ = completionHandler {
+                    completionHandler!(request,response, error)
+                }
+            }
+            
             self?.privateUrlLink = nextUrlIink
             
-            //process the dropItems
+            //process the dropItems and append items to the data src
             var temp = [HBPostItemType]()
             
             if let _ = dropItems {
@@ -227,7 +235,7 @@ class HBDataFetcherManager {
                         let jsonObj = JSON(jsonData)
                         
                         //trigger a network loading of resources
-                        let _ = try? Data(contentsOf: URL(string: "https://lorempixel.com/500/500/sports/")!)
+                        let _ = try? Data(contentsOf: URL(string: "https://lorempixel.com/1000/1000/sports/")!)
                         
 //                        do {
 //                            let _ = try Data(contentsOf: URL(string: "https://lorempixel.com/500/500/sports/")!)

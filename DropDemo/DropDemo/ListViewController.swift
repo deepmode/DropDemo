@@ -13,6 +13,12 @@ class ListViewController: UIViewController, IndicatorInfoProvider {
     
     @IBOutlet weak var tableView:UITableView!
     let refreshControl = UIRefreshControl()
+    var requestLink:String {
+        let links = ["https://hypebeast.com", "https://hypebeast.com/kr/"]
+        let index = Int(arc4random() % 2)
+        let returnLink = links[index]
+        return returnLink
+    }
     
     var itemInfo:IndicatorInfo
     
@@ -80,7 +86,8 @@ class ListViewController: UIViewController, IndicatorInfoProvider {
         // Do some reloading of data and update the table view's data source
         // Fetch more objects from a web service, for example...
         
-        self.dataFetcherManager.getNextFeed()
+        //self.dataFetcherManager.getNextFeed()
+        self.dataFetcherManager.getFeedFromLink(self.requestLink)
         
         self.refreshControl.endRefreshing()
     }
