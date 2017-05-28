@@ -44,7 +44,8 @@ class ViewController: ButtonBarPagerTabStripViewController {
         
 //        let sb = UIStoryboard(name: "ListViewController", bundle: nil)
 //        let child_0 = sb.instantiateViewController(withIdentifier: "SBID_ListViewController") as! ListViewController
-//        child_0.itemInfo = "Apple"
+        
+        let child_0 = ListViewController(itemInfo: "Listing")
         let child_1 = PageAViewController(itemInfo: "Upcoming")
         let child_2 = PageBViewController(itemInfo: "Latest")
         let child_3 = MultiCollectionVC(itemInfo:"MultiCollection")
@@ -52,7 +53,7 @@ class ViewController: ButtonBarPagerTabStripViewController {
 //        let child_4 = MultiCollectionVC(nibName: "MultiCollectionVC", bundle: nil)
 //        let child_5 = PageBViewController(nibName: "PageBViewController", bundle: nil) //ChildExampleViewController(itemInfo: "YOU")
 //        let child_6 = PageBViewController(nibName: "PageBViewController", bundle: nil) //ChildExampleViewController(itemInfo: "YOU")
-        return [child_1, child_2,child_3 /*, child_4, child_5, child_6 */]
+        return [child_0, child_1, child_2,child_3 /*, child_4, child_5, child_6 */]
     }
     
 }

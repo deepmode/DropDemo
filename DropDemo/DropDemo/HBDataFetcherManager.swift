@@ -12,6 +12,7 @@ import SwiftyJSON
 
 protocol HBDataFetcherManagerDelegate:class {
     func hbDataFetcherManager(manager:HBDataFetcherManager, fetchStateDidUpdateToState: HBDataFetcherManager.FetchState)
+    func hbDataFetcherManagerDidUpdateTheDataSrc()
 }
 
 //Define PostItemType
@@ -171,15 +172,24 @@ class HBDataFetcherManager {
             self?.privateUrlLink = nextUrlIink
             
             //process the dropItems
+            var temp = [HBPostItemType]()
+            
             if let _ = dropItems {
                 
                 for eachDropItem in dropItems! {
                     //append item
-                    self?.dataSrc.append(HBPostItemType.PostDrop(eachDropItem))
+                    temp.append(HBPostItemType.PostDrop(eachDropItem))
                 }
             }
+            
+            self?.dataSrc.insert(contentsOf: temp, at: 0)
+            //self?.dataSrc.append(contentsOf: temp)
+            
+            self?.delegate?.hbDataFetcherManagerDidUpdateTheDataSrc()
+            
             let totalData = self?.dataSrc
             print("dataSrc: \(self?.dataSrc.count)")
+            
             
             if let _ = completionHandler {
                 completionHandler!(request,response,error)
@@ -294,7 +304,7 @@ class HBDataFetcherManager {
         let price = HBPrice(isEnable: dropPriceEnable, price: dropPricePrice, currency: dropPriceCurrency)
         
         
-        let releaseDate = dropJson["release_date"]["date"].stringValue
+        let releaseDate = Date().description //dropJson["release_date"]["date"].stringValue
         let releaseCountry = dropJson["release_date"]["country"].stringValue
         let release = HBReleaseDate(dateString: releaseDate, country: releaseCountry)
         

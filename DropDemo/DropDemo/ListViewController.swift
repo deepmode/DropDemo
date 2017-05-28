@@ -12,6 +12,7 @@ import XLPagerTabStrip
 class ListViewController: UIViewController, IndicatorInfoProvider {
     
     @IBOutlet weak var tableView:UITableView!
+    let refreshControl = UIRefreshControl()
     
     var itemInfo:IndicatorInfo
     
@@ -30,19 +31,28 @@ class ListViewController: UIViewController, IndicatorInfoProvider {
         print("--> \(NSStringFromClass(self.classForCoder)).\(#function)")
     }
     
-//    override func loadView() {
-//        super.loadView()
-//        print("--> \(NSStringFromClass(self.classForCoder)).\(#function)")
-//    }
+    override func loadView() {
+        super.loadView()
+        print("--> \(NSStringFromClass(self.classForCoder)).\(#function)")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         print("--> \(NSStringFromClass(self.classForCoder)).\(#function)")
         // Do any additional setup after loading the view.
         
+        //self.tableView.register(UITableViewCell(), forCellReuseIdentifier: "Cell_list")
+        
         self.setup()
+        
         self.dataFetcherManager.getFeedFromLink("https://hypebeast.com")
         
+        self.refreshControl.addTarget(self, action: #selector(ListViewController.handleRefresh(refreshControl:)), for: UIControlEvents.valueChanged)
+        if #available(iOS 10.0, *) {
+            self.tableView?.refreshControl = self.refreshControl
+        } else {
+            self.tableView?.addSubview(refreshControl)
+        }
     }
     
     override func didReceiveMemoryWarning() {
@@ -66,6 +76,15 @@ class ListViewController: UIViewController, IndicatorInfoProvider {
         self.tableView?.delegate = self
     }
     
+    func handleRefresh(refreshControl: UIRefreshControl) {
+        // Do some reloading of data and update the table view's data source
+        // Fetch more objects from a web service, for example...
+        
+        self.dataFetcherManager.getNextFeed()
+        
+        self.refreshControl.endRefreshing()
+    }
+    
     
     // MARK: - IndicatorInfoProvider
     
@@ -81,8 +100,11 @@ extension ListViewController: HBDataFetcherManagerDelegate {
     func hbDataFetcherManager(manager: HBDataFetcherManager, fetchStateDidUpdateToState: HBDataFetcherManager.FetchState) {
         print("--> \(NSStringFromClass(self.classForCoder)).\(#function)")
         print("FetchState: \(fetchStateDidUpdateToState)")
-        
-        self.tableView.reloadData()
+    }
+    
+    func hbDataFetcherManagerDidUpdateTheDataSrc() {
+        print("--> \(NSStringFromClass(self.classForCoder)).\(#function)")
+        self.tableView?.reloadData()
     }
 }
 
@@ -96,13 +118,13 @@ extension ListViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell_List", for: indexPath)
+        let cell = UITableViewCell(style: .subtitle, reuseIdentifier: "Cell_list") //tableView.dequeueReusableCell(withIdentifier: "Cell_List", for: indexPath)
         if indexPath.row < self.dataFetcherManager.dataSrc.count {
             let d = self.dataFetcherManager.dataSrc[indexPath.row]
             switch d {
             case .PostDrop(let dropItem):
                 cell.textLabel?.text = dropItem.title
-                cell.detailTextLabel?.text = dropItem.brand.first?.name
+                cell.detailTextLabel?.text = dropItem.date.dateString
             }
         }
         

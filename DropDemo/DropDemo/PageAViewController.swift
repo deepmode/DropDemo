@@ -98,5 +98,10 @@ extension PageAViewController: HBDataFetcherManagerDelegate {
         print("--> \(NSStringFromClass(self.classForCoder)).\(#function)")
         print("FetchState: \(fetchStateDidUpdateToState)")
     }
+    
+    func hbDataFetcherManagerDidUpdateTheDataSrc() {
+        print("--> \(NSStringFromClass(self.classForCoder)).\(#function)")
+
+    }
 }
 

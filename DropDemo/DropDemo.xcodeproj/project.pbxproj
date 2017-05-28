@@ -27,6 +27,7 @@
 		6B1D7FA71ED321470030935A /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B1D7FA01ED321470030935A /* Helpers.swift */; };
 		6B1D7FAD1ED321F60030935A /* MultiCollectionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B1D7FAB1ED321F60030935A /* MultiCollectionVC.swift */; };
 		6B1D7FAE1ED321F60030935A /* MultiCollectionVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6B1D7FAC1ED321F60030935A /* MultiCollectionVC.xib */; };
+		6B30079D1EDA625500376A8B /* ListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6B30079C1EDA625500376A8B /* ListViewController.xib */; };
 		6B343B0C1ED983C40099504A /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B343B0A1ED983C40099504A /* ListViewController.swift */; };
 		6B7DD1F71ED9CB5C00711DC2 /* ListViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6B7DD1F61ED9CB5C00711DC2 /* ListViewController.storyboard */; };
 		6BD452141ED5784900229AC5 /* HBDropItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BD452131ED5784900229AC5 /* HBDropItem.swift */; };
@@ -79,6 +80,7 @@
 		6B1D7FA01ED321470030935A /* Helpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Helpers.swift; path = Collection/Helpers.swift; sourceTree = "<group>"; };
 		6B1D7FAB1ED321F60030935A /* MultiCollectionVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MultiCollectionVC.swift; path = Collection/MultiCollectionVC.swift; sourceTree = "<group>"; };
 		6B1D7FAC1ED321F60030935A /* MultiCollectionVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MultiCollectionVC.xib; path = Collection/MultiCollectionVC.xib; sourceTree = "<group>"; };
+		6B30079C1EDA625500376A8B /* ListViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ListViewController.xib; sourceTree = "<group>"; };
 		6B343B0A1ED983C40099504A /* ListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListViewController.swift; sourceTree = "<group>"; };
 		6B7DD1F61ED9CB5C00711DC2 /* ListViewController.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = ListViewController.storyboard; sourceTree = "<group>"; };
 		6BD452131ED5784900229AC5 /* HBDropItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HBDropItem.swift; sourceTree = "<group>"; };
@@ -157,6 +159,7 @@
 			children = (
 				6BD452171ED5812200229AC5 /* HBDrop */,
 				6B1D7F9A1ED321320030935A /* Collection */,
+				6B30079E1EDA62F100376A8B /* ListView */,
 				6B0119441ED2DD8100D26D90 /* AppDelegate.swift */,
 				6B0119461ED2DD8100D26D90 /* ViewController.swift */,
 				6B0119481ED2DD8100D26D90 /* Main.storyboard */,
@@ -164,8 +167,6 @@
 				6B0119761ED2EACF00D26D90 /* PageAViewController.xib */,
 				6B0119791ED2EAE100D26D90 /* PageBViewController.swift */,
 				6B01197A1ED2EAE100D26D90 /* PageBViewController.xib */,
-				6B343B0A1ED983C40099504A /* ListViewController.swift */,
-				6B7DD1F61ED9CB5C00711DC2 /* ListViewController.storyboard */,
 				6B01194B1ED2DD8100D26D90 /* Assets.xcassets */,
 				6B01194D1ED2DD8100D26D90 /* LaunchScreen.storyboard */,
 				6B0119501ED2DD8100D26D90 /* Info.plist */,
@@ -204,6 +205,16 @@
 				6B1D7FAC1ED321F60030935A /* MultiCollectionVC.xib */,
 			);
 			name = Collection;
+			sourceTree = "<group>";
+		};
+		6B30079E1EDA62F100376A8B /* ListView */ = {
+			isa = PBXGroup;
+			children = (
+				6B343B0A1ED983C40099504A /* ListViewController.swift */,
+				6B30079C1EDA625500376A8B /* ListViewController.xib */,
+				6B7DD1F61ED9CB5C00711DC2 /* ListViewController.storyboard */,
+			);
+			name = ListView;
 			sourceTree = "<group>";
 		};
 		6BD452171ED5812200229AC5 /* HBDrop */ = {
@@ -336,6 +347,7 @@
 				6B01197C1ED2EAE100D26D90 /* PageBViewController.xib in Resources */,
 				6B1D7FAE1ED321F60030935A /* MultiCollectionVC.xib in Resources */,
 				6B01194A1ED2DD8100D26D90 /* Main.storyboard in Resources */,
+				6B30079D1EDA625500376A8B /* ListViewController.xib in Resources */,
 				6B7DD1F71ED9CB5C00711DC2 /* ListViewController.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
