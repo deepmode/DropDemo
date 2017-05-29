@@ -10,8 +10,8 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="DropListViewController" customModule="DropDemo" customModuleProvider="target">
             <connections>
-                <outlet property="collectionView" destination="p6s-ew-nuo" id="bon-Az-Ktl"/>
-                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+                <outlet property="collectionView" destination="p6s-ew-nuo" id="ZTe-tV-xnL"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="gVF-X7-aB5"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>

@@ -67,7 +67,7 @@ class DropListViewController: UIViewController, IndicatorInfoProvider {
     
     init(itemInfo: IndicatorInfo) {
         self.itemInfo = itemInfo
-        super.init(nibName: "ListViewController", bundle: nil)
+        super.init(nibName: "DropListViewController", bundle: nil)
         print("--> \(NSStringFromClass(self.classForCoder)).\(#function)")
     }
     
@@ -160,12 +160,21 @@ extension DropListViewController: HBDataFetcherManagerDelegate {
 }
 
 // MARK: - UICollectionViewDelegate
-extension DropListViewController: UICollectionViewDelegate {
+extension DropListViewController: UICollectionViewDelegateFlowLayout {
+
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: 200, height: 250)
+    }
     
+}
+
+extension DropListViewController: UICollectionViewDelegate {
+
 }
 
 // MARK: - UICollectionViewDataSource
 extension DropListViewController: UICollectionViewDataSource {
+    
     
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
