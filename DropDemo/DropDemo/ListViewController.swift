@@ -145,6 +145,18 @@ extension ListViewController: UITableViewDataSource {
             }
         }
         
+        let threshold:Float = 0.9
+        let totalNumberOfRows = self.tableView.numberOfRows(inSection: 0)
+        if (Float(indexPath.row) / Float(totalNumberOfRows)) > threshold {
+            print("--> Pre-Fetching if possibale")
+
+            self.dataFetcherManager.getNextDropFeed(completionHandler: { (request, response, error) in
+                DispatchQueue.main.async {
+
+                }
+            })
+        }
+        
         return cell
         
     }

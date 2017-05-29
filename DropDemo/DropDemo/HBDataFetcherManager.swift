@@ -176,7 +176,8 @@ class HBDataFetcherManager {
                     self?.dataSrc = []
                     //----------
                     
-                    self?.dataSrc.insert(contentsOf: temp, at: 0)
+                    //self?.dataSrc.insert(contentsOf: temp, at: 0)
+                    self?.dataSrc.append(contentsOf: temp)
                     self?.delegate?.hbDataFetcherManagerDidUpdateTheDataSrc()
                     
                     let totalData = self?.dataSrc
@@ -190,7 +191,7 @@ class HBDataFetcherManager {
         }
     }
     
-    func getNextFeed(completionHandler: ((_ request: URLRequest?, _ response: HTTPURLResponse?, _ error: NSError?) -> ())? = nil) {
+    func getNextDropFeed(completionHandler: ((_ request: URLRequest?, _ response: HTTPURLResponse?, _ error: NSError?) -> ())? = nil) {
         
         guard self.privateUrlLink != nil else {
             print("self.privateUrlLink = \(String(describing: self.privateUrlLink))")
@@ -226,7 +227,8 @@ class HBDataFetcherManager {
                         temp.append(HBPostItemType.PostDrop(eachDropItem))
                     }
                     
-                    self?.dataSrc.insert(contentsOf: temp, at: 0)
+                    //self?.dataSrc.insert(contentsOf: temp, at: 0)
+                    self?.dataSrc.append(contentsOf: temp)
                     
                     self?.delegate?.hbDataFetcherManagerDidUpdateTheDataSrc()
                     

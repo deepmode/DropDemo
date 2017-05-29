@@ -80,7 +80,7 @@ class PageAViewController: UIViewController, IndicatorInfoProvider{
     }
     
     @IBAction func fetchNext(_ sender: UIButton?) {
-        self.dataFetcherManager.getNextFeed()
+        self.dataFetcherManager.getNextDropFeed()
     }
     
     // MARK: - IndicatorInfoProvider
