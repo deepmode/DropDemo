@@ -146,9 +146,44 @@ class HBDataFetcherManager {
     func getFeedFromLink(_ urlString:String,  completionHandler: ((_ request: URLRequest?, _ response: HTTPURLResponse?, _ error: NSError?) -> ())? = nil) {
 
         self.privateUrlLink = urlString
-        self.dataSrc = []
         
-        self.getNextFeed { (request, response, error) in
+        let link = self.privateUrlLink!
+        
+        self.getDropFeed(link) { [weak self] (request, response, dropItems, nextUrlIink, error) in
+            
+            if let requestLink = request?.url?.absoluteString, requestLink != self?.privateUrlLink  {
+                //origin request link has changed and no appending of data is needed
+                
+                if let _ = completionHandler {
+                    completionHandler!(request,response, error)
+                }
+            }
+            
+            if error == nil {
+                self?.privateUrlLink = nextUrlIink
+                
+                //process the dropItems and append items to the data src
+                var temp = [HBPostItemType]()
+                
+                if let _ = dropItems {
+                    
+                    for eachDropItem in dropItems! {
+                        //append item
+                        temp.append(HBPostItemType.PostDrop(eachDropItem))
+                    }
+                    
+                    //----------
+                    self?.dataSrc = []
+                    //----------
+                    
+                    self?.dataSrc.insert(contentsOf: temp, at: 0)
+                    self?.delegate?.hbDataFetcherManagerDidUpdateTheDataSrc()
+                    
+                    let totalData = self?.dataSrc
+                    print("dataSrc: \(String(describing: totalData?.count))")
+                }
+            }
+            
             if let _ = completionHandler {
                 completionHandler!(request,response,error)
             }
@@ -156,6 +191,7 @@ class HBDataFetcherManager {
     }
     
     func getNextFeed(completionHandler: ((_ request: URLRequest?, _ response: HTTPURLResponse?, _ error: NSError?) -> ())? = nil) {
+        
         guard self.privateUrlLink != nil else {
             print("self.privateUrlLink = \(String(describing: self.privateUrlLink))")
             let error = NSError(domain: "hypebeast.com", code: 999, userInfo: nil)
@@ -177,27 +213,27 @@ class HBDataFetcherManager {
                 }
             }
             
-            self?.privateUrlLink = nextUrlIink
-            
-            //process the dropItems and append items to the data src
-            var temp = [HBPostItemType]()
-            
-            if let _ = dropItems {
+            if error == nil {
+                self?.privateUrlLink = nextUrlIink
                 
-                for eachDropItem in dropItems! {
-                    //append item
-                    temp.append(HBPostItemType.PostDrop(eachDropItem))
+                //process the dropItems and append items to the data src
+                var temp = [HBPostItemType]()
+                
+                if let _ = dropItems {
+                    
+                    for eachDropItem in dropItems! {
+                        //append item
+                        temp.append(HBPostItemType.PostDrop(eachDropItem))
+                    }
+                    
+                    self?.dataSrc.insert(contentsOf: temp, at: 0)
+                    
+                    self?.delegate?.hbDataFetcherManagerDidUpdateTheDataSrc()
+                    
+                    let totalData = self?.dataSrc
+                    print("dataSrc: \(String(describing: totalData?.count))")
                 }
             }
-            
-            self?.dataSrc.insert(contentsOf: temp, at: 0)
-            //self?.dataSrc.append(contentsOf: temp)
-            
-            self?.delegate?.hbDataFetcherManagerDidUpdateTheDataSrc()
-            
-            let totalData = self?.dataSrc
-            print("dataSrc: \(self?.dataSrc.count)")
-            
             
             if let _ = completionHandler {
                 completionHandler!(request,response,error)
@@ -207,25 +243,23 @@ class HBDataFetcherManager {
     
     fileprivate func getDropFeed(_ urlString: String, completionHandler: ((_ request: URLRequest?, _ response: HTTPURLResponse?, _ dropItems:[HBDropItem]?, _ nextPageUrlString:String?, _ error: NSError?) -> ())? = nil)  {
         
-//        if self.fetchingState != .Idle {
-//            print("\n-------------")
-//            print("In the middle of fetching already!")
-//            print("-------------\n")
-//            return
-//        }
         guard self.fetchingState == .Idle else {
             print("\n-------------")
             print("In the middle of fetching already!: \(Date())")
             print("-------------\n")
             return
         }
+        
         print("\n------------------------------ ")
         print("fetching start: \(Date())")
         print("------------------------------\n")
+        
         self.fetchingState = .Fetching
        
         alamofireSessionManager.request(urlString, method: .get, parameters: nil, encoding: URLEncoding.default, headers: self.requestHeaders).responseJSON { [weak self] (dataResponse) in
+            
             switch dataResponse.result {
+            
             case .success(let returnJson):
                 if let jsonData = self?.testJSONData() {
                     
@@ -274,13 +308,14 @@ class HBDataFetcherManager {
                     
                     
                 }
+                
             case .failure( _):
                 self?.fetchingState = .Idle
                 if let _ = completionHandler {
                     return completionHandler!(dataResponse.request, dataResponse.response, nil, nil,  dataResponse.result.error as NSError?)
                 }
                 
-            }
+            } // end switch
         }
     }
     

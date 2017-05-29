@@ -116,16 +116,26 @@ extension ListViewController: HBDataFetcherManagerDelegate {
 }
 
 extension ListViewController: UITableViewDataSource {
+    
     func numberOfSections(in tableView: UITableView) -> Int {
+        print("--> \(NSStringFromClass(self.classForCoder)).\(#function)")
+        
         return 1
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        print("--> \(NSStringFromClass(self.classForCoder)).\(#function)")
+        
         return self.dataFetcherManager.dataSrc.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        print("--> \(NSStringFromClass(self.classForCoder)).\(#function)")
+        
         let cell = UITableViewCell(style: .subtitle, reuseIdentifier: "Cell_list") //tableView.dequeueReusableCell(withIdentifier: "Cell_List", for: indexPath)
+        cell.textLabel?.text = ""
+        cell.detailTextLabel?.text = ""
+        
         if indexPath.row < self.dataFetcherManager.dataSrc.count {
             let d = self.dataFetcherManager.dataSrc[indexPath.row]
             switch d {
