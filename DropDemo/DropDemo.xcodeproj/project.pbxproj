@@ -29,6 +29,9 @@
 		6B1D7FAE1ED321F60030935A /* MultiCollectionVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6B1D7FAC1ED321F60030935A /* MultiCollectionVC.xib */; };
 		6B30079D1EDA625500376A8B /* ListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6B30079C1EDA625500376A8B /* ListViewController.xib */; };
 		6B343B0C1ED983C40099504A /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B343B0A1ED983C40099504A /* ListViewController.swift */; };
+		6B5507641EDBC56300672ABE /* FooterLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B5507631EDBC56300672ABE /* FooterLoadingView.swift */; };
+		6B5507661EDBC57A00672ABE /* FooterLoadingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6B5507651EDBC57A00672ABE /* FooterLoadingView.xib */; };
+		6B5507681EDBC79300672ABE /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B5507671EDBC79300672ABE /* UIView+Extension.swift */; };
 		6B7DD1F71ED9CB5C00711DC2 /* ListViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6B7DD1F61ED9CB5C00711DC2 /* ListViewController.storyboard */; };
 		6BD452141ED5784900229AC5 /* HBDropItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BD452131ED5784900229AC5 /* HBDropItem.swift */; };
 		6BD452161ED5811E00229AC5 /* HBDataFetcherManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BD452151ED5811E00229AC5 /* HBDataFetcherManager.swift */; };
@@ -82,6 +85,9 @@
 		6B1D7FAC1ED321F60030935A /* MultiCollectionVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MultiCollectionVC.xib; path = Collection/MultiCollectionVC.xib; sourceTree = "<group>"; };
 		6B30079C1EDA625500376A8B /* ListViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ListViewController.xib; sourceTree = "<group>"; };
 		6B343B0A1ED983C40099504A /* ListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListViewController.swift; sourceTree = "<group>"; };
+		6B5507631EDBC56300672ABE /* FooterLoadingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FooterLoadingView.swift; sourceTree = "<group>"; };
+		6B5507651EDBC57A00672ABE /* FooterLoadingView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FooterLoadingView.xib; sourceTree = "<group>"; };
+		6B5507671EDBC79300672ABE /* UIView+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
 		6B7DD1F61ED9CB5C00711DC2 /* ListViewController.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = ListViewController.storyboard; sourceTree = "<group>"; };
 		6BD452131ED5784900229AC5 /* HBDropItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HBDropItem.swift; sourceTree = "<group>"; };
 		6BD452151ED5811E00229AC5 /* HBDataFetcherManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HBDataFetcherManager.swift; sourceTree = "<group>"; };
@@ -213,6 +219,8 @@
 				6B343B0A1ED983C40099504A /* ListViewController.swift */,
 				6B30079C1EDA625500376A8B /* ListViewController.xib */,
 				6B7DD1F61ED9CB5C00711DC2 /* ListViewController.storyboard */,
+				6B5507631EDBC56300672ABE /* FooterLoadingView.swift */,
+				6B5507651EDBC57A00672ABE /* FooterLoadingView.xib */,
 			);
 			name = ListView;
 			sourceTree = "<group>";
@@ -223,6 +231,7 @@
 				6BD452181ED58F3C00229AC5 /* testdata.json */,
 				6BD452131ED5784900229AC5 /* HBDropItem.swift */,
 				6BD452151ED5811E00229AC5 /* HBDataFetcherManager.swift */,
+				6B5507671EDBC79300672ABE /* UIView+Extension.swift */,
 			);
 			name = HBDrop;
 			sourceTree = "<group>";
@@ -344,6 +353,7 @@
 				6B01194C1ED2DD8100D26D90 /* Assets.xcassets in Resources */,
 				6B1D7FA51ED321470030935A /* FeatureCell.xib in Resources */,
 				6BD452191ED58F3C00229AC5 /* testdata.json in Resources */,
+				6B5507661EDBC57A00672ABE /* FooterLoadingView.xib in Resources */,
 				6B01197C1ED2EAE100D26D90 /* PageBViewController.xib in Resources */,
 				6B1D7FAE1ED321F60030935A /* MultiCollectionVC.xib in Resources */,
 				6B01194A1ED2DD8100D26D90 /* Main.storyboard in Resources */,
@@ -429,6 +439,8 @@
 				6B1D7FA71ED321470030935A /* Helpers.swift in Sources */,
 				6B1D7FA61ED321470030935A /* FeatureVC.swift in Sources */,
 				6B0119451ED2DD8100D26D90 /* AppDelegate.swift in Sources */,
+				6B5507681EDBC79300672ABE /* UIView+Extension.swift in Sources */,
+				6B5507641EDBC56300672ABE /* FooterLoadingView.swift in Sources */,
 				6B1D7FAD1ED321F60030935A /* MultiCollectionVC.swift in Sources */,
 				6B01197B1ED2EAE100D26D90 /* PageBViewController.swift in Sources */,
 				6BD452141ED5784900229AC5 /* HBDropItem.swift in Sources */,

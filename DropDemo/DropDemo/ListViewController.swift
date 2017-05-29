@@ -11,8 +11,52 @@ import XLPagerTabStrip
 
 class ListViewController: UIViewController, IndicatorInfoProvider {
     
+    enum SectionType:Int {
+        case List
+        
+        var count:Int {
+            return 1
+        }
+    }
+    
+    
     @IBOutlet weak var tableView:UITableView!
+    
     let refreshControl = UIRefreshControl()
+    
+    //-----
+    let preFetchingThreshold:Float = 0.9
+    static let footerLoadingViewHeight:CGFloat = 25.0
+    
+    fileprivate var isLoadingMoreNow = false {
+        didSet  {
+            //whenever the isLoadingMoreNow get set, update the footer loading spinner status
+            if self.isLoadingMoreNow == true {
+                
+                DispatchQueue.main.async { [weak self] in
+                    self?.footerView.isHidden = false
+                    self?.footerView.loadingSpinner?.startAnimating()
+                }
+            } else {
+                DispatchQueue.main.async { [weak self] in
+                    self?.footerView.isHidden = false
+                    self?.footerView.loadingSpinner?.stopAnimating()
+                }
+            }
+        }
+    }
+    //-----
+    
+    lazy var footerView:FooterLoadingView = {
+        //let loadingFooterView = FooterLoadingView.loadFromXib() as! FooterLoadingView
+        let loadingFooterView = FooterLoadingView()
+        var frame = loadingFooterView.frame
+        frame.size.height = ListViewController.footerLoadingViewHeight
+        loadingFooterView.frame = frame
+        //loadingFooterView.backgroundColor = UIColor.orange
+        return loadingFooterView
+    }()
+    
     var requestLink:String {
         let links = ["https://hypebeast.com", "https://hypebeast.com/kr/"]
         let index = Int(arc4random() % 2)
@@ -80,6 +124,8 @@ class ListViewController: UIViewController, IndicatorInfoProvider {
         
         self.tableView?.dataSource = self
         self.tableView?.delegate = self
+        
+        self.tableView?.tableFooterView = self.footerView
     }
     
     func handleRefresh(refreshControl: UIRefreshControl) {
@@ -113,6 +159,7 @@ extension ListViewController: HBDataFetcherManagerDelegate {
         print("--> \(NSStringFromClass(self.classForCoder)).\(#function)")
         self.tableView?.reloadData()
     }
+
 }
 
 extension ListViewController: UITableViewDataSource {
@@ -120,8 +167,16 @@ extension ListViewController: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         print("--> \(NSStringFromClass(self.classForCoder)).\(#function)")
         
-        return 1
+        return SectionType(rawValue: 0)!.count
     }
+    
+//    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+//        if SectionType.List.rawValue == section {
+//            return 0.0
+//        }
+//        
+//        return 0.0
+//    }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         print("--> \(NSStringFromClass(self.classForCoder)).\(#function)")
@@ -145,26 +200,38 @@ extension ListViewController: UITableViewDataSource {
             }
         }
         
-        let threshold:Float = 0.9
-        let totalNumberOfRows = self.tableView.numberOfRows(inSection: 0)
-        if (Float(indexPath.row) / Float(totalNumberOfRows)) > threshold {
-            print("--> Pre-Fetching if possibale")
+        if self.isLoadingMoreNow == false {
+            let threshold:Float = 0.9
+            let totalNumberOfRows = self.tableView.numberOfRows(inSection: 0)
+            if (Float(indexPath.row) / Float(totalNumberOfRows)) > self.preFetchingThreshold {
+                
+                if self.isLoadingMoreNow == false {
+                    self.isLoadingMoreNow = true
+                    print("\n\n--> Pre-Fetching if possibale")
+                    self.dataFetcherManager.getNextDropFeed(completionHandler: { (request, response, error) in
+                        self.isLoadingMoreNow  = false
+                        DispatchQueue.main.async {
 
-            self.dataFetcherManager.getNextDropFeed(completionHandler: { (request, response, error) in
-                DispatchQueue.main.async {
-
+                        }
+                    })
                 }
-            })
+            }
         }
         
         return cell
-        
     }
 }
 
 
 extension ListViewController: UITableViewDelegate {
     
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        if(self.dataFetcherManager.dataSrc.count > 1 ){
+            if(indexPath.row == self.dataFetcherManager.dataSrc.count - 1){
+
+            }
+        }
+    }
 }
 
 
