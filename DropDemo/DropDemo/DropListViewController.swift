@@ -32,12 +32,13 @@ class DropListViewController: UIViewController {
         didSet  {
             //whenever the isLoadingMoreNow get set, update the footer loading spinner status
             if self.isLoadingMoreNow == true {
-                
+                print("\n--> startAnimating")
                 DispatchQueue.main.async { [weak self] in
                     self?.footerView?.isHidden = false
                     self?.footerView?.loadingSpinner?.startAnimating()
                 }
             } else {
+                print("\n--> stopAnimating")
                 DispatchQueue.main.async { [weak self] in
                     self?.footerView?.isHidden = false
                     self?.footerView?.loadingSpinner?.stopAnimating()
@@ -95,18 +96,20 @@ class DropListViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // Do any additional setup after loading the view.
+        
         self.setup()
         
         self.dataFetcherManager.getDropFeedFromLink(self.requestLink)
         
         self.refreshControl.addTarget(self, action: #selector(ListViewController.handleRefresh(refreshControl:)), for: UIControlEvents.valueChanged)
+        
         if #available(iOS 10.0, *) {
             self.collectionView?.refreshControl = self.refreshControl
         } else {
             self.collectionView?.addSubview(refreshControl)
         }
-
-        // Do any additional setup after loading the view.
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -191,23 +194,44 @@ extension DropListViewController: UICollectionViewDelegateFlowLayout {
         
         print("--> \(NSStringFromClass(self.classForCoder)).\(#function)")
         
-        var cols = 1
+        let sectionType = SectionType.getSectionTypeWithRawValue(indexPath.section)
         
-        switch self.traitCollection.horizontalSizeClass {
-        case .compact:
-            cols = 1
-        case .regular:
-            cols = 3
-        case .unspecified:
-            cols = 1
+        switch sectionType {
+        case .feature:
+            let s = Layout.sectionCellSize(containerWidth: self.view.bounds.width, sectionType: sectionType, numberOfColumn: 1)
+            return s
+            
+        case .channel:
+            let s = Layout.sectionCellSize(containerWidth: self.view.bounds.width, sectionType: sectionType, numberOfColumn: 1)
+            return s
+            
+        case .newsfeed:
+            var cols = 1
+            
+            switch self.traitCollection.horizontalSizeClass {
+            case .compact:
+                cols = 1
+            case .regular:
+                cols = 3
+            case .unspecified:
+                cols = 1
+            }
+            let s = Layout.sectionCellSize(containerWidth: self.view.bounds.width, sectionType: sectionType, numberOfColumn: cols)
+            return s
+            
+        case .unknown:
+            
+            let s = Layout.sectionCellSize(containerWidth: self.view.bounds.width, sectionType: sectionType, numberOfColumn: 1)
+            return s
         }
         
-        let w = self.view.bounds.width * 0.95 / CGFloat(cols)
-        let imageRatio:CGFloat = 3/2
-        let contentToImageHeightRatio:CGFloat = 0.5
-        let imageHeight = w * 1 / imageRatio
-        let cellHeight = imageHeight + imageHeight * contentToImageHeightRatio
-        return CGSize(width: w, height:cellHeight )
+//
+//        let w = self.view.bounds.width * 0.95 / CGFloat(cols)
+//        let imageRatio:CGFloat = 3/2
+//        let contentToImageHeightRatio:CGFloat = 0.5
+//        let imageHeight = w * 1 / imageRatio
+//        let cellHeight = imageHeight + imageHeight * contentToImageHeightRatio
+//        return CGSize(width: w, height:cellHeight )
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
@@ -216,7 +240,6 @@ extension DropListViewController: UICollectionViewDelegateFlowLayout {
         return Layout.insetForSectionType(sectionType)
         
         //return UIEdgeInsetsMake(Layout.cellTopPadding, Layout.cellLeftPadding, Layout.cellBottomPadding, Layout.cellRightPadding)
-        
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
@@ -240,8 +263,6 @@ extension DropListViewController: UICollectionViewDelegate {
 // MARK: - UICollectionViewDataSource
 extension DropListViewController: UICollectionViewDataSource {
 
-    
-    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
         print("--> \(NSStringFromClass(self.classForCoder)).\(#function)")
         
@@ -256,7 +277,6 @@ extension DropListViewController: UICollectionViewDataSource {
         case .unknown:
             return CGSize(width: self.view.bounds.size.width, height: 0.0)
         }
-        
     }
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
@@ -284,10 +304,19 @@ extension DropListViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         print("--> \(NSStringFromClass(self.classForCoder)).\(#function)")
-        if SectionType.newsfeed.rawValue == section {
+        
+        let sectionType = SectionType.getSectionTypeWithRawValue(section)
+        switch sectionType {
+        case .feature:
+            return 0
+        case .channel:
+            return 0
+        case .newsfeed:
             return self.dataFetcherManager.dataSrc.count
+        case .unknown:
+            return 0
         }
-        return 0
+    
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -298,8 +327,10 @@ extension DropListViewController: UICollectionViewDataSource {
         
         switch sectionType {
         case .feature:
+            //return feature cell
             break
         case .channel:
+            //return channel cell
             break
         case .newsfeed:
             

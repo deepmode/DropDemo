@@ -197,11 +197,12 @@ extension ListViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         print("--> \(NSStringFromClass(self.classForCoder)).\(#function)")
         
-        let cell = UITableViewCell(style: .subtitle, reuseIdentifier: "Cell_list") //tableView.dequeueReusableCell(withIdentifier: "Cell_List", for: indexPath)
+        let cell = UITableViewCell(style: .subtitle, reuseIdentifier: "Cell_list")
         cell.textLabel?.text = ""
         cell.detailTextLabel?.text = ""
         
         let sectionType = SectionType.getSectionTypeWithRawValue(indexPath.section)
+        
         switch sectionType {
         case .feature:
             break
@@ -236,9 +237,6 @@ extension ListViewController: UITableViewDataSource {
         default:
             break
         }
-        
-    
-       
         
         return cell
     }

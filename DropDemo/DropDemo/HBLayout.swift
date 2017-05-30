@@ -90,11 +90,23 @@ struct Layout {
             
             let cellWidth = (containerWidth - ((cols + 1) * interCellSpacing)) / cols
             
-            if cols > 1 {
-                //fixed height
-                return CGSize(width: cellWidth, height: cellWidth)
+            if cols <= 1 {
+                //height should be calcualted based on the text
+                
+                let imageRatio:CGFloat = 3/2
+                let contentToImageHeightRatio:CGFloat = 0.5
+                let imageHeight = cellWidth * 1 / imageRatio
+                let cellHeight = imageHeight + imageHeight * contentToImageHeightRatio
+                
+                return CGSize(width: cellWidth, height: cellHeight)
             } else {
-                let cellHeight = CGFloat(arc4random() % 150) + 100
+                //fixed height
+                
+                let imageRatio:CGFloat = 3/2
+                let contentToImageHeightRatio:CGFloat = 0.6
+                let imageHeight = cellWidth * 1 / imageRatio
+                let cellHeight = imageHeight + imageHeight * contentToImageHeightRatio
+                
                 return CGSize(width: cellWidth,height: cellHeight)
             }
         case .unknown:
