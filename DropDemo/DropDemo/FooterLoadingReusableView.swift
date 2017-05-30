@@ -17,4 +17,8 @@ class FooterLoadingReusableView: UICollectionReusableView {
         // Initialization code
     }
     
+    deinit {
+        print("--> \(NSStringFromClass(self.classForCoder)).\(#function)")
+    }
+    
 }

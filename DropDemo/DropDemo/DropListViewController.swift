@@ -58,8 +58,8 @@ class DropListViewController: UIViewController {
     }() */
     
     fileprivate var requestLink:String {
-        let links = ["https://hypebeast.com", "https://hypebeast.com/kr/"]
-        let index = Int(arc4random() % 2)
+        let links = ["https://hypebeast.com/?limit=30","https://hypebeast.com/hk/?limit=30","https://hypebeast.com/jp/?limit=30"]
+        let index = Int(arc4random() % UInt32(links.count))
         let returnLink = links[index]
         return returnLink
     }
@@ -97,7 +97,7 @@ class DropListViewController: UIViewController {
         
         self.setup()
         
-        self.dataFetcherManager.getDropFeedFromLink("https://hypebeast.com")
+        self.dataFetcherManager.getDropFeedFromLink(self.requestLink)
         
         self.refreshControl.addTarget(self, action: #selector(ListViewController.handleRefresh(refreshControl:)), for: UIControlEvents.valueChanged)
         if #available(iOS 10.0, *) {
@@ -141,6 +141,21 @@ class DropListViewController: UIViewController {
         
         self.refreshControl.endRefreshing()
     }
+    
+    
+    //MARK:
+    
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        print("--> \(NSStringFromClass(self.classForCoder)).\(#function)")
+        
+        if let flowLayout = self.collectionView?.collectionViewLayout as? UICollectionViewFlowLayout {
+            print("--# invalidate layout and reload data")
+            flowLayout.invalidateLayout()
+            //note: if we are not reloading the data, the collection view might using the wrong cell (e.g. in search mode, leftright cell -> vertical cell)
+            self.collectionView.reloadData()
+        }
+    }
 
 
 }
@@ -175,8 +190,24 @@ extension DropListViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
         print("--> \(NSStringFromClass(self.classForCoder)).\(#function)")
-        let w = self.view.bounds.width * 0.95 / 2
-        return CGSize(width: w, height: 250)
+        
+        var cols = 1
+        
+        switch self.traitCollection.horizontalSizeClass {
+        case .compact:
+            cols = 1
+        case .regular:
+            cols = 3
+        case .unspecified:
+            cols = 1
+        }
+        
+        let w = self.view.bounds.width * 0.95 / CGFloat(cols)
+        let imageRatio:CGFloat = 3/2
+        let contentToImageHeightRatio:CGFloat = 0.5
+        let imageHeight = w * 1 / imageRatio
+        let cellHeight = imageHeight + imageHeight * contentToImageHeightRatio
+        return CGSize(width: w, height:cellHeight )
     }
     
 }
@@ -237,7 +268,7 @@ extension DropListViewController: UICollectionViewDataSource {
             let d = self.dataFetcherManager.dataSrc[indexPath.row]
             switch d {
             case .PostDrop(let dropItem):
-                cell.titleLabel?.text = dropItem.title
+                cell.setupCell(post: dropItem)
             }
         }
         

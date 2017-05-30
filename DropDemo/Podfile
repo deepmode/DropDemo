@@ -8,5 +8,6 @@ target 'DropDemo' do
     pod 'XLPagerTabStrip', '~> 7.0'
     pod 'Alamofire'
     pod 'SwiftyJSON'
+    pod 'SDWebImage/GIF', '>= 0'
 end
 

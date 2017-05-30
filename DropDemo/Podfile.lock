@@ -1,18 +1,26 @@
 PODS:
   - Alamofire (4.4.0)
+  - FLAnimatedImage (1.0.12)
+  - SDWebImage/Core (4.0.0)
+  - SDWebImage/GIF (4.0.0):
+    - FLAnimatedImage (~> 1.0)
+    - SDWebImage/Core
   - SwiftyJSON (3.1.4)
   - XLPagerTabStrip (7.0.0)
 
 DEPENDENCIES:
   - Alamofire
+  - SDWebImage/GIF
   - SwiftyJSON
   - XLPagerTabStrip (~> 7.0)
 
 SPEC CHECKSUMS:
   Alamofire: dc44b1600b800eb63da6a19039a0083d62a6a62d
+  FLAnimatedImage: 4a0b56255d9b05f18b6dd7ee06871be5d3b89e31
+  SDWebImage: 76a6348bdc74eb5a55dd08a091ef298e56b55e41
   SwiftyJSON: c2842d878f95482ffceec5709abc3d05680c0220
   XLPagerTabStrip: 9be80a66c6b7d60306b2c0a6004965016d68f813
 
-PODFILE CHECKSUM: 072e622461ea798af83e9df2e2361cd9a89e3403
+PODFILE CHECKSUM: 036e1c55195b61215e90885e5d3a1b3380e84637
 
 COCOAPODS: 1.2.1

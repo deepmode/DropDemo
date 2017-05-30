@@ -159,34 +159,42 @@ class HBDataFetcherManager {
                 }
             }
             
-            if error == nil {
-                self?.privateUrlLink = nextUrlIink
-                
-                //process the dropItems and append items to the data src
-                var temp = [HBPostItemType]()
-                
-                if let _ = dropItems {
-                    
-                    for eachDropItem in dropItems! {
-                        //append item
-                        temp.append(HBPostItemType.PostDrop(eachDropItem))
-                    }
-                    
-                    //----------
-                    self?.dataSrc = []
-                    //----------
-                    
-                    //self?.dataSrc.insert(contentsOf: temp, at: 0)
-                    self?.dataSrc.append(contentsOf: temp)
-                    self?.delegate?.hbDataFetcherManagerDidUpdateTheDataSrc()
-                    
-                    let totalData = self?.dataSrc
-                    print("dataSrc: \(String(describing: totalData?.count))")
-                }
-            }
+            HBDataFetcherManager.backgroundQueue.async{
             
-            if let _ = completionHandler {
-                completionHandler!(request,response,error)
+                if error == nil {
+                    self?.privateUrlLink = nextUrlIink
+                    
+                    //process the dropItems and append items to the data src
+                    var temp = [HBPostItemType]()
+                    
+                    if let _ = dropItems {
+                        
+                        for eachDropItem in dropItems! {
+                            //append item
+                            temp.append(HBPostItemType.PostDrop(eachDropItem))
+                        }
+                        
+                        //----------
+                        self?.dataSrc = []
+                        //----------
+                        
+                        //self?.dataSrc.insert(contentsOf: temp, at: 0)
+                        self?.dataSrc.append(contentsOf: temp)
+                        DispatchQueue.main.async {
+                            self?.delegate?.hbDataFetcherManagerDidUpdateTheDataSrc()
+                        }
+                        
+                        
+                        let totalData = self?.dataSrc
+                        print("dataSrc: \(String(describing: totalData?.count))")
+                    }
+                }
+                
+                if let _ = completionHandler {
+                    DispatchQueue.main.async {
+                        completionHandler!(request,response,error)
+                    }
+                }
             }
         }
     }
@@ -214,32 +222,39 @@ class HBDataFetcherManager {
                 }
             }
             
-            if error == nil {
-                self?.privateUrlLink = nextUrlIink
-                
-                //process the dropItems and append items to the data src
-                var temp = [HBPostItemType]()
-                
-                if let _ = dropItems {
+            HBDataFetcherManager.backgroundQueue.async{
+                if error == nil {
+                    self?.privateUrlLink = nextUrlIink
                     
-                    for eachDropItem in dropItems! {
-                        //append item
-                        temp.append(HBPostItemType.PostDrop(eachDropItem))
+                    //process the dropItems and append items to the data src
+                    var temp = [HBPostItemType]()
+                    
+                    if let _ = dropItems {
+                        
+                        for eachDropItem in dropItems! {
+                            //append item
+                            temp.append(HBPostItemType.PostDrop(eachDropItem))
+                        }
+                        
+                        //self?.dataSrc.insert(contentsOf: temp, at: 0)
+                        self?.dataSrc.append(contentsOf: temp)
+                        DispatchQueue.main.async {
+                            self?.delegate?.hbDataFetcherManagerDidUpdateTheDataSrc()
+                        }
+                        
+                        let totalData = self?.dataSrc
+                        print("dataSrc: \(String(describing: totalData?.count))")
                     }
-                    
-                    //self?.dataSrc.insert(contentsOf: temp, at: 0)
-                    self?.dataSrc.append(contentsOf: temp)
-                    
-                    self?.delegate?.hbDataFetcherManagerDidUpdateTheDataSrc()
-                    
-                    let totalData = self?.dataSrc
-                    print("dataSrc: \(String(describing: totalData?.count))")
+                }
+                
+                if let _ = completionHandler {
+                    DispatchQueue.main.async {
+                        completionHandler!(request,response,error)
+                    }
                 }
             }
             
-            if let _ = completionHandler {
-                completionHandler!(request,response,error)
-            }
+            
         }
     }
     
@@ -263,6 +278,69 @@ class HBDataFetcherManager {
             switch dataResponse.result {
             
             case .success(let returnJson):
+
+                    
+                //move the expnesive task into background queue
+                HBDataFetcherManager.backgroundQueue.async { [weak self] in
+                    
+                    let jsonObj = JSON(returnJson)
+        
+                    
+                    var dropItems:[HBDropItem] = []
+                    let nextPageHref = jsonObj["posts"]["_links"]["next"]["href"].string
+                    
+                    let itemArray = jsonObj["posts"]["_embedded"]["items"].arrayValue
+                    for eachItem in itemArray {
+                        if let dropItem = self?.convertToDropItemFrom(dropJson: eachItem) {
+                            dropItems.append(dropItem)
+                        }
+                    } //end forloop
+                    
+                    print("\n------------------------------ ")
+                    print("fetching end: \(Date())")
+                    //print("dropItems: \(dropItems)")
+                    print("------------------------------\n")
+                    
+                    //when complete, update the state back to .Idle
+                    self?.fetchingState = .Idle
+                    
+                    DispatchQueue.main.async {
+                        if let _ = completionHandler {
+                            return completionHandler!(dataResponse.request, dataResponse.response, dropItems, nextPageHref, dataResponse.result.error as NSError?)
+                        }
+                    }
+                }
+                
+            case .failure( _):
+                self?.fetchingState = .Idle
+                if let _ = completionHandler {
+                    return completionHandler!(dataResponse.request, dataResponse.response, nil, nil,  dataResponse.result.error as NSError?)
+                }
+                
+            } // end switch
+        }
+    }
+    
+    fileprivate func ok_getDropFeed(_ urlString: String, completionHandler: ((_ request: URLRequest?, _ response: HTTPURLResponse?, _ dropItems:[HBDropItem]?, _ nextPageUrlString:String?, _ error: NSError?) -> ())? = nil)  {
+        
+        guard self.fetchingState == .Idle else {
+            print("\n-------------")
+            print("In the middle of fetching already!: \(Date())")
+            print("-------------\n")
+            return
+        }
+        
+        print("\n------------------------------ ")
+        print("fetching start: \(Date())")
+        print("------------------------------\n")
+        
+        self.fetchingState = .Fetching
+        
+        alamofireSessionManager.request(urlString, method: .get, parameters: nil, encoding: URLEncoding.default, headers: self.requestHeaders).responseJSON { [weak self] (dataResponse) in
+            
+            switch dataResponse.result {
+                
+            case .success(let returnJson):
                 if let jsonData = self?.testJSONData() {
                     
                     //move the expnesive task into background queue
@@ -273,9 +351,9 @@ class HBDataFetcherManager {
                         //trigger a network loading of resources
                         let _ = try? Data(contentsOf: URL(string: "https://lorempixel.com/1000/1000/sports/")!)
                         
-//                        do {
-//                            let _ = try Data(contentsOf: URL(string: "https://lorempixel.com/500/500/sports/")!)
-//                        } catch { }
+                        //                        do {
+                        //                            let _ = try Data(contentsOf: URL(string: "https://lorempixel.com/500/500/sports/")!)
+                        //                        } catch { }
                         
                         var dropItems:[HBDropItem] = []
                         let nextPageHref = jsonObj["drops"]["_links"]["next"]["href"].string
@@ -323,6 +401,44 @@ class HBDataFetcherManager {
     
     
     fileprivate func convertToDropItemFrom(dropJson:JSON) -> HBDropItem? {
+        
+        let id = dropJson["id"].int
+        
+        let slug = dropJson["slug"].string ?? ""
+        let title = dropJson["title"].string ?? ""
+        let herf = dropJson["_links"]["self"]["href"].string ?? ""
+        
+        var thumbnails:[ImageSizeType:String] = [:]
+        thumbnails[ImageSizeType.small] = dropJson["_links"]["thumbnail"]["href"].stringValue
+        thumbnails[ImageSizeType.large] = dropJson["_links"]["large_thumbnail"]["href"].stringValue
+        
+        let brandArray = dropJson["_links"]["brand"].arrayValue
+        
+        var brands = [HBBrand]()
+        for eachBrand in brandArray {
+            if let name = eachBrand["name"].string {
+                brands.append(HBBrand(name: name, href: eachBrand["href"].stringValue))
+            }
+        }
+        
+        let dropPriceEnable = dropJson["drop_price"]["enable"].bool ?? false
+        let dropPricePrice = dropJson["drop_price"]["price"].stringValue
+        let dropPriceCurrency = dropJson["drop_price"]["currency"].stringValue
+        let price = HBPrice(isEnable: dropPriceEnable, price: dropPricePrice, currency: dropPriceCurrency)
+        
+        
+        let releaseDate = Date().description //dropJson["release_date"]["date"].stringValue
+        let releaseCountry = dropJson["release_date"]["country"].stringValue
+        let release = HBReleaseDate(dateString: releaseDate, country: releaseCountry)
+        
+        if let _ = id {
+            return HBDropItem(id: id!, slug: slug, title: title, href: herf, thumbnail: thumbnails, brand: brands, price: price, date: release)
+        }
+        
+        return nil
+    }
+    
+    fileprivate func ok_convertToDropItemFrom(dropJson:JSON) -> HBDropItem? {
         
         let id = dropJson["id"].int
         
