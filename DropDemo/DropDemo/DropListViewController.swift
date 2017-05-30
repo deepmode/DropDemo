@@ -97,7 +97,7 @@ class DropListViewController: UIViewController {
         
         self.setup()
         
-        self.dataFetcherManager.getFeedFromLink("https://hypebeast.com")
+        self.dataFetcherManager.getDropFeedFromLink("https://hypebeast.com")
         
         self.refreshControl.addTarget(self, action: #selector(ListViewController.handleRefresh(refreshControl:)), for: UIControlEvents.valueChanged)
         if #available(iOS 10.0, *) {
@@ -137,7 +137,7 @@ class DropListViewController: UIViewController {
         // Fetch more objects from a web service, for example...
         
         //self.dataFetcherManager.getNextFeed()
-        self.dataFetcherManager.getFeedFromLink(self.requestLink)
+        self.dataFetcherManager.getDropFeedFromLink(self.requestLink)
         
         self.refreshControl.endRefreshing()
     }

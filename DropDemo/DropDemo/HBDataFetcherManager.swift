@@ -143,7 +143,7 @@ class HBDataFetcherManager {
     
     fileprivate var privateUrlLink:String?
     
-    func getFeedFromLink(_ urlString:String,  completionHandler: ((_ request: URLRequest?, _ response: HTTPURLResponse?, _ error: NSError?) -> ())? = nil) {
+    func getDropFeedFromLink(_ urlString:String,  completionHandler: ((_ request: URLRequest?, _ response: HTTPURLResponse?, _ error: NSError?) -> ())? = nil) {
 
         self.privateUrlLink = urlString
         

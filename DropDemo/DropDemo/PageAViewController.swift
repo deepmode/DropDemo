@@ -66,7 +66,7 @@ class PageAViewController: UIViewController, IndicatorInfoProvider{
     @IBAction func refreshHandler(button:UIButton?) {
         
         
-        self.dataFetcherManager.getFeedFromLink("https://hypebeast.com")
+        self.dataFetcherManager.getDropFeedFromLink("https://hypebeast.com")
         
         
 //        self.dataFetcherManager.getDropFeed("https://hypebeast.com")
