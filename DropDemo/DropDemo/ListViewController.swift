@@ -11,13 +11,13 @@ import XLPagerTabStrip
 
 class ListViewController: UIViewController, IndicatorInfoProvider {
     
-    enum SectionType:Int {
-        case List
-        
-        var count:Int {
-            return 1
-        }
-    }
+//    enum SectionType:Int {
+//        case List
+//        
+//        var count:Int {
+//            return 1
+//        }
+//    }
     
     
     @IBOutlet weak var tableView:UITableView!
@@ -95,7 +95,7 @@ class ListViewController: UIViewController, IndicatorInfoProvider {
         
         self.setup()
         
-        self.dataFetcherManager.getDropFeedFromLink("https://hypebeast.com")
+        self.dataFetcherManager.getDropFeedFromLink("https://hypebeast.com/?limit=20")
         
         self.refreshControl.addTarget(self, action: #selector(ListViewController.handleRefresh(refreshControl:)), for: UIControlEvents.valueChanged)
         if #available(iOS 10.0, *) {
@@ -167,7 +167,7 @@ extension ListViewController: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         print("--> \(NSStringFromClass(self.classForCoder)).\(#function)")
         
-        return SectionType(rawValue: 0)!.count
+        return SectionType.count
     }
     
 //    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
@@ -181,7 +181,17 @@ extension ListViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         print("--> \(NSStringFromClass(self.classForCoder)).\(#function)")
         
-        return self.dataFetcherManager.dataSrc.count
+        let sectionType = SectionType.getSectionTypeWithRawValue(section)
+        switch sectionType {
+        case .feature:
+            return 0
+        case .channel:
+            return 0
+        case .newsfeed:
+            return self.dataFetcherManager.dataSrc.count
+        default:
+            return 0
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -191,31 +201,44 @@ extension ListViewController: UITableViewDataSource {
         cell.textLabel?.text = ""
         cell.detailTextLabel?.text = ""
         
-        if indexPath.row < self.dataFetcherManager.dataSrc.count {
-            let d = self.dataFetcherManager.dataSrc[indexPath.row]
-            switch d {
-            case .PostDrop(let dropItem):
-                cell.textLabel?.text = dropItem.title
-                cell.detailTextLabel?.text = dropItem.date.dateString
-            }
-        }
-        
-        if self.isLoadingMoreNow == false {
-            let totalNumberOfRows = self.tableView.numberOfRows(inSection: 0)
-            if (Float(indexPath.row) / Float(totalNumberOfRows)) > self.preFetchingThreshold {
-                
-                if self.isLoadingMoreNow == false {
-                    self.isLoadingMoreNow = true
-                    print("\n\n--> Pre-Fetching if possibale")
-                    self.dataFetcherManager.getNextDropFeed(completionHandler: { (request, response, error) in
-                        self.isLoadingMoreNow  = false
-                        DispatchQueue.main.async {
-
-                        }
-                    })
+        let sectionType = SectionType.getSectionTypeWithRawValue(indexPath.section)
+        switch sectionType {
+        case .feature:
+            break
+        case .channel:
+            break
+        case .newsfeed:
+            if indexPath.row < self.dataFetcherManager.dataSrc.count {
+                let d = self.dataFetcherManager.dataSrc[indexPath.row]
+                switch d {
+                case .PostDrop(let dropItem):
+                    cell.textLabel?.text = dropItem.title
+                    cell.detailTextLabel?.text = dropItem.date.dateString
                 }
             }
+            
+            if self.isLoadingMoreNow == false {
+                let totalNumberOfRows = self.tableView.numberOfRows(inSection: indexPath.section)
+                if (Float(indexPath.row) / Float(totalNumberOfRows)) > self.preFetchingThreshold {
+                    
+                    if self.isLoadingMoreNow == false {
+                        self.isLoadingMoreNow = true
+                        print("\n\n--> Pre-Fetching if possibale")
+                        self.dataFetcherManager.getNextDropFeed(completionHandler: { (request, response, error) in
+                            self.isLoadingMoreNow  = false
+                            DispatchQueue.main.async {
+                                
+                            }
+                        })
+                    }
+                }
+            }
+        default:
+            break
         }
+        
+    
+       
         
         return cell
     }

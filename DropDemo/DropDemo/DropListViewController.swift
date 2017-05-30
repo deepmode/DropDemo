@@ -13,13 +13,13 @@ class DropListViewController: UIViewController {
     
     @IBOutlet weak var collectionView:UICollectionView!
     
-    enum SectionType:Int {
-        case List
-        
-        var count:Int {
-            return 1
-        }
-    }
+//    enum SectionType:Int {
+//        case List
+//        
+//        var count:Int {
+//            return 1
+//        }
+//    }
     
     let refreshControl = UIRefreshControl()
     
@@ -222,10 +222,19 @@ extension DropListViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
         print("--> \(NSStringFromClass(self.classForCoder)).\(#function)")
-//        if section == HomeSection.featureBanner.rawValue {
-//            return CGSize.zero
-//        }
-        return CGSize(width: self.view.bounds.size.width, height: DropListViewController.footerLoadingViewHeight);
+        
+        let sectionType = SectionType.getSectionTypeWithRawValue(section)
+        switch sectionType {
+        case .feature:
+            return CGSize(width: self.view.bounds.size.width, height: 0.0)
+        case .channel:
+            return CGSize(width: self.view.bounds.size.width, height: 0.0)
+        case .newsfeed:
+            return CGSize(width: self.view.bounds.size.width, height: DropListViewController.footerLoadingViewHeight);
+        case .unknown:
+            return CGSize(width: self.view.bounds.size.width, height: 0.0)
+        }
+        
     }
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
@@ -248,12 +257,12 @@ extension DropListViewController: UICollectionViewDataSource {
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         print("--> \(NSStringFromClass(self.classForCoder)).\(#function)")
-        return SectionType.init(rawValue: 0)!.count
+        return SectionType.count
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         print("--> \(NSStringFromClass(self.classForCoder)).\(#function)")
-        if SectionType.List.rawValue == section {
+        if SectionType.newsfeed.rawValue == section {
             return self.dataFetcherManager.dataSrc.count
         }
         return 0
@@ -263,31 +272,44 @@ extension DropListViewController: UICollectionViewDataSource {
         print("--> \(NSStringFromClass(self.classForCoder)).\(#function)")
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell_DropProduct", for: indexPath) as! HBDropProductCell
         
-        if indexPath.row < self.dataFetcherManager.dataSrc.count {
-            
-            let d = self.dataFetcherManager.dataSrc[indexPath.row]
-            switch d {
-            case .PostDrop(let dropItem):
-                cell.setupCell(post: dropItem)
-            }
-        }
+        let sectionType = SectionType.getSectionTypeWithRawValue(indexPath.section)
         
-        if self.isLoadingMoreNow == false {
-
-            let totalNumberOfRows = self.collectionView.numberOfItems(inSection: 0)
-            if (Float(indexPath.row) / Float(totalNumberOfRows)) > self.preFetchingThreshold {
+        switch sectionType {
+        case .feature:
+            break
+        case .channel:
+            break
+        case .newsfeed:
+            
+            if indexPath.row < self.dataFetcherManager.dataSrc.count {
                 
-                if self.isLoadingMoreNow == false {
-                    self.isLoadingMoreNow = true
-                    print("\n\n--> Pre-Fetching if possibale")
-                    self.dataFetcherManager.getNextDropFeed(completionHandler: { (request, response, error) in
-                        self.isLoadingMoreNow  = false
-                        DispatchQueue.main.async {
-                            
-                        }
-                    })
+                let d = self.dataFetcherManager.dataSrc[indexPath.row]
+                switch d {
+                case .PostDrop(let dropItem):
+                    cell.setupCell(post: dropItem)
                 }
             }
+            
+            if self.isLoadingMoreNow == false {
+                
+                let totalNumberOfRows = self.collectionView.numberOfItems(inSection: indexPath.section)
+                if (Float(indexPath.row) / Float(totalNumberOfRows)) > self.preFetchingThreshold {
+                    
+                    if self.isLoadingMoreNow == false {
+                        self.isLoadingMoreNow = true
+                        print("\n\n--> Pre-Fetching if possibale")
+                        self.dataFetcherManager.getNextDropFeed(completionHandler: { (request, response, error) in
+                            self.isLoadingMoreNow  = false
+                            DispatchQueue.main.async {
+                                
+                            }
+                        })
+                    }
+                }
+            }
+
+        case .unknown:
+            break
         }
         
         return cell
