@@ -210,15 +210,37 @@ extension DropListViewController: UICollectionViewDelegateFlowLayout {
         return CGSize(width: w, height:cellHeight )
     }
     
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        
+        let sectionType = SectionType.getSectionTypeWithRawValue(section)
+        return Layout.insetForSectionType(sectionType)
+        
+        //return UIEdgeInsetsMake(Layout.cellTopPadding, Layout.cellLeftPadding, Layout.cellBottomPadding, Layout.cellRightPadding)
+        
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return 0.0
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        //return self.collectionViewCellVerticalSeparatorSpacing //provide spacing between vertial cell
+        
+        let sectionType = SectionType.getSectionTypeWithRawValue(section)
+        return Layout.minimumLineSpacingForSection(sectionType)
+    }
+    
 }
 
 // MARK: - UICollectionViewDelegate
 extension DropListViewController: UICollectionViewDelegate {
-    
+
 }
 
 // MARK: - UICollectionViewDataSource
 extension DropListViewController: UICollectionViewDataSource {
+
+    
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
         print("--> \(NSStringFromClass(self.classForCoder)).\(#function)")
