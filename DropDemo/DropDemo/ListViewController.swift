@@ -201,7 +201,6 @@ extension ListViewController: UITableViewDataSource {
         }
         
         if self.isLoadingMoreNow == false {
-            let threshold:Float = 0.9
             let totalNumberOfRows = self.tableView.numberOfRows(inSection: 0)
             if (Float(indexPath.row) / Float(totalNumberOfRows)) > self.preFetchingThreshold {
                 

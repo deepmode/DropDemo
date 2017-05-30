@@ -9,7 +9,7 @@
 import UIKit
 import XLPagerTabStrip
 
-class DropListViewController: UIViewController, IndicatorInfoProvider {
+class DropListViewController: UIViewController {
     
     @IBOutlet weak var collectionView:UICollectionView!
     
@@ -23,9 +23,10 @@ class DropListViewController: UIViewController, IndicatorInfoProvider {
     
     let refreshControl = UIRefreshControl()
     
+    
     //-----
     let preFetchingThreshold:Float = 0.9
-    static let footerLoadingViewHeight:CGFloat = 25.0
+    static let footerLoadingViewHeight:CGFloat = 40.0
     
     fileprivate var isLoadingMoreNow = false {
         didSet  {
@@ -33,36 +34,38 @@ class DropListViewController: UIViewController, IndicatorInfoProvider {
             if self.isLoadingMoreNow == true {
                 
                 DispatchQueue.main.async { [weak self] in
-                    self?.footerView.isHidden = false
-                    self?.footerView.loadingSpinner?.startAnimating()
+                    self?.footerView?.isHidden = false
+                    self?.footerView?.loadingSpinner?.startAnimating()
                 }
             } else {
                 DispatchQueue.main.async { [weak self] in
-                    self?.footerView.isHidden = false
-                    self?.footerView.loadingSpinner?.stopAnimating()
+                    self?.footerView?.isHidden = false
+                    self?.footerView?.loadingSpinner?.stopAnimating()
                 }
             }
         }
     }
     //-----
     
-    lazy var footerView:FooterLoadingView = {
-        //let loadingFooterView = FooterLoadingView.loadFromXib() as! FooterLoadingView
-        let loadingFooterView = FooterLoadingView()
+    
+    fileprivate var footerView:FooterLoadingReusableView? /*  = {
+        let loadingFooterView = FooterLoadingReusableView()
         var frame = loadingFooterView.frame
-        frame.size.height = ListViewController.footerLoadingViewHeight
+        frame.size.height = DropListViewController.footerLoadingViewHeight
         loadingFooterView.frame = frame
         //loadingFooterView.backgroundColor = UIColor.orange
         return loadingFooterView
-    }()
+    }() */
     
-    var requestLink:String {
+    fileprivate var requestLink:String {
         let links = ["https://hypebeast.com", "https://hypebeast.com/kr/"]
         let index = Int(arc4random() % 2)
         let returnLink = links[index]
         return returnLink
     }
     
+    
+    //-----
     var itemInfo:IndicatorInfo
     
     init(itemInfo: IndicatorInfo) {
@@ -70,6 +73,8 @@ class DropListViewController: UIViewController, IndicatorInfoProvider {
         super.init(nibName: "DropListViewController", bundle: nil)
         print("--> \(NSStringFromClass(self.classForCoder)).\(#function)")
     }
+    //-----
+    
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -123,6 +128,7 @@ class DropListViewController: UIViewController, IndicatorInfoProvider {
         self.collectionView?.dataSource = self
         
         self.collectionView.register(UINib(nibName: "HBDropProductCell", bundle: Bundle.main), forCellWithReuseIdentifier: "Cell_DropProduct")
+        self.collectionView.register(UINib(nibName: "FooterLoadingReusableView", bundle: Bundle.main), forSupplementaryViewOfKind: UICollectionElementKindSectionFooter, withReuseIdentifier: "Cell_Footer")
         
     }
     
@@ -135,13 +141,17 @@ class DropListViewController: UIViewController, IndicatorInfoProvider {
         
         self.refreshControl.endRefreshing()
     }
+
+
+}
+
+// MARK: - IndicatorInfoProvider
+extension DropListViewController: IndicatorInfoProvider {
     
-    // MARK: - IndicatorInfoProvider
     func indicatorInfo(for pagerTabStripController: PagerTabStripViewController) -> IndicatorInfo {
         
         return self.itemInfo
     }
-
 }
 
 // MARK: - HBDataFetcherManagerDelegate
@@ -159,29 +169,59 @@ extension DropListViewController: HBDataFetcherManagerDelegate {
     
 }
 
-// MARK: - UICollectionViewDelegate
+// MARK: - UICollectionViewDelegateFlowLayout
 extension DropListViewController: UICollectionViewDelegateFlowLayout {
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: 200, height: 250)
+        
+        print("--> \(NSStringFromClass(self.classForCoder)).\(#function)")
+        let w = self.view.bounds.width * 0.95 / 2
+        return CGSize(width: w, height: 250)
     }
     
 }
 
+// MARK: - UICollectionViewDelegate
 extension DropListViewController: UICollectionViewDelegate {
-
+    
 }
 
 // MARK: - UICollectionViewDataSource
 extension DropListViewController: UICollectionViewDataSource {
     
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
+        print("--> \(NSStringFromClass(self.classForCoder)).\(#function)")
+//        if section == HomeSection.featureBanner.rawValue {
+//            return CGSize.zero
+//        }
+        return CGSize(width: self.view.bounds.size.width, height: DropListViewController.footerLoadingViewHeight);
+    }
     
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        print("--> \(NSStringFromClass(self.classForCoder)).\(#function)")
+        
+        if kind == UICollectionElementKindSectionFooter {
+            self.footerView = self.collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionElementKindSectionFooter, withReuseIdentifier: "Cell_Footer", for: indexPath) as? FooterLoadingReusableView
+            return self.footerView!
+        }
+        
+        //if anything else, return a default footer view with nothing inside
+        let defaultView = self.collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionElementKindSectionFooter, withReuseIdentifier: "Cell_Footer", for: indexPath) as! FooterLoadingReusableView
+        defaultView.loadingSpinner?.stopAnimating()
+        return defaultView
+    }
+    
+//    func collectionView(_ collectionView: UICollectionView, willDisplaySupplementaryView view: UICollectionReusableView, forElementKind elementKind: String, at indexPath: IndexPath) {
+//        print("--> \(NSStringFromClass(self.classForCoder)).\(#function)")
+//    }
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
+        print("--> \(NSStringFromClass(self.classForCoder)).\(#function)")
         return SectionType.init(rawValue: 0)!.count
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        print("--> \(NSStringFromClass(self.classForCoder)).\(#function)")
         if SectionType.List.rawValue == section {
             return self.dataFetcherManager.dataSrc.count
         }
@@ -189,14 +229,33 @@ extension DropListViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        print("--> \(NSStringFromClass(self.classForCoder)).\(#function)")
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell_DropProduct", for: indexPath) as! HBDropProductCell
+        
         if indexPath.row < self.dataFetcherManager.dataSrc.count {
             
             let d = self.dataFetcherManager.dataSrc[indexPath.row]
             switch d {
             case .PostDrop(let dropItem):
                 cell.titleLabel?.text = dropItem.title
-                //cell.detailTextLabel?.text = dropItem.date.dateString
+            }
+        }
+        
+        if self.isLoadingMoreNow == false {
+
+            let totalNumberOfRows = self.collectionView.numberOfItems(inSection: 0)
+            if (Float(indexPath.row) / Float(totalNumberOfRows)) > self.preFetchingThreshold {
+                
+                if self.isLoadingMoreNow == false {
+                    self.isLoadingMoreNow = true
+                    print("\n\n--> Pre-Fetching if possibale")
+                    self.dataFetcherManager.getNextDropFeed(completionHandler: { (request, response, error) in
+                        self.isLoadingMoreNow  = false
+                        DispatchQueue.main.async {
+                            
+                        }
+                    })
+                }
             }
         }
         
