@@ -13,23 +13,18 @@ import FLAnimatedImage
 class HBDropProductCell: UICollectionViewCell {
     
     @IBOutlet weak var imageView:FLAnimatedImageView!
-    @IBOutlet weak var titleLabel:InsetLabel!
+    @IBOutlet weak var titleLabel:UILabel!
     
-    @IBOutlet weak var contentLeadingPaddingConstraint:NSLayoutConstraint!
-    @IBOutlet weak var contentTrailingPaddingConstraint:NSLayoutConstraint!
+    @IBOutlet weak var titleLeadingPaddingConstraint:NSLayoutConstraint!
+    @IBOutlet weak var titleTrailingPaddingConstraint:NSLayoutConstraint!
+    
+    @IBOutlet weak var toolViewLeadingPaddingConstraint:NSLayoutConstraint!
+    @IBOutlet weak var toolViewTrailingPaddingConstraint:NSLayoutConstraint!
+    
     
     
     func setupCell(post:HBDropItem) {
         
-        let currentHSizeClass = self.traitCollection.horizontalSizeClass
-        let leftPadding = Layout.cellTitleLeadingPadding(currentHSizeClass)
-        let rightPadding = Layout.cellTitleTrailingPadding(currentHSizeClass)
-        let topPadding = Layout.cellTitleTopPadding(currentHSizeClass)
-        let bottomPadding = Layout.cellTitleBottomPadding(currentHSizeClass)
-        
-        let inset = UIEdgeInsets(top: topPadding, left: leftPadding, bottom: bottomPadding, right: rightPadding)
-        
-        self.titleLabel?.inset = inset
         self.titleLabel?.text = post.title
         
         let link = post.thumbnail[ImageSizeType.small] ?? ""
@@ -47,15 +42,14 @@ class HBDropProductCell: UICollectionViewCell {
         let rightPadding = Layout.cellTitleTrailingPadding(currentHSizeClass)
         let topPadding = Layout.cellTitleTopPadding(currentHSizeClass)
         let bottomPadding = Layout.cellTitleBottomPadding(currentHSizeClass)
-        
-        let inset = UIEdgeInsets(top: topPadding, left: leftPadding, bottom: bottomPadding, right: rightPadding)
     
-        self.titleLabel?.inset = inset
+        //self.titleLabel?.inset = inset
         
-        self.contentLeadingPaddingConstraint?.constant = leftPadding
-        self.contentTrailingPaddingConstraint?.constant = rightPadding
+        self.titleLeadingPaddingConstraint?.constant = leftPadding
+        self.titleTrailingPaddingConstraint?.constant = rightPadding
         
-        
+        self.toolViewLeadingPaddingConstraint?.constant = leftPadding
+        self.toolViewTrailingPaddingConstraint?.constant = rightPadding
     }
     
     override func awakeFromNib() {

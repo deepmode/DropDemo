@@ -39,7 +39,32 @@ enum SectionType:Int {
 
 struct Layout {
     
-    static let interCellSpacingForCollectionView:CGFloat = 20.0
+    //static let interCellSpacingForCollectionView:CGFloat = 20.0
+    
+    static var interCellSpacingForCollectionView: CGFloat {
+        
+        var hSizeClass:UIUserInterfaceSizeClass = .unspecified
+        
+        if let applicationWindow = UIApplication.shared.keyWindow /* UIApplication.sharedApplication().windows.first */ {
+            switch applicationWindow.traitCollection.horizontalSizeClass  {
+            case .compact:
+                hSizeClass = .compact
+            case .regular:
+                hSizeClass = .regular
+            case .unspecified:
+                hSizeClass = .unspecified
+            }
+        }
+        
+        let cols = numberOfColumn(hSizeClass)
+        
+        if cols <= 1 {
+            return 16.0
+        } else {
+            return 30.0
+        }
+    }
+    
     
     static let cellTopPadding:CGFloat = interCellSpacingForCollectionView
     static let cellBottomPadding:CGFloat = interCellSpacingForCollectionView
@@ -49,9 +74,9 @@ struct Layout {
     static func numberOfColumn(_ sizeClass:UIUserInterfaceSizeClass) -> Int {
         switch sizeClass {
         case .compact:
-            return 2
+            return 1
         case .regular:
-            return 4
+            return 3
         default:
             return 1
         }
@@ -60,7 +85,7 @@ struct Layout {
     static func cellTitleLeadingPadding(_ sizeClass:UIUserInterfaceSizeClass) -> CGFloat {
         switch sizeClass {
             case .compact: return 0.0
-            case .regular: return 0.0
+            case .regular: return 10.0
             default: return 0.0
         }
     }
@@ -68,7 +93,7 @@ struct Layout {
     static func cellTitleTrailingPadding(_ sizeClass:UIUserInterfaceSizeClass) -> CGFloat {
         switch sizeClass {
             case .compact: return 0.0
-            case .regular: return 0.0
+            case .regular: return 10.0
             default: return 0.0
         }
     }
@@ -136,7 +161,7 @@ struct Layout {
                 //fixed height
                 
                 let imageRatio:CGFloat = 3/2
-                let contentToImageHeightRatio:CGFloat = 0.9
+                let contentToImageHeightRatio:CGFloat = 0.55
                 let imageHeight = cellWidth * 1 / imageRatio
                 let cellHeight = imageHeight + imageHeight * contentToImageHeightRatio
                 

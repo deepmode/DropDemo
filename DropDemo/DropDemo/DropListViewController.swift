@@ -209,16 +209,9 @@ extension DropListViewController: UICollectionViewDelegateFlowLayout {
             return s
             
         case .newsfeed:
-            var cols = 1
             
-            switch self.traitCollection.horizontalSizeClass {
-            case .compact:
-                cols = 1
-            case .regular:
-                cols = 3
-            case .unspecified:
-                cols = 1
-            }
+            let  cols = Layout.numberOfColumn(self.traitCollection.horizontalSizeClass)
+            
             let s = Layout.sectionCellSize(containerWidth: self.view.bounds.width, sectionType: sectionType, numberOfColumn: cols)
             return s
             
