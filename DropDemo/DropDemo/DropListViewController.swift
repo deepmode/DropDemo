@@ -127,8 +127,11 @@ class DropListViewController: UIViewController {
     private func setup() {
         
         self.dataFetcherManager.delegate = self
+        
         self.collectionView?.delegate = self
         self.collectionView?.dataSource = self
+        
+        self.collectionView?.backgroundColor = UIColor.groupTableViewBackground
         
         self.collectionView.register(UINib(nibName: "HBDropProductCell", bundle: Bundle.main), forCellWithReuseIdentifier: "Cell_DropProduct")
         self.collectionView.register(UINib(nibName: "FooterLoadingReusableView", bundle: Bundle.main), forSupplementaryViewOfKind: UICollectionElementKindSectionFooter, withReuseIdentifier: "Cell_Footer")

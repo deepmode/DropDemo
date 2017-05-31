@@ -57,6 +57,39 @@ struct Layout {
         }
     }
     
+    static func cellTitleLeadingPadding(_ sizeClass:UIUserInterfaceSizeClass) -> CGFloat {
+        switch sizeClass {
+            case .compact: return 0.0
+            case .regular: return 0.0
+            default: return 0.0
+        }
+    }
+    
+    static func cellTitleTrailingPadding(_ sizeClass:UIUserInterfaceSizeClass) -> CGFloat {
+        switch sizeClass {
+            case .compact: return 0.0
+            case .regular: return 0.0
+            default: return 0.0
+        }
+    }
+    
+    static func cellTitleTopPadding(_ sizeClass:UIUserInterfaceSizeClass) -> CGFloat {
+        switch sizeClass {
+            case .compact: return 0.0
+            case .regular: return 0.0
+            default: return 0.0
+        }
+    }
+    
+    static func cellTitleBottomPadding(_ sizeClass:UIUserInterfaceSizeClass) -> CGFloat {
+        switch sizeClass {
+            case .compact: return 0.0
+            case .regular: return 0.0
+            default: return 0.0
+        }
+    }
+    
+    
     static func minimumLineSpacingForSection(_ sectionType:SectionType) -> CGFloat {
         switch sectionType {
         case .feature:
@@ -103,7 +136,7 @@ struct Layout {
                 //fixed height
                 
                 let imageRatio:CGFloat = 3/2
-                let contentToImageHeightRatio:CGFloat = 0.6
+                let contentToImageHeightRatio:CGFloat = 0.9
                 let imageHeight = cellWidth * 1 / imageRatio
                 let cellHeight = imageHeight + imageHeight * contentToImageHeightRatio
                 
