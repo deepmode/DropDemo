@@ -107,11 +107,55 @@ struct Layout {
     
     static func numberOfColumn(_ sizeClass:UIUserInterfaceSizeClass) -> Int {
 
-        switch sizeClass {
-            case .compact: return 1
-            case .regular: return 3
-            case .unspecified: return 1
+//        switch sizeClass {
+//            case .compact: return 1
+//            case .regular: return 3
+//            case .unspecified: return 1
+//        }
+        
+        var numberOfCellsPerRow = 1
+        let extraColoum = 0
+        
+        if let applicationWindow = UIApplication.shared.keyWindow {
+            let screenWidth = applicationWindow.frame.size.width
+            
+            if screenWidth <= 320 {
+                numberOfCellsPerRow = 1
+            } else if screenWidth <= 375 /* 375 or ipad pro protrait split view small*/ {
+                numberOfCellsPerRow = 1
+            } else if screenWidth <= 414 /* 414 */{
+                numberOfCellsPerRow = 1
+            } else if screenWidth <= 438 /* ipad air portrait ~2/3 */ {
+                numberOfCellsPerRow = 2
+            } else if screenWidth <= 480 {
+                numberOfCellsPerRow = 3
+            } else if screenWidth <= 507 /* ipad air 2 split half (landscape) */ {
+                numberOfCellsPerRow = 2
+            } else if screenWidth <= 568 {
+                numberOfCellsPerRow = 3
+            } else if screenWidth <= 639 /* ipad pro protrait split ~2/3*/ {
+                numberOfCellsPerRow = 2
+            } else if screenWidth <= 667 {
+                numberOfCellsPerRow = 3
+            } else if screenWidth <= 678 /* ipad pro landscape split half */{
+                numberOfCellsPerRow = 2 + extraColoum
+            } else if screenWidth <= 694 /* ipad air landscape split ~2/3 */{
+                numberOfCellsPerRow = 2 + extraColoum
+            } else if screenWidth <= 736 {
+                numberOfCellsPerRow = 3
+            } else if screenWidth <= 768 { /* ipad air portrait */
+                numberOfCellsPerRow = 2 + extraColoum
+            } else if screenWidth <= 981  /* ipad pro landscape split view */{
+                numberOfCellsPerRow = 3
+            } else if screenWidth <= 1024 /* ipad air landscape */{
+                numberOfCellsPerRow = 3 + extraColoum
+            } else if screenWidth <= 1366 /* ipad pro protrait full */{
+                numberOfCellsPerRow = 4
+            } else {
+                numberOfCellsPerRow = 4
+            }
         }
+        return numberOfCellsPerRow
     }
     
     static var cellTitleLeadingPadding:CGFloat {
@@ -217,7 +261,7 @@ struct Layout {
             } else {
                 //fixed height
                 
-                let contentToImageHeightRatio:CGFloat = 0.55
+                let contentToImageHeightRatio:CGFloat = 0.6
                 let imageHeight = cellWidth * 1 / Layout.contentImageRatio
                 let cellHeight = imageHeight + imageHeight * contentToImageHeightRatio
                 
