@@ -41,6 +41,10 @@ struct Layout {
     
     //static let interCellSpacingForCollectionView:CGFloat = 20.0
     
+    static var dropTitleFont:UIFont {
+        return UIFont.systemFont(ofSize: 17.0)
+    }
+    
     static var currentHSizeClass:UIUserInterfaceSizeClass {
         
         var hSizeClass:UIUserInterfaceSizeClass = .unspecified
@@ -102,6 +106,7 @@ struct Layout {
 //    static let cellRightPadding:CGFloat = interCellSpacingForCollectionView
     
     static func numberOfColumn(_ sizeClass:UIUserInterfaceSizeClass) -> Int {
+
         switch sizeClass {
             case .compact: return 1
             case .regular: return 3
@@ -109,32 +114,40 @@ struct Layout {
         }
     }
     
-    static func cellTitleLeadingPadding(_ sizeClass:UIUserInterfaceSizeClass) -> CGFloat {
-        switch sizeClass {
+    static var cellTitleLeadingPadding:CGFloat {
+        
+        let hSizeClass = Layout.currentHSizeClass
+        switch hSizeClass {
             case .compact: return 0.0
             case .regular: return 10.0
             case .unspecified: return 0.0
         }
     }
     
-    static func cellTitleTrailingPadding(_ sizeClass:UIUserInterfaceSizeClass) -> CGFloat {
-        switch sizeClass {
+    static var cellTitleTrailingPadding: CGFloat {
+        
+        let hSizeClass = Layout.currentHSizeClass
+        switch hSizeClass {
             case .compact: return 0.0
             case .regular: return 10.0
             default: return 0.0
         }
     }
     
-    static func cellTitleTopPadding(_ sizeClass:UIUserInterfaceSizeClass) -> CGFloat {
-        switch sizeClass {
+    static var cellTitleTopPadding: CGFloat {
+        
+        let hSizeClass = Layout.currentHSizeClass
+        switch hSizeClass {
             case .compact: return 0.0
             case .regular: return 0.0
             default: return 0.0
         }
     }
     
-    static func cellTitleBottomPadding(_ sizeClass:UIUserInterfaceSizeClass) -> CGFloat {
-        switch sizeClass {
+    static var cellTitleBottomPadding:CGFloat {
+        
+        let hSizeClass = Layout.currentHSizeClass
+        switch hSizeClass {
             case .compact: return 0.0
             case .regular: return 0.0
             default: return 0.0
@@ -151,7 +164,8 @@ struct Layout {
         }
     }
     
-    static func sectionCellSize(containerWidth:CGFloat, sectionType:SectionType, numberOfColumn:Int? = nil) -> CGSize {
+    static let contentImageRatio:CGFloat = 3 / 2
+    static func sectionCellSize(containerWidth:CGFloat, sectionType:SectionType, numberOfColumn:Int? = nil, font:UIFont? = nil, text:String? = nil) -> CGSize {
         
         let interCellSpacing:CGFloat = Layout.interCellSpacingForCollectionView
         
@@ -174,18 +188,37 @@ struct Layout {
             if cols <= 1 {
                 //height should be calcualted based on the text
                 
-                let imageRatio:CGFloat = 3/2
-                let contentToImageHeightRatio:CGFloat = 0.5
-                let imageHeight = cellWidth * 1 / imageRatio
-                let cellHeight = imageHeight + imageHeight * contentToImageHeightRatio
+                let availableInnerCellWidth = cellWidth - Layout.interStackViewLeadingPadding - Layout.interStackViewTrailingPadding
+                let availableInnerTitleWidth = availableInnerCellWidth - Layout.cellTitleLeadingPadding - Layout.cellTitleTrailingPadding
+        
+                
+                let topPadding = Layout.interStackViewTopPadding
+                let imageHeight = availableInnerCellWidth *  1 / Layout.contentImageRatio
+                let h1:CGFloat = 8.0
+            
+                let f = font ?? Layout.dropTitleFont
+                let t = text ?? ""
+                let titleHeight = t.heightWithConstrainedWidth(availableInnerTitleWidth, font: f)
+                let h2:CGFloat = 8.0
+                let toolViewHeight:CGFloat = 30.0
+                let h3:CGFloat = 8.0
+                let bottomPadding = Layout.interStackViewBottomPadding
+                let buffer:CGFloat = 0.0
+                
+                
+                let cellHeight = topPadding + imageHeight + h1 + titleHeight + h2 + toolViewHeight + h3 + bottomPadding + buffer
+                
+                
+//                let contentToImageHeightRatio:CGFloat = 0.5
+//                let imageHeight = cellWidth * 1 / Layout.contentImageRatio
+//                let cellHeight = imageHeight + imageHeight * contentToImageHeightRatio
                 
                 return CGSize(width: cellWidth, height: cellHeight)
             } else {
                 //fixed height
                 
-                let imageRatio:CGFloat = 3/2
                 let contentToImageHeightRatio:CGFloat = 0.55
-                let imageHeight = cellWidth * 1 / imageRatio
+                let imageHeight = cellWidth * 1 / Layout.contentImageRatio
                 let cellHeight = imageHeight + imageHeight * contentToImageHeightRatio
                 
                 return CGSize(width: cellWidth,height: cellHeight)

@@ -225,9 +225,21 @@ extension DropListViewController: UICollectionViewDelegateFlowLayout {
             
         case .newsfeed:
             
-            let  cols = Layout.numberOfColumn(self.traitCollection.horizontalSizeClass)
+            var text = ""
+            let font = Layout.dropTitleFont
             
-            let s = Layout.sectionCellSize(containerWidth: self.view.bounds.width, sectionType: sectionType, numberOfColumn: cols)
+            if indexPath.row < self.dataFetcherManager.dataSrc.count {
+                let a  = self.dataFetcherManager.dataSrc[indexPath.row]
+                switch a {
+                case .PostDrop(let item):
+                    text = item.title
+                }
+            }
+            
+            let  cols = Layout.numberOfColumn(self.traitCollection.horizontalSizeClass)
+
+            let s = Layout.sectionCellSize(containerWidth: self.view.bounds.width, sectionType: sectionType, numberOfColumn: cols, font: font, text: text)
+            
             return s
             
         case .unknown:

@@ -161,6 +161,10 @@
             <size key="customSize" width="357" height="331"/>
             <connections>
                 <outlet property="imageView" destination="WXy-dj-L4o" id="ViF-fq-uSt"/>
+                <outlet property="stackViewBottomPaddingConstraint" destination="pH6-Fa-fwc" id="kvJ-tD-MFT"/>
+                <outlet property="stackViewLeadingPaddingConstraint" destination="SBm-cv-0X6" id="GNb-rj-FwU"/>
+                <outlet property="stackViewTopPaddingConstraint" destination="wck-ei-3hn" id="30D-oC-S8X"/>
+                <outlet property="stackViewTrailingPaddingConstraint" destination="swP-Q4-8iM" id="w6M-zx-fl2"/>
                 <outlet property="titleLabel" destination="L9D-Mf-Bwd" id="eBv-1U-LJh"/>
                 <outlet property="titleLeadingPaddingConstraint" destination="g5B-QG-IJi" id="9Pa-hk-wS0"/>
                 <outlet property="titleTrailingPaddingConstraint" destination="sFY-QS-ou9" id="9Mb-3V-BSs"/>

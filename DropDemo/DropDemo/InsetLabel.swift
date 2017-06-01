@@ -34,9 +34,8 @@ class InsetLabel: UILabel {
     override var intrinsicContentSize: CGSize {
         var intrinsicSuperViewContentSize = super.intrinsicContentSize
         
-        let hSizeClass = self.traitCollection.horizontalSizeClass
-        let leftPadding = Layout.cellTitleLeadingPadding(hSizeClass)
-        let rightPadding = Layout.cellTitleLeadingPadding(hSizeClass)
+        let leftPadding = Layout.cellTitleLeadingPadding
+        let rightPadding = Layout.cellTitleLeadingPadding
         let availableWidth = self.frame.size.width - leftPadding - rightPadding
         let h = self.text?.heightWithConstrainedWidth(availableWidth, font: self.font) ?? 0
         let textHeight = CGFloat(ceil(Double(h)))

@@ -32,6 +32,7 @@ class HBDropProductCell: UICollectionViewCell {
     func setupCell(post:HBDropItem) {
         
         self.titleLabel?.text = post.title
+        self.titleLabel?.font = Layout.dropTitleFont
         
         let link = post.thumbnail[ImageSizeType.small] ?? ""
         if let url = URL(string: link) {
@@ -45,17 +46,27 @@ class HBDropProductCell: UICollectionViewCell {
     override func draw(_ rect: CGRect) {
         super.draw(rect)
 
-        let currentHSizeClass = self.traitCollection.horizontalSizeClass
-        let leftPadding = Layout.cellTitleLeadingPadding(currentHSizeClass)
-        let rightPadding = Layout.cellTitleTrailingPadding(currentHSizeClass)
-        let topPadding = Layout.cellTitleTopPadding(currentHSizeClass)
-        let bottomPadding = Layout.cellTitleBottomPadding(currentHSizeClass)
+        //For StackView
+        self.stackViewTopPaddingConstraint.constant = Layout.interStackViewTopPadding
+        self.stackViewBottomPaddingConstraint.constant = Layout.interStackViewBottomPadding
+        self.stackViewLeadingPaddingConstraint.constant = Layout.interStackViewLeadingPadding
+        self.stackViewTrailingPaddingConstraint.constant = Layout.interStackViewTrailingPadding
+        
+        
+        //For inner cell content (e.g. title, tool view etc)
+        let leftPadding = Layout.cellTitleLeadingPadding
+        let rightPadding = Layout.cellTitleTrailingPadding
+        let topPadding = Layout.cellTitleTopPadding
+        let bottomPadding = Layout.cellTitleBottomPadding
     
         self.titleLeadingPaddingConstraint?.constant = leftPadding
         self.titleTrailingPaddingConstraint?.constant = rightPadding
         
         self.toolViewLeadingPaddingConstraint?.constant = leftPadding
         self.toolViewTrailingPaddingConstraint?.constant = rightPadding
+        
+        
+        
     }
     
     override func awakeFromNib() {
