@@ -21,6 +21,8 @@ class DropListViewController: UIViewController {
 //        }
 //    }
     
+    var lastSize:CGSize = CGSize(width: 0, height: 0)
+    
     let refreshControl = UIRefreshControl()
     
     
@@ -109,6 +111,19 @@ class DropListViewController: UIViewController {
         } else {
             self.collectionView?.addSubview(refreshControl)
         }
+        
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        // ----------------------------
+        //note: lastSize will keep track last app
+        if self.lastSize != self.view.bounds.size {
+            self.lastSize = self.view.bounds.size
+            self.collectionView?.reloadData()
+        }
+        // ----------------------------
         
     }
 

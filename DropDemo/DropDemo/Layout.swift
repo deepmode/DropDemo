@@ -41,44 +41,71 @@ struct Layout {
     
     //static let interCellSpacingForCollectionView:CGFloat = 20.0
     
-    static var interCellSpacingForCollectionView: CGFloat {
+    static var currentHSizeClass:UIUserInterfaceSizeClass {
         
         var hSizeClass:UIUserInterfaceSizeClass = .unspecified
         
         if let applicationWindow = UIApplication.shared.keyWindow /* UIApplication.sharedApplication().windows.first */ {
             switch applicationWindow.traitCollection.horizontalSizeClass  {
-            case .compact:
-                hSizeClass = .compact
-            case .regular:
-                hSizeClass = .regular
-            case .unspecified:
-                hSizeClass = .unspecified
+            case .compact: hSizeClass = .compact
+            case .regular: hSizeClass = .regular
+            case .unspecified: hSizeClass = .unspecified
             }
         }
-        
-        let cols = numberOfColumn(hSizeClass)
-        
-        if cols <= 1 {
-            return 16.0
-        } else {
-            return 30.0
-        }
+        return hSizeClass
     }
     
+    static var interCellSpacingForCollectionView: CGFloat {
+        
+        let hSizeClass = Layout.currentHSizeClass
+        let cols = numberOfColumn(hSizeClass)
+        
+        let result = cols <=  1 ? 0.0 : 30.0
+        return CGFloat(result)
+    }
     
-    static let cellTopPadding:CGFloat = interCellSpacingForCollectionView
-    static let cellBottomPadding:CGFloat = interCellSpacingForCollectionView
-    static let cellLeftPadding:CGFloat = interCellSpacingForCollectionView
-    static let cellRightPadding:CGFloat = interCellSpacingForCollectionView
+    static var interStackViewTopPadding:CGFloat {
+        let hSizeClass = Layout.currentHSizeClass
+        let cols = numberOfColumn(hSizeClass)
+        
+        let result = cols <= 1 ? 16.0 : 0.0
+        return CGFloat(result)
+    }
+    
+    static var interStackViewBottomPadding:CGFloat {
+        let hSizeClass = Layout.currentHSizeClass
+        let cols = numberOfColumn(hSizeClass)
+        
+        let result = cols <= 1 ? 16.0 : 0.0
+        return CGFloat(result)
+    }
+    
+    static var interStackViewLeadingPadding:CGFloat {
+        let hSizeClass = Layout.currentHSizeClass
+        let cols = numberOfColumn(hSizeClass)
+        
+        let result = cols <= 1 ? 16.0 : 0.0
+        return CGFloat(result)
+    }
+    
+    static var interStackViewTrailingPadding:CGFloat {
+        let hSizeClass = Layout.currentHSizeClass
+        let cols = numberOfColumn(hSizeClass)
+        
+        let result = cols <= 1 ? 16.0 : 0.0
+        return CGFloat(result)
+    }
+    
+//    static let cellTopPadding:CGFloat = interCellSpacingForCollectionView
+//    static let cellBottomPadding:CGFloat = interCellSpacingForCollectionView
+//    static let cellLeftPadding:CGFloat = interCellSpacingForCollectionView
+//    static let cellRightPadding:CGFloat = interCellSpacingForCollectionView
     
     static func numberOfColumn(_ sizeClass:UIUserInterfaceSizeClass) -> Int {
         switch sizeClass {
-        case .compact:
-            return 1
-        case .regular:
-            return 3
-        default:
-            return 1
+            case .compact: return 1
+            case .regular: return 3
+            case .unspecified: return 1
         }
     }
     
@@ -86,7 +113,7 @@ struct Layout {
         switch sizeClass {
             case .compact: return 0.0
             case .regular: return 10.0
-            default: return 0.0
+            case .unspecified: return 0.0
         }
     }
     
@@ -117,14 +144,10 @@ struct Layout {
     
     static func minimumLineSpacingForSection(_ sectionType:SectionType) -> CGFloat {
         switch sectionType {
-        case .feature:
-            return 0.0
-        case .channel:
-            return 0.0
-        case .newsfeed:
-            return Layout.interCellSpacingForCollectionView
-        case .unknown:
-            return 0.0
+        case .feature: return 0.0
+        case .channel: return 0.0
+        case .newsfeed: return Layout.interCellSpacingForCollectionView
+        case .unknown: return 0.0
         }
     }
     
@@ -173,10 +196,10 @@ struct Layout {
     }
     
     static func insetForSectionType(_ sectionType:SectionType) -> UIEdgeInsets {
-        let leftPadding:CGFloat = Layout.cellLeftPadding
-        let rightPadding:CGFloat = Layout.cellRightPadding
-        let topPadding:CGFloat = Layout.cellTopPadding
-        let bottomPadding:CGFloat = Layout.cellBottomPadding
+        let leftPadding:CGFloat = Layout.interCellSpacingForCollectionView
+        let rightPadding:CGFloat = Layout.interCellSpacingForCollectionView
+        let topPadding:CGFloat = Layout.interCellSpacingForCollectionView
+        let bottomPadding:CGFloat = Layout.interCellSpacingForCollectionView
         
         switch sectionType {
         case .feature:

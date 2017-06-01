@@ -15,6 +15,12 @@ class HBDropProductCell: UICollectionViewCell {
     @IBOutlet weak var imageView:FLAnimatedImageView!
     @IBOutlet weak var titleLabel:UILabel!
     
+    @IBOutlet weak var stackViewTopPaddingConstraint:NSLayoutConstraint!
+    @IBOutlet weak var stackViewBottomPaddingConstraint:NSLayoutConstraint!
+    @IBOutlet weak var stackViewLeadingPaddingConstraint:NSLayoutConstraint!
+    @IBOutlet weak var stackViewTrailingPaddingConstraint:NSLayoutConstraint!
+    
+    
     @IBOutlet weak var titleLeadingPaddingConstraint:NSLayoutConstraint!
     @IBOutlet weak var titleTrailingPaddingConstraint:NSLayoutConstraint!
     
@@ -32,6 +38,8 @@ class HBDropProductCell: UICollectionViewCell {
             self.displayImage(url: url, targetAnimatedImageView: self.imageView, activityView: nil, enablePlaceHolderImage: true)
         }
         
+        //must call this to redraw the cell (e.g. handle the changing in size)
+        self.setNeedsDisplay()
     }
     
     override func draw(_ rect: CGRect) {
@@ -43,8 +51,6 @@ class HBDropProductCell: UICollectionViewCell {
         let topPadding = Layout.cellTitleTopPadding(currentHSizeClass)
         let bottomPadding = Layout.cellTitleBottomPadding(currentHSizeClass)
     
-        //self.titleLabel?.inset = inset
-        
         self.titleLeadingPaddingConstraint?.constant = leftPadding
         self.titleTrailingPaddingConstraint?.constant = rightPadding
         
