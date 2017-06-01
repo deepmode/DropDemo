@@ -49,7 +49,7 @@ class ViewController: ButtonBarPagerTabStripViewController {
         let child_1 = PageAViewController(itemInfo: "Upcoming")
         let child_2 = PageBViewController(itemInfo: "Latest")
         let child_3 = MultiCollectionVC(itemInfo:"MultiCollection")
-        let child_4 = DropListViewController(itemInfo:"Drop")
+        let child_4 = DropListViewController(itemInfo:"Drop", requestLink:"https://hypebeast.com/?limit=20")
         
 //        let child_4 = MultiCollectionVC(nibName: "MultiCollectionVC", bundle: nil)
 //        let child_5 = PageBViewController(nibName: "PageBViewController", bundle: nil) //ChildExampleViewController(itemInfo: "YOU")

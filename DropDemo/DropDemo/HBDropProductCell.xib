@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12120" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -150,11 +150,21 @@
                             <constraint firstItem="WXy-dj-L4o" firstAttribute="width" secondItem="jyy-Lg-Vau" secondAttribute="width" id="rEN-xh-Dhj"/>
                         </constraints>
                     </stackView>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Wdb-sS-X4F" userLabel="line separator">
+                        <rect key="frame" x="0.0" y="330.5" width="357" height="0.5"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="0.5" id="a1E-ej-vfP"/>
+                        </constraints>
+                    </view>
                 </subviews>
             </view>
             <constraints>
+                <constraint firstAttribute="trailing" secondItem="Wdb-sS-X4F" secondAttribute="trailing" id="NhJ-fL-f8j"/>
                 <constraint firstItem="jyy-Lg-Vau" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="SBm-cv-0X6"/>
+                <constraint firstItem="Wdb-sS-X4F" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="jUT-pl-gvf"/>
                 <constraint firstAttribute="bottom" secondItem="jyy-Lg-Vau" secondAttribute="bottom" id="pH6-Fa-fwc"/>
+                <constraint firstAttribute="bottom" secondItem="Wdb-sS-X4F" secondAttribute="bottom" id="sKa-dZ-d4H"/>
                 <constraint firstAttribute="trailing" secondItem="jyy-Lg-Vau" secondAttribute="trailing" id="swP-Q4-8iM"/>
                 <constraint firstItem="jyy-Lg-Vau" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="wck-ei-3hn"/>
             </constraints>

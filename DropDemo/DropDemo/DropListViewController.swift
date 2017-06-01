@@ -60,7 +60,9 @@ class DropListViewController: UIViewController {
         return loadingFooterView
     }() */
     
-    fileprivate var requestLink:String {
+    fileprivate var requestLink:String = ""
+    
+    fileprivate var randomRequestLink:String {
         let links = ["https://hypebeast.com/?limit=30","https://hypebeast.com/hk/?limit=30","https://hypebeast.com/jp/?limit=30"]
         let index = Int(arc4random() % UInt32(links.count))
         let returnLink = links[index]
@@ -71,8 +73,9 @@ class DropListViewController: UIViewController {
     //-----
     var itemInfo:IndicatorInfo
     
-    init(itemInfo: IndicatorInfo) {
+    init(itemInfo: IndicatorInfo, requestLink:String) {
         self.itemInfo = itemInfo
+        self.requestLink = requestLink
         super.init(nibName: "DropListViewController", bundle: nil)
         print("--> \(NSStringFromClass(self.classForCoder)).\(#function)")
     }
@@ -158,7 +161,7 @@ class DropListViewController: UIViewController {
         // Fetch more objects from a web service, for example...
         
         //self.dataFetcherManager.getNextFeed()
-        self.dataFetcherManager.getDropFeedFromLink(self.requestLink)
+        self.dataFetcherManager.getDropFeedFromLink(self.randomRequestLink)
         
         self.refreshControl.endRefreshing()
     }
@@ -362,7 +365,16 @@ extension DropListViewController: UICollectionViewDataSource {
                 let d = self.dataFetcherManager.dataSrc[indexPath.row]
                 switch d {
                 case .PostDrop(let dropItem):
+                    
+                    //setup cell
                     cell.setupCell(post: dropItem)
+                    
+                    //update background color
+                    if Layout.numberOfColumn(self.traitCollection.horizontalSizeClass) <= 1 {
+                        cell.backgroundColor = UIColor.white
+                    } else {
+                        cell.backgroundColor = UIColor.groupTableViewBackground
+                    }
                 }
             }
             
