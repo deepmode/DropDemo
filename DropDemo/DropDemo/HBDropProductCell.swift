@@ -14,6 +14,7 @@ class HBDropProductCell: UICollectionViewCell {
     
     @IBOutlet weak var imageView:FLAnimatedImageView!
     @IBOutlet weak var titleLabel:UILabel!
+    @IBOutlet weak var dateLabel:UILabel!
     
     @IBOutlet weak var stackViewTopPaddingConstraint:NSLayoutConstraint!
     @IBOutlet weak var stackViewBottomPaddingConstraint:NSLayoutConstraint!
@@ -38,6 +39,7 @@ class HBDropProductCell: UICollectionViewCell {
         
         self.titleLabel?.text = post.title
         self.titleLabel?.font = Layout.dropTitleFont
+        self.dateLabel?.text = "Release Date: \(post.date.dateString)"
         
         let link = post.thumbnail[ImageSizeType.small] ?? ""
         if let url = URL(string: link) {
