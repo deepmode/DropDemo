@@ -416,6 +416,7 @@ class HBDataFetcherManager {
         
         var brands = [HBBrand]()
         for eachBrand in brandArray {
+
             if let name = eachBrand["name"].string {
                 brands.append(HBBrand(name: name, href: eachBrand["href"].stringValue))
             }
@@ -426,8 +427,7 @@ class HBDataFetcherManager {
         let dropPriceCurrency = dropJson["drop_price"]["currency"].stringValue
         let price = HBPrice(isEnable: dropPriceEnable, price: dropPricePrice, currency: dropPriceCurrency)
         
-        
-        let releaseDate = Date().description //dropJson["release_date"]["date"].stringValue
+        let releaseDate = dropJson["date"].stringValue //dropJson["release_date"]["date"].stringValue //Date().description
         let releaseCountry = dropJson["release_date"]["country"].stringValue
         let release = HBReleaseDate(dateString: releaseDate, country: releaseCountry)
         

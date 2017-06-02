@@ -43,8 +43,10 @@ struct HBBrand {
 }
 
 struct HBReleaseDate {
+    
     var dateString:String {
         didSet {
+            //self.date = Date(fromString: dateString, format: .iso8601)
             //convert the dateString to Date
         }
     }
@@ -52,9 +54,17 @@ struct HBReleaseDate {
     
     //computed property
     var date:Date? {
-        get {
-            return nil
+        let date: Date = Date(fromString: dateString, format: .iso8601)
+        return date
+    }
+    
+    var displayDate:String {
+        if let _ = date {
+            return getDateString(date!)
         }
+        return ""
+        
+        //return timeAgoSinceDate(date, numericDates: false)
     }
 }
 

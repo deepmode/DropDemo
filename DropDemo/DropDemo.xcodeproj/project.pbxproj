@@ -43,6 +43,8 @@
 		6B5507701EDC204500672ABE /* HBDropProductCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6B55076E1EDC204500672ABE /* HBDropProductCell.xib */; };
 		6B6488911EDCFBA800EBBF70 /* UICollectionViewCell+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B6488901EDCFBA800EBBF70 /* UICollectionViewCell+Extension.swift */; };
 		6B7004551EE13C26007C7371 /* Roboto-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6B7004541EE13C26007C7371 /* Roboto-Medium.ttf */; };
+		6B7004571EE14F7F007C7371 /* AF+Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B7004561EE14F7F007C7371 /* AF+Date+Extension.swift */; };
+		6B7004591EE15586007C7371 /* timeago.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B7004581EE15586007C7371 /* timeago.swift */; };
 		6B7DD1F71ED9CB5C00711DC2 /* ListViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6B7DD1F61ED9CB5C00711DC2 /* ListViewController.storyboard */; };
 		6BD452141ED5784900229AC5 /* HBDropItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BD452131ED5784900229AC5 /* HBDropItem.swift */; };
 		6BD452161ED5811E00229AC5 /* HBDataFetcherManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BD452151ED5811E00229AC5 /* HBDataFetcherManager.swift */; };
@@ -110,6 +112,8 @@
 		6B55076E1EDC204500672ABE /* HBDropProductCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HBDropProductCell.xib; sourceTree = "<group>"; };
 		6B6488901EDCFBA800EBBF70 /* UICollectionViewCell+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UICollectionViewCell+Extension.swift"; sourceTree = "<group>"; };
 		6B7004541EE13C26007C7371 /* Roboto-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Medium.ttf"; sourceTree = "<group>"; };
+		6B7004561EE14F7F007C7371 /* AF+Date+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AF+Date+Extension.swift"; sourceTree = "<group>"; };
+		6B7004581EE15586007C7371 /* timeago.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = timeago.swift; sourceTree = "<group>"; };
 		6B7DD1F61ED9CB5C00711DC2 /* ListViewController.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = ListViewController.storyboard; sourceTree = "<group>"; };
 		6BD452131ED5784900229AC5 /* HBDropItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HBDropItem.swift; sourceTree = "<group>"; };
 		6BD452151ED5811E00229AC5 /* HBDataFetcherManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HBDataFetcherManager.swift; sourceTree = "<group>"; };
@@ -240,10 +244,11 @@
 		6B284E171EDD3613005FFC61 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				6B7004581EE15586007C7371 /* timeago.swift */,
+				6B7004561EE14F7F007C7371 /* AF+Date+Extension.swift */,
 				6B48EAF91EDE79BB00D7A66A /* String+Extension.swift */,
 				6B6488901EDCFBA800EBBF70 /* UICollectionViewCell+Extension.swift */,
 				6B5507671EDBC79300672ABE /* UIView+Extension.swift */,
-				6B284E181EDD3642005FFC61 /* Layout.swift */,
 				6B48EAF71EDE4AAF00D7A66A /* InsetLabel.swift */,
 			);
 			name = Common;
@@ -272,6 +277,7 @@
 		6BD452171ED5812200229AC5 /* HBDrop */ = {
 			isa = PBXGroup;
 			children = (
+				6B284E181EDD3642005FFC61 /* Layout.swift */,
 				6BD452181ED58F3C00229AC5 /* testdata.json */,
 				6BD452131ED5784900229AC5 /* HBDropItem.swift */,
 				6BD452151ED5811E00229AC5 /* HBDataFetcherManager.swift */,
@@ -497,7 +503,9 @@
 				6B6488911EDCFBA800EBBF70 /* UICollectionViewCell+Extension.swift in Sources */,
 				6B0119451ED2DD8100D26D90 /* AppDelegate.swift in Sources */,
 				6B5507681EDBC79300672ABE /* UIView+Extension.swift in Sources */,
+				6B7004591EE15586007C7371 /* timeago.swift in Sources */,
 				6B5507641EDBC56300672ABE /* FooterLoadingView.swift in Sources */,
+				6B7004571EE14F7F007C7371 /* AF+Date+Extension.swift in Sources */,
 				6B1D7FAD1ED321F60030935A /* MultiCollectionVC.swift in Sources */,
 				6B01197B1ED2EAE100D26D90 /* PageBViewController.swift in Sources */,
 				6BD452141ED5784900229AC5 /* HBDropItem.swift in Sources */,

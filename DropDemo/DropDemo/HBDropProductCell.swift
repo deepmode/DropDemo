@@ -39,7 +39,7 @@ class HBDropProductCell: UICollectionViewCell {
         
         self.titleLabel?.text = post.title
         self.titleLabel?.font = Layout.dropTitleFont
-        self.dateLabel?.text = "Release Date: \(post.date.dateString)"
+        self.dateLabel?.text =  "Release Date: \(post.date.displayDate)" //"Release Date: \(post.date.date)"
         
         let link = post.thumbnail[ImageSizeType.small] ?? ""
         if let url = URL(string: link) {
