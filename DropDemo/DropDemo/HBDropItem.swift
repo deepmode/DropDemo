@@ -46,10 +46,8 @@ struct HBReleaseDate {
     
     var dateString:String {
         didSet {
-            
             //convert the dateString to Date
             //self.date = Date(fromString: dateString, format: .iso8601)
-            
         }
     }
     
@@ -63,10 +61,9 @@ struct HBReleaseDate {
     var displayDate:String {
         if let _ = date {
             return getDateString(date!)
+            //return timeAgoSinceDate(date, numericDates: false)
         }
         return ""
-        
-        //return timeAgoSinceDate(date, numericDates: false)
     }
 }
 

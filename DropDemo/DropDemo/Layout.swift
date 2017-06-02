@@ -185,11 +185,6 @@ struct Layout {
         return CGFloat(result)
     }
     
-//    static let cellTopPadding:CGFloat = interCellSpacingForCollectionView
-//    static let cellBottomPadding:CGFloat = interCellSpacingForCollectionView
-//    static let cellLeftPadding:CGFloat = interCellSpacingForCollectionView
-//    static let cellRightPadding:CGFloat = interCellSpacingForCollectionView
-    
     static func numberOfColumn(_ sizeClass:UIUserInterfaceSizeClass) -> Int {
 
 //        switch sizeClass {
