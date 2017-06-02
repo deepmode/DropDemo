@@ -44,17 +44,22 @@ class ViewController: ButtonBarPagerTabStripViewController {
         
 //        let sb = UIStoryboard(name: "ListViewController", bundle: nil)
 //        let child_0 = sb.instantiateViewController(withIdentifier: "SBID_ListViewController") as! ListViewController
+        let child_a = DropListViewController(itemInfo:"Upcoming", requestLink:"https://hypebeast.com/?limit=20")
+        let child_b = DropListViewController(itemInfo:"New Releases", requestLink:"https://hypebeast.com/kr/?limit=20")
+        let child_c = DropListViewController(itemInfo:"China", requestLink:"https://hypebeast.cn/?limit=20")
+        let child_d = DropListViewController(itemInfo:"Japan", requestLink:"https://hypebeast.com/jp/?limit=20")
+        let child_e = DropListViewController(itemInfo:"Hong Kong", requestLink:"https://hypebeast.com/hk/?limit=20")
         
         let child_0 = ListViewController(itemInfo: "Listing")
         let child_1 = PageAViewController(itemInfo: "Upcoming")
         let child_2 = PageBViewController(itemInfo: "Latest")
         let child_3 = MultiCollectionVC(itemInfo:"MultiCollection")
-        let child_4 = DropListViewController(itemInfo:"Drop", requestLink:"https://hypebeast.com/?limit=20")
+        
         
 //        let child_4 = MultiCollectionVC(nibName: "MultiCollectionVC", bundle: nil)
 //        let child_5 = PageBViewController(nibName: "PageBViewController", bundle: nil) //ChildExampleViewController(itemInfo: "YOU")
 //        let child_6 = PageBViewController(nibName: "PageBViewController", bundle: nil) //ChildExampleViewController(itemInfo: "YOU")
-        return [child_0, child_1, child_2,child_3, child_4 /*, child_4, child_5, child_6 */]
+        return [child_a, child_b, child_c, child_d, child_e, child_0, child_1, child_2,child_3/*, child_4, child_5, child_6 */]
     }
     
 }

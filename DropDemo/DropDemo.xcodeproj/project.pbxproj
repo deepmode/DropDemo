@@ -42,6 +42,7 @@
 		6B55076F1EDC204500672ABE /* HBDropProductCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B55076D1EDC204500672ABE /* HBDropProductCell.swift */; };
 		6B5507701EDC204500672ABE /* HBDropProductCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6B55076E1EDC204500672ABE /* HBDropProductCell.xib */; };
 		6B6488911EDCFBA800EBBF70 /* UICollectionViewCell+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B6488901EDCFBA800EBBF70 /* UICollectionViewCell+Extension.swift */; };
+		6B7004551EE13C26007C7371 /* Roboto-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6B7004541EE13C26007C7371 /* Roboto-Medium.ttf */; };
 		6B7DD1F71ED9CB5C00711DC2 /* ListViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6B7DD1F61ED9CB5C00711DC2 /* ListViewController.storyboard */; };
 		6BD452141ED5784900229AC5 /* HBDropItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BD452131ED5784900229AC5 /* HBDropItem.swift */; };
 		6BD452161ED5811E00229AC5 /* HBDataFetcherManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BD452151ED5811E00229AC5 /* HBDataFetcherManager.swift */; };
@@ -108,6 +109,7 @@
 		6B55076D1EDC204500672ABE /* HBDropProductCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HBDropProductCell.swift; sourceTree = "<group>"; };
 		6B55076E1EDC204500672ABE /* HBDropProductCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HBDropProductCell.xib; sourceTree = "<group>"; };
 		6B6488901EDCFBA800EBBF70 /* UICollectionViewCell+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UICollectionViewCell+Extension.swift"; sourceTree = "<group>"; };
+		6B7004541EE13C26007C7371 /* Roboto-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Medium.ttf"; sourceTree = "<group>"; };
 		6B7DD1F61ED9CB5C00711DC2 /* ListViewController.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = ListViewController.storyboard; sourceTree = "<group>"; };
 		6BD452131ED5784900229AC5 /* HBDropItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HBDropItem.swift; sourceTree = "<group>"; };
 		6BD452151ED5811E00229AC5 /* HBDataFetcherManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HBDataFetcherManager.swift; sourceTree = "<group>"; };
@@ -183,6 +185,7 @@
 		6B0119431ED2DD8100D26D90 /* DropDemo */ = {
 			isa = PBXGroup;
 			children = (
+				6B7004531EE13C10007C7371 /* font */,
 				6B284E171EDD3613005FFC61 /* Common */,
 				6BD452171ED5812200229AC5 /* HBDrop */,
 				6B1D7F9A1ED321320030935A /* Collection */,
@@ -256,6 +259,14 @@
 				6B5507651EDBC57A00672ABE /* FooterLoadingView.xib */,
 			);
 			name = ListView;
+			sourceTree = "<group>";
+		};
+		6B7004531EE13C10007C7371 /* font */ = {
+			isa = PBXGroup;
+			children = (
+				6B7004541EE13C26007C7371 /* Roboto-Medium.ttf */,
+			);
+			name = font;
 			sourceTree = "<group>";
 		};
 		6BD452171ED5812200229AC5 /* HBDrop */ = {
@@ -385,6 +396,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6B7004551EE13C26007C7371 /* Roboto-Medium.ttf in Resources */,
 				6B01194F1ED2DD8100D26D90 /* LaunchScreen.storyboard in Resources */,
 				6B0119781ED2EACF00D26D90 /* PageAViewController.xib in Resources */,
 				6B4C28261EDC671F00DE6ACB /* FooterLoadingReusableView.xib in Resources */,

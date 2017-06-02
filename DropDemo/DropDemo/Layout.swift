@@ -37,11 +37,73 @@ enum SectionType:Int {
 
 
 
+
 struct Layout {
+    
+    enum DisplayMode {
+        case compact    //for left right cell,
+        case regular    //vertical and multi-line cell
+    }
     
     //static let interCellSpacingForCollectionView:CGFloat = 20.0
     
     struct DropCell {
+        
+
+        static let FontNameRegular:String = {
+            
+            return "Roboto-Medium"
+            
+//            switch HBCommon.SelectAppType {
+//            case .Hypebeast:
+//                return "Roboto-Medium"
+//            case .Hypebae:
+//                return "JosefinSans"
+//            }
+        }()
+        
+        static let FontNameBold:String = {
+            
+            return "Roboto-Medium"
+            
+//            switch HBCommon.SelectAppType {
+//            case .Hypebeast:
+//                return "Roboto-Medium"
+//            case .Hypebae:
+//                return "JosefinSans-SemiBold"
+//            }
+        }()
+        
+        static func newsfeedTitleFontWith(displaySytle:DisplayMode) -> UIFont {
+            
+            var targetFontSize:CGFloat = 18.0
+            
+//            switch HBCommon.SelectAppType {
+//            case .Hypebeast:
+//                targetFontSize = 18.0
+//            case .Hypebae:
+//                targetFontSize = targetFontSize + 2.0
+//                
+//            }
+            
+            
+            //note: Changing the size will also affect the calculation of collection view cell height
+
+            switch Layout.currentHSizeClass {
+                case .compact:
+                    switch displaySytle {
+                        case .compact: break
+                        case .regular: targetFontSize = targetFontSize + 1.0
+                    }
+                    return  UIFont(name: Layout.DropCell.FontNameBold, size: targetFontSize) ?? UIFont.systemFont(ofSize: targetFontSize)
+                case .regular:
+                    return UIFont(name: Layout.DropCell.FontNameBold, size: targetFontSize) ?? UIFont.systemFont(ofSize: targetFontSize)
+                case .unspecified:
+                    return UIFont(name: Layout.DropCell.FontNameBold, size: targetFontSize) ?? UIFont.systemFont(ofSize: targetFontSize)
+            }
+
+            
+        }
         
         static let belowImageSpaceHeight:CGFloat = 8.0
         
@@ -60,7 +122,7 @@ struct Layout {
     }
     
     static var dropTitleFont:UIFont {
-        return UIFont.systemFont(ofSize: 17.0)
+        return Layout.DropCell.newsfeedTitleFontWith(displaySytle: .regular)
     }
     
     static var currentHSizeClass:UIUserInterfaceSizeClass {
@@ -140,6 +202,7 @@ struct Layout {
         let extraColoum = 0
         
         if let applicationWindow = UIApplication.shared.keyWindow {
+            
             let screenWidth = applicationWindow.frame.size.width
             
             if screenWidth <= 320 {
@@ -204,10 +267,10 @@ struct Layout {
     
     static func minimumLineSpacingForSection(_ sectionType:SectionType) -> CGFloat {
         switch sectionType {
-        case .feature: return 0.0
-        case .channel: return 0.0
-        case .newsfeed: return Layout.interCellSpacingForCollectionView
-        case .unknown: return 0.0
+            case .feature: return 0.0
+            case .channel: return 0.0
+            case .newsfeed: return Layout.interCellSpacingForCollectionView
+            case .unknown: return 0.0
         }
     }
     
@@ -234,6 +297,7 @@ struct Layout {
             let cellWidth = (containerWidth - ((cols + 1) * interCellSpacing)) / cols
             
             if cols <= 1 {
+                
                 //height should be calcualted based on the text
                 
                 let availableInnerCellWidth = cellWidth - Layout.interStackViewLeadingPadding - Layout.interStackViewTrailingPadding
@@ -241,18 +305,19 @@ struct Layout {
         
                 
                 let topPadding = Layout.interStackViewTopPadding
-                let imageHeight = availableInnerCellWidth *  1 / Layout.contentImageRatio
+                let imageHeight = ceil(availableInnerCellWidth *  1 / Layout.contentImageRatio)
                 let h1:CGFloat = Layout.DropCell.belowImageSpaceHeight
             
                 let f = font ?? Layout.dropTitleFont
                 let t = text ?? ""
-                let titleHeight = t.heightWithConstrainedWidth(availableInnerTitleWidth, font: f)
+                let titleHeight = ceil(t.heightWithConstrainedWidth(availableInnerTitleWidth, font: f))
                 let h2:CGFloat = Layout.DropCell.belowTitleSpaceHeight
                 let toolViewHeight:CGFloat = Layout.DropCell.toolViewHeight
                 let h3:CGFloat = Layout.DropCell.belowToolViewSpaceHeight
                 let bottomPadding = Layout.interStackViewBottomPadding
+                let bufferAdjustment:CGFloat = 0.0
                 
-                let cellHeight = topPadding + imageHeight + h1 + titleHeight + h2 + toolViewHeight + h3 + bottomPadding
+                let cellHeight = topPadding + imageHeight + h1 + titleHeight + h2 + toolViewHeight + h3 + bottomPadding + bufferAdjustment
                 
                 return CGSize(width: cellWidth, height: cellHeight)
             } else {
