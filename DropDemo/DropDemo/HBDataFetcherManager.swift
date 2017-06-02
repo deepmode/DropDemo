@@ -349,11 +349,13 @@ class HBDataFetcherManager {
                         let jsonObj = JSON(jsonData)
                         
                         //trigger a network loading of resources
-                        let _ = try? Data(contentsOf: URL(string: "https://lorempixel.com/1000/1000/sports/")!)
+                        //let _ = try? Data(contentsOf: URL(string: "https://lorempixel.com/1000/1000/sports/")!)
                         
-                        //                        do {
-                        //                            let _ = try Data(contentsOf: URL(string: "https://lorempixel.com/500/500/sports/")!)
-                        //                        } catch { }
+                        /*
+                        do {
+                            let _ = try Data(contentsOf: URL(string: "https://lorempixel.com/500/500/sports/")!)
+                        } catch { }
+                        */
                         
                         var dropItems:[HBDropItem] = []
                         let nextPageHref = jsonObj["drops"]["_links"]["next"]["href"].string
