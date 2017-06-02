@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12120" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -28,7 +28,7 @@
                                     <constraint firstAttribute="width" secondItem="WXy-dj-L4o" secondAttribute="height" multiplier="3:2" priority="950" id="4zZ-jp-5cy"/>
                                 </constraints>
                             </imageView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YMD-m2-DaK">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YMD-m2-DaK" userLabel="View Dummy">
                                 <rect key="frame" x="0.0" y="238" width="357" height="8"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
@@ -138,7 +138,7 @@
                                     <constraint firstItem="93k-o2-2W6" firstAttribute="centerY" secondItem="00J-NU-IiA" secondAttribute="centerY" id="xUV-md-5Ll"/>
                                 </constraints>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Q3D-i6-wyO" userLabel="View Dummy">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Q3D-i6-wyO" userLabel="Bottom Space view">
                                 <rect key="frame" x="0.0" y="323" width="357" height="8"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
@@ -170,6 +170,8 @@
             </constraints>
             <size key="customSize" width="357" height="331"/>
             <connections>
+                <outlet property="belowImageSpaceHeightConstraint" destination="cIh-un-rin" id="gJu-mr-juw"/>
+                <outlet property="belowToolViewSpaceHeightConstraint" destination="G6s-Ce-M3P" id="tqF-tj-Rrq"/>
                 <outlet property="imageView" destination="WXy-dj-L4o" id="ViF-fq-uSt"/>
                 <outlet property="stackViewBottomPaddingConstraint" destination="pH6-Fa-fwc" id="kvJ-tD-MFT"/>
                 <outlet property="stackViewLeadingPaddingConstraint" destination="SBm-cv-0X6" id="GNb-rj-FwU"/>
@@ -178,6 +180,7 @@
                 <outlet property="titleLabel" destination="L9D-Mf-Bwd" id="eBv-1U-LJh"/>
                 <outlet property="titleLeadingPaddingConstraint" destination="g5B-QG-IJi" id="9Pa-hk-wS0"/>
                 <outlet property="titleTrailingPaddingConstraint" destination="sFY-QS-ou9" id="9Mb-3V-BSs"/>
+                <outlet property="toolViewHeightConstraint" destination="miW-8R-AIk" id="Hup-9Y-Dlv"/>
                 <outlet property="toolViewLeadingPaddingConstraint" destination="n6T-xq-L7c" id="nGZ-B6-tPP"/>
                 <outlet property="toolViewTrailingPaddingConstraint" destination="wLE-KD-1uP" id="QuN-gP-8sy"/>
             </connections>

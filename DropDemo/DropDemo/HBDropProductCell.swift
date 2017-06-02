@@ -23,9 +23,14 @@ class HBDropProductCell: UICollectionViewCell {
     
     @IBOutlet weak var titleLeadingPaddingConstraint:NSLayoutConstraint!
     @IBOutlet weak var titleTrailingPaddingConstraint:NSLayoutConstraint!
-    
+
     @IBOutlet weak var toolViewLeadingPaddingConstraint:NSLayoutConstraint!
     @IBOutlet weak var toolViewTrailingPaddingConstraint:NSLayoutConstraint!
+    
+    
+    @IBOutlet weak var  belowImageSpaceHeightConstraint:NSLayoutConstraint!
+    @IBOutlet weak var  toolViewHeightConstraint:NSLayoutConstraint!
+    @IBOutlet weak var  belowToolViewSpaceHeightConstraint:NSLayoutConstraint!
     
     
     
@@ -56,8 +61,6 @@ class HBDropProductCell: UICollectionViewCell {
         //For inner cell content (e.g. title, tool view etc)
         let leftPadding = Layout.cellTitleLeadingPadding
         let rightPadding = Layout.cellTitleTrailingPadding
-        let topPadding = Layout.cellTitleTopPadding
-        let bottomPadding = Layout.cellTitleBottomPadding
     
         self.titleLeadingPaddingConstraint?.constant = leftPadding
         self.titleTrailingPaddingConstraint?.constant = rightPadding
@@ -66,6 +69,11 @@ class HBDropProductCell: UICollectionViewCell {
         self.toolViewTrailingPaddingConstraint?.constant = rightPadding
         
         
+        //For single column case - dynamic calculate the cell height
+        self.belowImageSpaceHeightConstraint?.constant = Layout.DropCell.belowImageSpaceHeight
+        self.toolViewHeightConstraint?.constant = Layout.DropCell.toolViewHeight
+        //this number var depend on single or multi columns
+        self.belowToolViewSpaceHeightConstraint?.constant = Layout.DropCell.belowToolViewSpaceHeight
         
     }
     
