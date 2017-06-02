@@ -46,13 +46,15 @@ struct HBReleaseDate {
     
     var dateString:String {
         didSet {
-            //self.date = Date(fromString: dateString, format: .iso8601)
+            
             //convert the dateString to Date
+            //self.date = Date(fromString: dateString, format: .iso8601)
+            
         }
     }
+    
     var country:String
     
-    //computed property
     var date:Date? {
         let date: Date = Date(fromString: dateString, format: .iso8601)
         return date
