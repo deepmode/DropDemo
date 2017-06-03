@@ -296,8 +296,19 @@ extension DropListViewController: UICollectionViewDelegate {
             
             //let vc = DropDetailViewController(nibName: "DropDetailViewController", bundle: nil)
             let sb = UIStoryboard.init(name: "Drop", bundle: nil)
-            let vc = sb.instantiateViewController(withIdentifier: "SBID_DropDetail")
-            self.parent?.navigationController?.pushViewController(vc, animated: true)
+            if let vc = sb.instantiateViewController(withIdentifier: "SBID_DropDetail") as? DropDetailViewController {
+                
+                if indexPath.row < self.dataFetcherManager.dataSrc.count {
+                    let a  = self.dataFetcherManager.dataSrc[indexPath.row]
+                    switch a {
+                    case .PostDrop(let item):
+                        vc.item = item
+                        self.parent?.navigationController?.pushViewController(vc, animated: true)
+                    }
+                }
+            }
+            
+            
 
             break
         case .unknown:

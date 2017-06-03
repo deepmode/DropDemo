@@ -49,6 +49,9 @@ struct Layout {
     
     struct DropCell {
         
+        static var numberOfLinesForNewsfeedTitle:Int {
+            return Layout.numberOfColumn(.regular) <= 1 ? 0 : 3
+        }
 
         static let FontNameRegular:String = {
             
@@ -187,6 +190,7 @@ struct Layout {
     
     static func numberOfColumn(_ sizeClass:UIUserInterfaceSizeClass) -> Int {
 
+        //sizeClass no longer in user to determine the number of columns
 //        switch sizeClass {
 //            case .compact: return 1
 //            case .regular: return 3

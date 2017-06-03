@@ -52,6 +52,9 @@ class HBDropProductCell: UICollectionViewCell {
     
     override func draw(_ rect: CGRect) {
         super.draw(rect)
+        
+        //support multiplie line if it is in single column mode (TODO - define a constant for this
+        self.titleLabel?.numberOfLines = Layout.DropCell.numberOfLinesForNewsfeedTitle
 
         //For StackView
         self.stackViewTopPaddingConstraint.constant = Layout.interStackViewTopPadding
