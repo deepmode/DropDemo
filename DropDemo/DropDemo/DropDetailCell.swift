@@ -38,7 +38,6 @@ class DropDetailCell: UITableViewCell {
     func setup(item:HBDropItem) {
         
         self.selectionStyle = .none
-        
         self.titleLabel?.font = Layout.dropTitleFont
         self.titleLabel?.text = item.title
         

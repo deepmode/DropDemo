@@ -8,6 +8,11 @@
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <array key="Roboto-Medium.ttf">
+            <string>Roboto-Medium</string>
+        </array>
+    </customFonts>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -57,7 +62,7 @@
                                             </view>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pharrell Williams x addidas Originals Hu Tennis" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Y33-k0-hgj">
                                                 <rect key="frame" x="0.0" y="8" width="392" height="64"/>
-                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                                <fontDescription key="fontDescription" name="Roboto-Medium" family="Roboto" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
@@ -110,13 +115,13 @@
                                                 </constraints>
                                             </view>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Release date" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Uon-Jq-XwD">
-                                                <rect key="frame" x="0.0" y="8" width="408" height="13.5"/>
+                                                <rect key="frame" x="0.0" y="8" width="408" height="16.5"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                                 <color key="textColor" red="0.33333333333333331" green="0.33333333333333331" blue="0.33333333333333331" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="May 6, 2017 (US)" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="H2e-Oi-Y9I">
-                                                <rect key="frame" x="0.0" y="21.5" width="408" height="20"/>
+                                                <rect key="frame" x="0.0" y="24.5" width="408" height="17"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -312,7 +317,7 @@
                                         <subviews>
                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GLi-vk-2wU">
                                                 <rect key="frame" x="0.0" y="0.0" width="392" height="219"/>
-                                                <mutableString key="text">The interest or the promise of prefab is nothing new, but it's been reignited, and gasoline continues to be poured on the fire, says Joseph Tanney of Resolution: 4 Architecture, a New York-based firm that has been developing modular housing systems since 2002. And because more architects are participating in this base, the level of design is increasing across the board. \n\nFirms such as Snøhetta -- known for their work on the Norwegian National Opera &amp; Ballet and Bibliotheca Alexandrina -- are embracing the possibilities of this once-maligned form. We wanted to make quality architecture available to more people, says Snøhetta's Anne Cecilie Haug. If that all sounds a little expensive, major retailers are also getting into prefab -- including minimalist high street brand Muji -- who developed the Mujihut, coming soon in Japan.</mutableString>
+                                                <string key="text">The interest or the promise of prefab is nothing new, but it's been reignited, and gasoline continues to be poured on the fire, says Joseph Tanney of Resolution: 4 Architecture, a New York-based firm that has been developing modular housing systems since 2002. And because more architects are participating in this base, the level of design is increasing across the board. \n\nFirms such as Snøhetta -- known for their work on the Norwegian National Opera &amp; Ballet and Bibliotheca Alexandrina -- are embracing the possibilities of this once-maligned form. We wanted to make quality architecture available to more people, says Snøhetta's Anne Cecilie Haug. If that all sounds a little expensive, major retailers are also getting into prefab -- including minimalist high street brand Muji -- who developed the Mujihut, coming soon in Japan.</string>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                             </textView>
