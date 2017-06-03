@@ -31,11 +31,27 @@ class ViewController: ButtonBarPagerTabStripViewController {
         
         
         changeCurrentIndexProgressive = { [weak self] (oldCell: ButtonBarViewCell?, newCell: ButtonBarViewCell?, progressPercentage: CGFloat, changeCurrentIndex: Bool, animated: Bool) -> Void in
-            guard changeCurrentIndex == true else { return }
+            
+            if changeCurrentIndex == true && newCell != nil {
+                print("changeCurrentIndex: \(changeCurrentIndex) \t o: \(String(describing: oldCell?.label?.text!)) \t  n: \(String(describing: newCell?.label?.text!))" )
+                print("last currentIndex: \(self?.currentIndex ?? -1)")
+            }
+            
+            guard changeCurrentIndex == true else {
+                return
+            }
+            
             oldCell?.label.textColor = UIColor.lightGray
             newCell?.label.textColor = self?.themeColor
         }
+        
+        
+        changeCurrentIndex = { [weak self] (_ oldCell: ButtonBarViewCell?, _ newCell: ButtonBarViewCell?, _ animated: Bool) -> Void in
+            //note: this one not execute, check the documentation
+        }
+        
         super.viewDidLoad()
+        self.moveToViewController(at: 2, animated: true)
     }
     
     // MARK: - PagerTabStripDataSource
@@ -61,6 +77,5 @@ class ViewController: ButtonBarPagerTabStripViewController {
 //        let child_6 = PageBViewController(nibName: "PageBViewController", bundle: nil) //ChildExampleViewController(itemInfo: "YOU")
         return [child_a, child_b, child_c, child_d, child_e, child_0, child_1, child_2,child_3/*, child_4, child_5, child_6 */]
     }
-    
 }
 

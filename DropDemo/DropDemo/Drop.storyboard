@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="CWh-k8-cr5">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Drop Detail View Controller-->
+        <scene sceneID="Xek-Wc-C6D">
+            <objects>
+                <viewController storyboardIdentifier="SBID_DropDetail" id="CWh-k8-cr5" customClass="DropDetailViewController" customModule="DropDemo" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="mSn-SG-9YM"/>
+                        <viewControllerLayoutGuide type="bottom" id="8s5-pE-sHl"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Qj9-Sa-kRW">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="526" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="gLq-EL-UVy">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="gLq-EL-UVy" secondAttribute="bottom" id="5GR-bc-bRx"/>
+                            <constraint firstItem="gLq-EL-UVy" firstAttribute="leading" secondItem="Qj9-Sa-kRW" secondAttribute="leading" id="CXf-dL-Znz"/>
+                            <constraint firstItem="gLq-EL-UVy" firstAttribute="top" secondItem="Qj9-Sa-kRW" secondAttribute="top" id="Uhv-U0-0jy"/>
+                            <constraint firstAttribute="trailing" secondItem="gLq-EL-UVy" secondAttribute="trailing" id="Yc4-jP-QRI"/>
+                        </constraints>
+                    </view>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
+                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="tableView" destination="gLq-EL-UVy" id="XTp-6M-jdm"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="wlF-of-QZx" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="52" y="149.77511244377811"/>
+        </scene>
+    </scenes>
+</document>

@@ -4,7 +4,6 @@
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -12,7 +11,6 @@
         <!--View Controller-->
         <scene sceneID="Rgo-sE-O5k">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="ziN-Pq-bxU" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController id="LqP-fP-GQG" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="ckd-GB-a5J"/>
@@ -39,6 +37,7 @@
                     <extendedEdge key="edgesForExtendedLayout"/>
                     <navigationItem key="navigationItem" id="pli-0B-5Mz"/>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ziN-Pq-bxU" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="4984.8000000000002" y="54.422788605697157"/>
         </scene>
@@ -46,6 +45,10 @@
         <scene sceneID="Z5e-1w-KlA">
             <objects>
                 <viewController id="S1d-bX-K01" customClass="ViewController" customModule="DropDemo" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="bgb-9L-J5f"/>
+                        <viewControllerLayoutGuide type="bottom" id="H3U-wI-fjq"/>
+                    </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="mcg-tY-eHS">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="554"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -62,6 +65,7 @@
                 <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="M33-BQ-1Mq" sceneMemberID="viewController">
                     <toolbarItems/>
                     <tabBar key="tabBar" contentMode="scaleToFill" translucent="NO" id="kIq-0X-OpW">
+                        <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </tabBar>

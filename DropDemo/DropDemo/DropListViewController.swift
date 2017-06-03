@@ -283,7 +283,28 @@ extension DropListViewController: UICollectionViewDelegateFlowLayout {
 
 // MARK: - UICollectionViewDelegate
 extension DropListViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        print("--> \(NSStringFromClass(self.classForCoder)).\(#function)")
+        
+        let sectionType = SectionType.getSectionTypeWithRawValue(indexPath.section)
+        switch sectionType {
+        case .feature:
+            return
+        case .channel:
+            return
+        case .newsfeed:
+            
+            //let vc = DropDetailViewController(nibName: "DropDetailViewController", bundle: nil)
+            let sb = UIStoryboard.init(name: "Drop", bundle: nil)
+            let vc = sb.instantiateViewController(withIdentifier: "SBID_DropDetail")
+            self.parent?.navigationController?.pushViewController(vc, animated: true)
 
+            break
+        case .unknown:
+            return
+        }
+        
+    }
 }
 
 // MARK: - UICollectionViewDataSource
