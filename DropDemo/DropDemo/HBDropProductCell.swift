@@ -33,7 +33,14 @@ class HBDropProductCell: UICollectionViewCell {
     @IBOutlet weak var  toolViewHeightConstraint:NSLayoutConstraint!
     @IBOutlet weak var  belowToolViewSpaceHeightConstraint:NSLayoutConstraint!
     
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        // Initialization code
+    }
     
+    deinit {
+        print("--> \(NSStringFromClass(self.classForCoder)).\(#function)")
+    }
     
     func setupCell(post:HBDropItem) {
         
@@ -80,15 +87,6 @@ class HBDropProductCell: UICollectionViewCell {
         //this number var depend on single or multi columns
         self.belowToolViewSpaceHeightConstraint?.constant = Layout.DropCell.belowToolViewSpaceHeight
         
-    }
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
-    }
-    
-    deinit {
-        print("--> \(NSStringFromClass(self.classForCoder)).\(#function)")
     }
 
 }

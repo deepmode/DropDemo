@@ -47,6 +47,10 @@ struct Layout {
     
     //static let interCellSpacingForCollectionView:CGFloat = 20.0
     
+    static var dropTitleFont:UIFont {
+        return Layout.DropCell.newsfeedTitleFontWith(displaySytle: .regular)
+    }
+    
     struct DropCell {
         
         static var numberOfLinesForNewsfeedTitle:Int {
@@ -124,8 +128,32 @@ struct Layout {
         }
     }
     
-    static var dropTitleFont:UIFont {
-        return Layout.DropCell.newsfeedTitleFontWith(displaySytle: .regular)
+    
+    struct DropDetailCell {
+        
+        static func viewLeadingPadding(containerWidth:CGFloat) -> CGFloat {
+            switch Layout.currentHSizeClass {
+            case .compact: return 0.0
+            case .regular: return containerWidth * 0.2 / 2
+            case .unspecified: return 0.0
+            }
+        }
+        
+        static func viewTrailingPadding(containerWidth:CGFloat) -> CGFloat {
+            switch Layout.currentHSizeClass {
+            case .compact: return 0.0
+            case .regular: return containerWidth * 0.2 / 2
+            case .unspecified: return 0.0
+            }
+        }
+    }
+    
+
+    static var currentScreenSize:CGSize? {
+        if let applicationWindow = UIApplication.shared.keyWindow {
+            return applicationWindow.frame.size
+        }
+        return nil
     }
     
     static var currentHSizeClass:UIUserInterfaceSizeClass {

@@ -42,7 +42,7 @@ class DropDetailViewController: UIViewController {
         
         //add the footer view to cover the line separator at the end of the table view
         let footerView = UIView()
-        footerView.frame = CGRect(x: 0, y: 0, width: self.view.bounds.width, height: 20.0)
+        footerView.frame = CGRect(x: 0, y: 0, width: self.tableView.bounds.width, height: 20.0)
         footerView.backgroundColor = UIColor.white
         self.tableView?.tableFooterView = footerView
     }
@@ -69,10 +69,14 @@ class DropDetailViewController: UIViewController {
 extension DropDetailViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         
-        let imageHeight = ceil((self.view.bounds.width - 8 - 8) * 2 / 3) + 8 + 8
+        //adjust the padding based on H compact or regular screen size (e.g. for iphone & ipad)
+        let adaptLeading = Layout.DropDetailCell.viewLeadingPadding(containerWidth: self.view.bounds.width)
+        let adaptTrailing = Layout.DropDetailCell.viewTrailingPadding(containerWidth: self.view.bounds.width)
+        
+        let imageHeight = ceil((tableView.bounds.width - adaptLeading - adaptTrailing - 8 - 8) * 2 / 3) + 8 + 8
         let spaceBelowImage:CGFloat = 8.0
         
-        let availableWidth = self.view.bounds.width - 16.0 - 16.0
+        let availableWidth = tableView.bounds.width - adaptLeading - adaptTrailing - 16.0 - 16.0
     
         let titleText = self.item?.title ?? "" //"Pharrell Williams x addidas Originals Hu Tennis"
         
@@ -85,7 +89,7 @@ extension DropDetailViewController: UITableViewDelegate {
         let lineSpaceBelowDescription:CGFloat = 0.5
         let whereToBuyHeight:CGFloat = 47.0
         let inTheNewsHeight:CGFloat = 47.0
-        let buffer:CGFloat = 60.0
+        let buffer:CGFloat = 0.0
         
         let finalHeight = imageHeight + spaceBelowImage + titleHeight + lineSpaceBelowTitle + (4 * 47.0) + detailTextViewHeight + lineSpaceBelowDescription + whereToBuyHeight + inTheNewsHeight + buffer
         return finalHeight
@@ -106,7 +110,7 @@ extension DropDetailViewController: UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell_DropDetail", for: indexPath) as! DropDetailCell
         
         if let _ = self.item {
-            cell.setup(item: self.item!)
+            cell.setupCell(item: self.item!)
         }
         
         //cell.stackView?.axis = .horizontal
