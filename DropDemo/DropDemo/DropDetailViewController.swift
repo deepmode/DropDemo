@@ -121,30 +121,30 @@ extension DropDetailViewController: UITableViewDataSource {
         if let _ = self.item {
             cell.setupCell(item: self.item!)
             
-//            if self.imageSliderVC == nil {
-//                if let vc = UIStoryboard(name: "HBImageSlider", bundle: nil).instantiateViewController(withIdentifier: "SBID_HBImageSliderVC") as? HBImageSliderVC {
-//                
-//                    self.imageSliderVC = vc
-//                    
-//                    //#######################
-//                    //controller containment
-//                    self.addChildViewController(vc)
-//                    vc.didMove(toParentViewController: self)
-//                    
-//                    cell.addHostedView(vc.view)
-//
-//                    //#######################
-//                }
-//            }
-//            
-//            
-//            self.imageSliderVC?.photosLink = [
-//                "https://hypebeast.imgix.net/http%3A%2F%2Fhypebeast.com%2Fimage%2F2017%2F06%2Fcdg-converse-ss-17-chuck-taylor-2.jpg?fit=max&fm=pjpg&ixlib=php-1.1.0&q=90&w=800&s=4b92b8ba5919c02ace5b2a2ad3a909a1",
-//                "https://hypebeast.imgix.net/http%3A%2F%2Fhypebeast.com%2Fimage%2F2017%2F06%2Fcdg-converse-ss-17-chuck-taylor-3.jpg?fit=max&fm=pjpg&ixlib=php-1.1.0&q=90&w=800&s=7d960c63fe5370de821600e02f054c3d",
-//                "https://hypebeast.imgix.net/http%3A%2F%2Fhypebeast.com%2Fimage%2F2017%2F06%2Fcdg-converse-ss-17-chuck-taylor-4.jpg?fit=max&fm=pjpg&ixlib=php-1.1.0&q=90&w=800&s=82af85c2a8f0f426ec1613a19f93f76a",
-//                "https://hypebeast.imgix.net/http%3A%2F%2Fhypebeast.com%2Fimage%2F2017%2F06%2Fcdg-converse-ss-17-chuck-taylor-5.jpg?fit=max&fm=pjpg&ixlib=php-1.1.0&q=90&w=800&s=498a5500afdc68466a87bbd078a438b7",
-//                "https://hypebeast.imgix.net/http%3A%2F%2Fhypebeast.com%2Fimage%2F2017%2F06%2Fcdg-converse-ss-17-chuck-taylor-7.jpg?fit=max&fm=pjpg&ixlib=php-1.1.0&q=90&w=800&s=0a9f269696b516645bef2dda110726c8"
-//            ]
+            if self.imageSliderVC == nil {
+                if let vc = UIStoryboard(name: "HBImageSlider", bundle: nil).instantiateViewController(withIdentifier: "SBID_HBImageSliderVC") as? HBImageSliderVC {
+                
+                    self.imageSliderVC = vc
+                    
+                    //#######################
+                    //controller containment
+                    self.addChildViewController(vc)
+                    vc.didMove(toParentViewController: self)
+                    
+                    cell.addHostedView(vc.view)
+
+                    //#######################
+                }
+            }
+            
+            
+            self.imageSliderVC?.photosLink = [
+                "https://hypebeast.imgix.net/http%3A%2F%2Fhypebeast.com%2Fimage%2F2017%2F06%2Fcdg-converse-ss-17-chuck-taylor-2.jpg?fit=max&fm=pjpg&ixlib=php-1.1.0&q=90&w=800&s=4b92b8ba5919c02ace5b2a2ad3a909a1",
+                "https://hypebeast.imgix.net/http%3A%2F%2Fhypebeast.com%2Fimage%2F2017%2F06%2Fcdg-converse-ss-17-chuck-taylor-3.jpg?fit=max&fm=pjpg&ixlib=php-1.1.0&q=90&w=800&s=7d960c63fe5370de821600e02f054c3d",
+                "https://hypebeast.imgix.net/http%3A%2F%2Fhypebeast.com%2Fimage%2F2017%2F06%2Fcdg-converse-ss-17-chuck-taylor-4.jpg?fit=max&fm=pjpg&ixlib=php-1.1.0&q=90&w=800&s=82af85c2a8f0f426ec1613a19f93f76a",
+                "https://hypebeast.imgix.net/http%3A%2F%2Fhypebeast.com%2Fimage%2F2017%2F06%2Fcdg-converse-ss-17-chuck-taylor-5.jpg?fit=max&fm=pjpg&ixlib=php-1.1.0&q=90&w=800&s=498a5500afdc68466a87bbd078a438b7",
+                "https://hypebeast.imgix.net/http%3A%2F%2Fhypebeast.com%2Fimage%2F2017%2F06%2Fcdg-converse-ss-17-chuck-taylor-7.jpg?fit=max&fm=pjpg&ixlib=php-1.1.0&q=90&w=800&s=0a9f269696b516645bef2dda110726c8"
+            ]
         }
         
         //cell.stackView?.axis = .horizontal
