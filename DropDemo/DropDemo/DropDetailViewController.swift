@@ -91,7 +91,7 @@ extension DropDetailViewController: UITableViewDelegate {
         let inTheNewsHeight:CGFloat = 47.0
         let buffer:CGFloat = 0.0
         
-        let finalHeight = imageHeight + spaceBelowImage + titleHeight + lineSpaceBelowTitle + (4 * 47.0) + detailTextViewHeight + lineSpaceBelowDescription + whereToBuyHeight + inTheNewsHeight + buffer
+        let finalHeight = imageHeight + spaceBelowImage + titleHeight + lineSpaceBelowTitle + (4 * 50.0) + detailTextViewHeight + lineSpaceBelowDescription + whereToBuyHeight + inTheNewsHeight + buffer
         return finalHeight
     }
     

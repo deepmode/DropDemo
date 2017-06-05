@@ -134,7 +134,16 @@ struct Layout {
         static func viewLeadingPadding(containerWidth:CGFloat) -> CGFloat {
             switch Layout.currentHSizeClass {
             case .compact: return 0.0
-            case .regular: return containerWidth * 0.2 / 2
+            case .regular:
+                
+                if containerWidth <=  678.0 {
+                    return 0.0
+                } else if containerWidth > 678.0  && containerWidth <= 1024.0 {
+                    return containerWidth * 0.2 / 2
+                } else {
+                    return containerWidth * 0.4 / 2
+                }
+                
             case .unspecified: return 0.0
             }
         }
@@ -142,7 +151,16 @@ struct Layout {
         static func viewTrailingPadding(containerWidth:CGFloat) -> CGFloat {
             switch Layout.currentHSizeClass {
             case .compact: return 0.0
-            case .regular: return containerWidth * 0.2 / 2
+            case .regular:
+                
+                if containerWidth <=  678.0 {
+                    return 0.0
+                } else if containerWidth > 678.0  && containerWidth <= 1024.0 {
+                    return containerWidth * 0.2 / 2
+                } else {
+                    return containerWidth * 0.4 / 2
+                }
+                
             case .unspecified: return 0.0
             }
         }
