@@ -26,7 +26,7 @@
                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="CSO-Ig-EKN">
                         <rect key="frame" x="0.0" y="0.0" width="424" height="916.5"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0nR-Bm-5Ci" userLabel="Image  section">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0nR-Bm-5Ci" userLabel="media view container">
                                 <rect key="frame" x="0.0" y="0.0" width="424" height="282.5"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="teaser-placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="etm-5m-Jcs">
@@ -317,6 +317,7 @@
                                         <subviews>
                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GLi-vk-2wU">
                                                 <rect key="frame" x="0.0" y="0.0" width="392" height="249"/>
+                                                <color key="backgroundColor" red="1" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                 <string key="text">The interest or the promise of prefab is nothing new, but it's been reignited, and gasoline continues to be poured on the fire, says Joseph Tanney of Resolution: 4 Architecture, a New York-based firm that has been developing modular housing systems since 2002. And because more architects are participating in this base, the level of design is increasing across the board. \n\nFirms such as Snøhetta -- known for their work on the Norwegian National Opera &amp; Ballet and Bibliotheca Alexandrina -- are embracing the possibilities of this once-maligned form. We wanted to make quality architecture available to more people, says Snøhetta's Anne Cecilie Haug. If that all sounds a little expensive, major retailers are also getting into prefab -- including minimalist high street brand Muji -- who developed the Mujihut, coming soon in Japan.</string>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -327,6 +328,7 @@
                                         </constraints>
                                     </stackView>
                                 </subviews>
+                                <color key="backgroundColor" red="1" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="jeV-Ci-QKW" secondAttribute="trailing" constant="16" id="AJu-Xe-kAY"/>
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" id="deB-aR-fd8"/>
@@ -495,7 +497,8 @@
             <connections>
                 <outlet property="colorLabel" destination="32i-Cd-wLD" id="czL-gw-6Io"/>
                 <outlet property="detailText" destination="GLi-vk-2wU" id="6Eu-01-9ne"/>
-                <outlet property="imageAspectRatioConstraint" destination="M0y-pO-6ff" id="ff1-Lb-PO1"/>
+                <outlet property="mediaViewAspectRatioConstraint" destination="M0y-pO-6ff" id="3Ay-eb-vAo"/>
+                <outlet property="mediaViewContainer" destination="0nR-Bm-5Ci" id="8Vk-t4-YKk"/>
                 <outlet property="priceLabel" destination="44C-xI-7ED" id="bhY-e2-21S"/>
                 <outlet property="releaseDateLabel" destination="H2e-Oi-Y9I" id="mZb-Vt-ops"/>
                 <outlet property="stackView" destination="CSO-Ig-EKN" id="Gt8-Zj-FZw"/>

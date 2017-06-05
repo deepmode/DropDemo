@@ -10,28 +10,36 @@ import UIKit
 
 class DropDetailCell: UITableViewCell {
     
-    @IBOutlet weak var viewLeadingConstraint:NSLayoutConstraint!
-    @IBOutlet weak var viewTrailingConstraint:NSLayoutConstraint!
+    fileprivate weak var mediaContainerTopConstraint: NSLayoutConstraint!
+    fileprivate weak var mediaContainerBottomConstraint: NSLayoutConstraint!
+    fileprivate weak var mediaContainerLeadingConstraint: NSLayoutConstraint!
+    fileprivate weak var mediaContainerTrailingConstraint: NSLayoutConstraint!
     
-    @IBOutlet weak var stackView:UIStackView!
-    @IBOutlet weak var imageAspectRatioConstraint:NSLayoutConstraint!
     
-    @IBOutlet weak var titleTopLabel:UILabel!
-    @IBOutlet weak var titleLabel:UILabel!
+    @IBOutlet fileprivate weak var viewLeadingConstraint:NSLayoutConstraint!
+    @IBOutlet fileprivate weak var viewTrailingConstraint:NSLayoutConstraint!
     
-    @IBOutlet weak var releaseDateTopLabel:UILabel!
-    @IBOutlet weak var releaseDateLabel:UILabel!
+    @IBOutlet fileprivate weak var stackView:UIStackView!
     
-    @IBOutlet weak var priceTopLabel:UILabel!
-    @IBOutlet weak var priceLabel:UILabel!
+    @IBOutlet fileprivate weak var mediaViewAspectRatioConstraint:NSLayoutConstraint!
+    @IBOutlet fileprivate weak var mediaViewContainer:UIView!  //This view will hold a imageVC'c
     
-    @IBOutlet weak var colorTopLabel:UILabel!
-    @IBOutlet weak var colorLabel:UILabel!
+    @IBOutlet fileprivate weak var titleTopLabel:UILabel!
+    @IBOutlet fileprivate weak var titleLabel:UILabel!
     
-    @IBOutlet weak var styleCodeTopLabel:UILabel!
-    @IBOutlet weak var styleLabel:UILabel!
+    @IBOutlet fileprivate weak var releaseDateTopLabel:UILabel!
+    @IBOutlet fileprivate weak var releaseDateLabel:UILabel!
+    
+    @IBOutlet fileprivate weak var priceTopLabel:UILabel!
+    @IBOutlet fileprivate weak var priceLabel:UILabel!
+    
+    @IBOutlet fileprivate weak var colorTopLabel:UILabel!
+    @IBOutlet fileprivate weak var colorLabel:UILabel!
+    
+    @IBOutlet fileprivate weak var styleCodeTopLabel:UILabel!
+    @IBOutlet fileprivate weak var styleLabel:UILabel!
         
-    @IBOutlet weak var detailText:UITextView!
+    @IBOutlet fileprivate weak var detailText:UITextView!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -61,8 +69,7 @@ class DropDetailCell: UITableViewCell {
         self.detailText?.textContainer.lineFragmentPadding = 0.0
         self.detailText?.textContainerInset = UIEdgeInsetsMake(0, 0, 0, 0)
         
-        self.detailText?.text = "The interest or the promise of prefab is nothing new, but it's been reignited, and gasoline continues to be poured on the fire, says Joseph Tanney of Resolution: 4 Architecture, a New York-based firm that has been developing modular housing systems since 2002. And because more architects are participating in this base, the level of design is increasing across the board. \n\nFirms such as Snøhetta -- known for their work on the Norwegian National Opera & Ballet and Bibliotheca Alexandrina -- are embracing the possibilities of this once-maligned form. We wanted to make quality architecture available to more people, says Snøhetta's Anne Cecilie Haug. If that all sounds a little expensive, major retailers are also getting into prefab -- including minimalist high street brand Muji -- who developed the Mujihut, coming soon in Japan."
-        
+        self.detailText?.text = Layout.testText
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -71,13 +78,37 @@ class DropDetailCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
+    func addHostedView(_ hostedView:UIView) {
+        
+        let topPadding:CGFloat = 0.0
+        let bottomPadding:CGFloat = 0.0
+        let leadingPadding:CGFloat = 0.0
+        let trailingPadding:CGFloat = 0.0
+        
+        
+        self.mediaViewContainer.addSubview(hostedView)
+        hostedView.translatesAutoresizingMaskIntoConstraints = false
+        
+        self.mediaContainerTopConstraint = NSLayoutConstraint(item: hostedView, attribute: .top, relatedBy: .equal, toItem: self.mediaViewContainer, attribute: .top, multiplier: 1.0, constant: topPadding)
+        
+        
+        self.mediaContainerBottomConstraint = NSLayoutConstraint(item: hostedView, attribute: .bottom, relatedBy: .equal, toItem: self.mediaViewContainer, attribute: .bottom, multiplier: 1.0, constant: -bottomPadding)
+        self.mediaContainerLeadingConstraint = NSLayoutConstraint(item: hostedView, attribute: .leading, relatedBy: .equal, toItem: self.mediaViewContainer, attribute: .leading, multiplier: 1.0, constant: leadingPadding)
+        self.mediaContainerTrailingConstraint = NSLayoutConstraint(item: hostedView, attribute: .trailing, relatedBy: .equal, toItem: self.mediaViewContainer, attribute: .trailing, multiplier: 1.0, constant: -trailingPadding)
+        
+        self.mediaContainerBottomConstraint.priority = 999
+        NSLayoutConstraint.activate([self.mediaContainerTopConstraint, mediaContainerBottomConstraint,mediaContainerLeadingConstraint,mediaContainerTrailingConstraint])
+        
+        self.updateUI()
+    }
+    
     override func draw(_ rect: CGRect) {
         super.draw(rect)
         
         self.viewLeadingConstraint?.constant = Layout.DropDetailCell.viewLeadingPadding(containerWidth: self.bounds.width)
         self.viewTrailingConstraint?.constant = Layout.DropDetailCell.viewTrailingPadding(containerWidth: self.bounds.width)
         
-        //self.detailTextHeightConstraint?.constant = h
+        self.updateUI()
         
         
 //        let cols = Layout.numberOfColumn(self.traitCollection.horizontalSizeClass)
@@ -91,6 +122,13 @@ class DropDetailCell: UITableViewCell {
 //            //self.imageAspectRatioConstraint?.isActive = false
 //            
 //        }
+    }
+    
+    fileprivate func updateUI() {
+        self.mediaContainerTopConstraint?.constant = 0.0
+        self.mediaContainerBottomConstraint?.constant = 0.0
+        self.mediaContainerTopConstraint?.constant = 0.0
+        self.mediaContainerTrailingConstraint?.constant = 0.0
     }
     
 }

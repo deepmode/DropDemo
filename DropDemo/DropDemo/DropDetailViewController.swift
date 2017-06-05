@@ -13,7 +13,9 @@ class DropDetailViewController: UIViewController {
     @IBOutlet weak var tableView:UITableView!
     
     var item:HBDropItem?
-
+    
+    var imageSliderVC:HBImageSliderVC?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -70,10 +72,16 @@ extension DropDetailViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         
         //adjust the padding based on H compact or regular screen size (e.g. for iphone & ipad)
+        
         let adaptLeading = Layout.DropDetailCell.viewLeadingPadding(containerWidth: self.view.bounds.width)
         let adaptTrailing = Layout.DropDetailCell.viewTrailingPadding(containerWidth: self.view.bounds.width)
         
-        let imageHeight = ceil((tableView.bounds.width - adaptLeading - adaptTrailing - 8 - 8) * 2 / 3) + 8 + 8
+        let mediaContainerLeading:CGFloat = 0.0
+        let mediaContainerTrailing:CGFloat = 0.0
+        let mediaContainerTop:CGFloat = 0.0
+        let mediaContainerBottom:CGFloat = 0.0
+        
+        let imageHeight = ceil((tableView.bounds.width - adaptLeading - adaptTrailing - mediaContainerLeading - mediaContainerTrailing) *  (1 / Layout.contentImageRatio) ) + mediaContainerTop + mediaContainerBottom
         let spaceBelowImage:CGFloat = 8.0
         
         let availableWidth = tableView.bounds.width - adaptLeading - adaptTrailing - 16.0 - 16.0
@@ -84,14 +92,15 @@ extension DropDetailViewController: UITableViewDelegate {
         let titleHeight = ceil(titleText.heightWithConstrainedWidth(availableWidth, font: font)) + 8.0 + 8.0
         let lineSpaceBelowTitle:CGFloat = 0.5
         
-        let text = "The interest or the promise of prefab is nothing new, but it's been reignited, and gasoline continues to be poured on the fire, says Joseph Tanney of Resolution: 4 Architecture, a New York-based firm that has been developing modular housing systems since 2002. And because more architects are participating in this base, the level of design is increasing across the board. \n\nFirms such as Snøhetta -- known for their work on the Norwegian National Opera & Ballet and Bibliotheca Alexandrina -- are embracing the possibilities of this once-maligned form. We wanted to make quality architecture available to more people, says Snøhetta's Anne Cecilie Haug. If that all sounds a little expensive, major retailers are also getting into prefab -- including minimalist high street brand Muji -- who developed the Mujihut, coming soon in Japan."
+        let text = Layout.testText
         let detailTextViewHeight = ceil(text.heightWithConstrainedWidth(availableWidth, font: UIFont.systemFont(ofSize: 17.0))) + 16.0 + 16.0
         let lineSpaceBelowDescription:CGFloat = 0.5
         let whereToBuyHeight:CGFloat = 47.0
         let inTheNewsHeight:CGFloat = 47.0
-        let buffer:CGFloat = 0.0
+        let buffer:CGFloat = 20.0 //for textView adjustment
         
         let finalHeight = imageHeight + spaceBelowImage + titleHeight + lineSpaceBelowTitle + (4 * 50.0) + detailTextViewHeight + lineSpaceBelowDescription + whereToBuyHeight + inTheNewsHeight + buffer
+        
         return finalHeight
     }
     
@@ -111,6 +120,31 @@ extension DropDetailViewController: UITableViewDataSource {
         
         if let _ = self.item {
             cell.setupCell(item: self.item!)
+            
+//            if self.imageSliderVC == nil {
+//                if let vc = UIStoryboard(name: "HBImageSlider", bundle: nil).instantiateViewController(withIdentifier: "SBID_HBImageSliderVC") as? HBImageSliderVC {
+//                
+//                    self.imageSliderVC = vc
+//                    
+//                    //#######################
+//                    //controller containment
+//                    self.addChildViewController(vc)
+//                    vc.didMove(toParentViewController: self)
+//                    
+//                    cell.addHostedView(vc.view)
+//
+//                    //#######################
+//                }
+//            }
+//            
+//            
+//            self.imageSliderVC?.photosLink = [
+//                "https://hypebeast.imgix.net/http%3A%2F%2Fhypebeast.com%2Fimage%2F2017%2F06%2Fcdg-converse-ss-17-chuck-taylor-2.jpg?fit=max&fm=pjpg&ixlib=php-1.1.0&q=90&w=800&s=4b92b8ba5919c02ace5b2a2ad3a909a1",
+//                "https://hypebeast.imgix.net/http%3A%2F%2Fhypebeast.com%2Fimage%2F2017%2F06%2Fcdg-converse-ss-17-chuck-taylor-3.jpg?fit=max&fm=pjpg&ixlib=php-1.1.0&q=90&w=800&s=7d960c63fe5370de821600e02f054c3d",
+//                "https://hypebeast.imgix.net/http%3A%2F%2Fhypebeast.com%2Fimage%2F2017%2F06%2Fcdg-converse-ss-17-chuck-taylor-4.jpg?fit=max&fm=pjpg&ixlib=php-1.1.0&q=90&w=800&s=82af85c2a8f0f426ec1613a19f93f76a",
+//                "https://hypebeast.imgix.net/http%3A%2F%2Fhypebeast.com%2Fimage%2F2017%2F06%2Fcdg-converse-ss-17-chuck-taylor-5.jpg?fit=max&fm=pjpg&ixlib=php-1.1.0&q=90&w=800&s=498a5500afdc68466a87bbd078a438b7",
+//                "https://hypebeast.imgix.net/http%3A%2F%2Fhypebeast.com%2Fimage%2F2017%2F06%2Fcdg-converse-ss-17-chuck-taylor-7.jpg?fit=max&fm=pjpg&ixlib=php-1.1.0&q=90&w=800&s=0a9f269696b516645bef2dda110726c8"
+//            ]
         }
         
         //cell.stackView?.axis = .horizontal
