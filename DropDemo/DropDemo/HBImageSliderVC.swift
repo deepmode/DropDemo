@@ -257,35 +257,71 @@ class HBImageSliderVC: UIViewController {
     deinit {
         print("--> \(NSStringFromClass(self.classForCoder)).\(#function)")
     }
+    
+    
+    var latestSize:CGSize?
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        self.latestSize = size
+        coordinator.animate(alongsideTransition: { (transitionCoordinatorContext
+            ) in
+            self.collectionView.collectionViewLayout.invalidateLayout()
+        }) { (transitionCoordinatorContext) in
+            self.collectionView.reloadData()
+        }
+    }
 }
 
-
-
-extension HBImageSliderVC: UICollectionViewDataSource,UICollectionViewDelegate {
+extension HBImageSliderVC: UICollectionViewDataSource,UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     //Use for size
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: IndexPath) -> CGSize {
+    @objc func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
             
         print("--> \(NSStringFromClass(self.classForCoder)).\(#function)")
         
-        if self.newSize == nil {
-            print("--# CollectionView size: \(self.collectionView.bounds), return size: \((self.collectionView?.bounds.size)!)")
-            return (self.collectionView?.bounds.size)!
+        if let _ = self.latestSize {
+            let adaptLeading = Layout.DropDetailCell.viewLeadingPadding(containerWidth: self.latestSize!.width)
+            let adaptTrailing = Layout.DropDetailCell.viewTrailingPadding(containerWidth: self.latestSize!.width)
+            
+            let mediaContainerLeading:CGFloat = 0.0
+            let mediaContainerTrailing:CGFloat = 0.0
+            let mediaContainerTop:CGFloat = 0.0
+            let mediaContainerBottom:CGFloat = 0.0
+            
+            //ceil (important)
+            let availableWidth = ceil(self.latestSize!.width - adaptLeading - adaptTrailing - mediaContainerLeading - mediaContainerTrailing)
+            
+            //floor (important)
+            let availableHeight = floor(availableWidth *  (1 / Layout.contentImageRatio)) + mediaContainerTop + mediaContainerBottom
+            
+            return CGSize(width: availableWidth, height:availableHeight)
         } else {
-            print("--# CollectionView size: \(self.collectionView.bounds), return size: \(String(describing: self.newSize))")
-            return self.newSize!
+            return CGSize(width: 0, height: 0)
         }
+        
+//        if self.newSize == nil {
+//            print("--# CollectionView size: \(self.collectionView.bounds), return size: \((self.collectionView?.bounds.size)!)")
+//            return (self.collectionView?.bounds.size)!
+//        } else {
+//            print("--# CollectionView size: \(self.collectionView.bounds), return size: \(String(describing: self.newSize))")
+//            return self.newSize!
+//        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        
+        return UIEdgeInsetsMake(0, 0, 0, 0)
     }
     
     //Use for interspacing
     func collectionView(_ collectionView: UICollectionView,
         layout collectionViewLayout: UICollectionViewLayout,
-        minimumInteritemSpacingForSectionAtIndex section: Int) -> CGFloat {
+        minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
             return 0.0
     }
     
     func collectionView(_ collectionView: UICollectionView, layout
         collectionViewLayout: UICollectionViewLayout,
-        minimumLineSpacingForSectionAtIndex section: Int) -> CGFloat {
+        minimumLineSpacingForSectionAt section: Int) -> CGFloat {
             return 0.0
     }
     

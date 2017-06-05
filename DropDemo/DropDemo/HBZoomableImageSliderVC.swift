@@ -110,7 +110,7 @@ class HBZoomableImageSliderVC: HBImageSliderVC {
     }
     
     // MARK: -
-    override func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: IndexPath) -> CGSize {
+    override func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
             
         print("--> \(NSStringFromClass(self.classForCoder)).\(#function)")
         print("--# CollectionView size: \(self.collectionView.bounds), return size: \((self.collectionView?.bounds.size)!)")

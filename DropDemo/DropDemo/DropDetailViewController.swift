@@ -137,6 +137,10 @@ extension DropDetailViewController: UITableViewDataSource {
                 }
             }
             
+            //###############
+            //super important to set this
+            self.imageSliderVC?.latestSize =  self.view.bounds.size
+            //###############
             
             self.imageSliderVC?.photosLink = [
                 "https://hypebeast.imgix.net/http%3A%2F%2Fhypebeast.com%2Fimage%2F2017%2F06%2Fcdg-converse-ss-17-chuck-taylor-2.jpg?fit=max&fm=pjpg&ixlib=php-1.1.0&q=90&w=800&s=4b92b8ba5919c02ace5b2a2ad3a909a1",
