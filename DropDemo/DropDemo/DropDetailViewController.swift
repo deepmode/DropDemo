@@ -131,7 +131,7 @@ extension DropDetailViewController: UITableViewDataSource {
                     self.addChildViewController(vc)
                     vc.didMove(toParentViewController: self)
                     
-                    cell.addHostedView(vc.view)
+                    cell.addHostedView(vc.view, atIndex: 0)
 
                     //#######################
                 }

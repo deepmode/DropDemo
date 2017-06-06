@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12120" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="landscape">
         <adaptation id="fullscreen"/>
     </device>
@@ -29,17 +29,29 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0nR-Bm-5Ci" userLabel="media view container">
                                 <rect key="frame" x="0.0" y="0.0" width="424" height="282.5"/>
                                 <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="teaser-placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="etm-5m-Jcs">
-                                        <rect key="frame" x="0.0" y="0.0" width="424" height="282.5"/>
-                                        <color key="backgroundColor" red="1" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                    </imageView>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rLa-CF-YSr" userLabel="left cover ">
+                                        <rect key="frame" x="0.0" y="0.0" width="2" height="282.5"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="2" id="ask-jJ-YD0"/>
+                                        </constraints>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZcF-b7-Hsu" userLabel="right cover">
+                                        <rect key="frame" x="422" y="0.0" width="2" height="282.5"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="2" id="4Jc-o6-Sdd"/>
+                                        </constraints>
+                                    </view>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstItem="etm-5m-Jcs" firstAttribute="leading" secondItem="0nR-Bm-5Ci" secondAttribute="leading" id="2H5-y2-Xun"/>
-                                    <constraint firstAttribute="trailing" secondItem="etm-5m-Jcs" secondAttribute="trailing" id="Gqa-6k-GnU"/>
-                                    <constraint firstItem="etm-5m-Jcs" firstAttribute="top" secondItem="0nR-Bm-5Ci" secondAttribute="top" id="JBZ-D1-ED3"/>
-                                    <constraint firstAttribute="width" secondItem="0nR-Bm-5Ci" secondAttribute="height" multiplier="3:2" priority="950" id="M0y-pO-6ff"/>
-                                    <constraint firstAttribute="bottom" secondItem="etm-5m-Jcs" secondAttribute="bottom" id="Pyu-W2-2Sj"/>
+                                    <constraint firstAttribute="bottom" secondItem="rLa-CF-YSr" secondAttribute="bottom" id="3Fv-tl-KYg"/>
+                                    <constraint firstItem="ZcF-b7-Hsu" firstAttribute="top" secondItem="0nR-Bm-5Ci" secondAttribute="top" id="82J-oB-n8G"/>
+                                    <constraint firstAttribute="width" secondItem="0nR-Bm-5Ci" secondAttribute="height" multiplier="3:2" id="M0y-pO-6ff"/>
+                                    <constraint firstItem="rLa-CF-YSr" firstAttribute="top" secondItem="0nR-Bm-5Ci" secondAttribute="top" id="WBs-SH-kVe"/>
+                                    <constraint firstAttribute="bottom" secondItem="ZcF-b7-Hsu" secondAttribute="bottom" id="fbu-2D-Qbf"/>
+                                    <constraint firstItem="rLa-CF-YSr" firstAttribute="leading" secondItem="0nR-Bm-5Ci" secondAttribute="leading" id="uT2-eL-Ck2"/>
+                                    <constraint firstAttribute="trailing" secondItem="ZcF-b7-Hsu" secondAttribute="trailing" id="vkj-BR-bV0"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nLW-bK-ZxT" userLabel="Dummy space">
@@ -497,6 +509,8 @@
             <connections>
                 <outlet property="colorLabel" destination="32i-Cd-wLD" id="czL-gw-6Io"/>
                 <outlet property="detailText" destination="GLi-vk-2wU" id="6Eu-01-9ne"/>
+                <outlet property="mediaContainerLeftCover" destination="rLa-CF-YSr" id="0uY-fn-OsJ"/>
+                <outlet property="mediaContainerRightCover" destination="ZcF-b7-Hsu" id="eam-k2-d8P"/>
                 <outlet property="mediaViewAspectRatioConstraint" destination="M0y-pO-6ff" id="3Ay-eb-vAo"/>
                 <outlet property="mediaViewContainer" destination="0nR-Bm-5Ci" id="8Vk-t4-YKk"/>
                 <outlet property="priceLabel" destination="44C-xI-7ED" id="bhY-e2-21S"/>
@@ -510,7 +524,4 @@
             <point key="canvasLocation" x="152" y="697.5"/>
         </tableViewCell>
     </objects>
-    <resources>
-        <image name="teaser-placeholder" width="150" height="100"/>
-    </resources>
 </document>

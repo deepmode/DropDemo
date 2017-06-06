@@ -278,8 +278,8 @@ extension HBImageSliderVC {
             let mediaContainerTop:CGFloat = 0.0
             let mediaContainerBottom:CGFloat = 0.0
             
-            //ceil (important)
-            let availableWidth = ceil(self.latestSize!.width - adaptLeading - adaptTrailing - mediaContainerLeading - mediaContainerTrailing)
+            //floor (important)
+            let availableWidth = (self.latestSize!.width - adaptLeading - adaptTrailing - mediaContainerLeading - mediaContainerTrailing)
             
             //floor (important)
             let availableHeight = floor(availableWidth *  (1 / Layout.contentImageRatio)) + mediaContainerTop + mediaContainerBottom

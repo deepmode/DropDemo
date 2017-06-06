@@ -15,6 +15,9 @@ class DropDetailCell: UITableViewCell {
     fileprivate weak var mediaContainerLeadingConstraint: NSLayoutConstraint!
     fileprivate weak var mediaContainerTrailingConstraint: NSLayoutConstraint!
     
+    @IBOutlet fileprivate weak var mediaContainerLeftCover:UIView!
+    @IBOutlet fileprivate weak var mediaContainerRightCover:UIView!
+
     
     @IBOutlet fileprivate weak var viewLeadingConstraint:NSLayoutConstraint!
     @IBOutlet fileprivate weak var viewTrailingConstraint:NSLayoutConstraint!
@@ -78,7 +81,7 @@ class DropDetailCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
-    func addHostedView(_ hostedView:UIView) {
+    func addHostedView(_ hostedView:UIView, atIndex:Int) {
         
         let topPadding:CGFloat = 0.0
         let bottomPadding:CGFloat = 0.0
@@ -86,7 +89,7 @@ class DropDetailCell: UITableViewCell {
         let trailingPadding:CGFloat = 0.0
         
         
-        self.mediaViewContainer.addSubview(hostedView)
+        self.mediaViewContainer.insertSubview(hostedView, at: atIndex)
         hostedView.translatesAutoresizingMaskIntoConstraints = false
         
         self.mediaContainerTopConstraint = NSLayoutConstraint(item: hostedView, attribute: .top, relatedBy: .equal, toItem: self.mediaViewContainer, attribute: .top, multiplier: 1.0, constant: topPadding)
@@ -105,8 +108,15 @@ class DropDetailCell: UITableViewCell {
     override func draw(_ rect: CGRect) {
         super.draw(rect)
         
-        self.viewLeadingConstraint?.constant = Layout.DropDetailCell.viewLeadingPadding(containerWidth: self.bounds.width)
-        self.viewTrailingConstraint?.constant = Layout.DropDetailCell.viewTrailingPadding(containerWidth: self.bounds.width)
+        let leadingPadding = Layout.DropDetailCell.viewLeadingPadding(containerWidth: self.bounds.width)
+        let trailingPadding = Layout.DropDetailCell.viewTrailingPadding(containerWidth: self.bounds.width)
+        
+        self.viewLeadingConstraint?.constant = leadingPadding
+        self.viewTrailingConstraint?.constant = trailingPadding
+        
+        //enable the cover to resolve the collection view cell divider issue 
+        self.mediaContainerLeftCover.isHidden = (leadingPadding > 0) ? false : true
+        self.mediaContainerRightCover.isHidden = (trailingPadding > 0) ? false : true
         
         self.updateUI()
         
@@ -125,10 +135,10 @@ class DropDetailCell: UITableViewCell {
     }
     
     fileprivate func updateUI() {
-        self.mediaContainerTopConstraint?.constant = 0.0
-        self.mediaContainerBottomConstraint?.constant = 0.0
-        self.mediaContainerTopConstraint?.constant = 0.0
-        self.mediaContainerTrailingConstraint?.constant = 0.0
+//        self.mediaContainerTopConstraint?.constant = 0.0
+//        self.mediaContainerBottomConstraint?.constant = 0.0
+//        self.mediaContainerTopConstraint?.constant = 0.0
+//        self.mediaContainerTrailingConstraint?.constant = 0.0
     }
     
 }
