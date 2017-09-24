@@ -11,6 +11,11 @@ import XLPagerTabStrip
 
 class DropListViewController: UIViewController {
     
+    //-------- Zoom Transition ----------
+    var thumbnailZoomTransitionAnimator: ThumbnailZoomTransitionAnimator?
+    var transitionThumbnail: UIImageView?
+    //------------------
+    
     @IBOutlet weak var collectionView:UICollectionView!
     
 //    enum SectionType:Int {
@@ -117,6 +122,14 @@ class DropListViewController: UIViewController {
         
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        self.tabBarController?.tabBar.isHidden = false
+        
+        
+    }
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
@@ -128,8 +141,17 @@ class DropListViewController: UIViewController {
         }
         // ----------------------------
         
+        //-------- Zoom Transition ----------
+        self.parent?.navigationController?.delegate = self
+        //-----------------
+        
     }
-
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        self.tabBarController?.tabBar.isHidden = true
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -303,6 +325,13 @@ extension DropListViewController: UICollectionViewDelegate {
                     switch a {
                     case .PostDrop(let item):
                         vc.item = item
+                        
+                        
+                        //-------- Zoom Transition ----------
+                        let cell = collectionView.cellForItem(at: indexPath) as? HBDropProductCell
+                        transitionThumbnail = cell?.imageView
+                        //------------------
+                        
                         self.parent?.navigationController?.pushViewController(vc, animated: true)
                     }
                 }
@@ -435,4 +464,27 @@ extension DropListViewController: UICollectionViewDataSource {
         return cell
         
     }
+}
+
+extension DropListViewController: UINavigationControllerDelegate {
+    
+    //-------- Zoom Transition ----------
+    
+    func navigationController(_ navigationController: UINavigationController, animationControllerFor operation: UINavigationControllerOperation, from fromVC: UIViewController, to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        if operation == .push {
+            // Pass the thumbnail frame to the transition animator.
+            guard let transitionThumbnail = transitionThumbnail,
+                let transitionThumbnailSuperview = transitionThumbnail.superview else {
+                    return nil
+            }
+            
+            thumbnailZoomTransitionAnimator = ThumbnailZoomTransitionAnimator()
+            
+            thumbnailZoomTransitionAnimator?.thumbnailFrame = transitionThumbnailSuperview.convert(transitionThumbnail.frame, to: nil)
+        }
+        thumbnailZoomTransitionAnimator?.operation = operation
+        
+        return thumbnailZoomTransitionAnimator
+    }
+    //------------------
 }
