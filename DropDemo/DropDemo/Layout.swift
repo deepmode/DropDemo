@@ -324,7 +324,7 @@ struct Layout {
         }
     }
     
-    static let contentImageRatio:CGFloat = 3 / 2
+    static let contentImageRatio:CGFloat = 4/5 //3 / 2
     
     static func sectionCellSize(containerWidth:CGFloat, sectionType:SectionType, numberOfColumn:Int? = nil, font:UIFont? = nil, text:String? = nil) -> CGSize {
         
